@@ -1,0 +1,24 @@
+{
+  "name": "rename-css-selectors",
+  "version": "0.0.0",
+  "description": "Rename css classes and id's in files",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "url": "https://www.github.com/JPeer264/rename-css-selectors",
+    "type": "git"
+  },
+  "author": "Jan Peer Stöcklmair",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs-extra": "^0.30.0",
+    "lodash": "^4.16.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  }
+}
