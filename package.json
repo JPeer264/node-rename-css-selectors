@@ -4,7 +4,7 @@
   "description": "Rename css classes and id's in files",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "repository": {
     "url": "https://www.github.com/JPeer264/rename-css-selectors",
@@ -15,7 +15,8 @@
   "dependencies": {
     "commander": "^2.9.0",
     "fs-extra": "^0.30.0",
-    "lodash": "^4.16.4"
+    "lodash": "^4.16.4",
+    "replacestream": "^4.0.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",

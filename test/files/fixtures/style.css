@@ -1,0 +1,23 @@
+.jp-block {
+    content: 'block';
+}
+
+.jp-block__element {
+    content: 'block__element';
+}
+
+.jp-block__element--modifier {
+    content: 'block__element--modifier';
+}
+
+.jp-block--modifier {
+    content: 'block--modifier';
+}
+
+.jp-pseudo:before {
+    content: 'before';
+}
+
+.jp-block__element--modifier {
+    content: 'block__element--modifier';
+}

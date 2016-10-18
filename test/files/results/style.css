@@ -1,0 +1,23 @@
+.a1 {
+    content: 'block';
+}
+
+.a2 {
+    content: 'block__element';
+}
+
+.a3 {
+    content: 'block__element--modifier';
+}
+
+.a4 {
+    content: 'block--modifier';
+}
+
+.a5:before {
+    content: 'before';
+}
+
+.a3 {
+    content: 'block__element--modifier';
+}
