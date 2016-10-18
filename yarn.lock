@@ -51,6 +51,10 @@ debug@2.2.0:
   dependencies:
     ms "0.7.1"
 
+decimal-to-any:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/decimal-to-any/-/decimal-to-any-1.0.0.tgz#1e9506e66fa3d4759f11673768885f928f966b5f"
+
 deep-eql@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/deep-eql/-/deep-eql-0.1.3.tgz#ef558acab8de25206cd713906d74e56930eb69f2"
