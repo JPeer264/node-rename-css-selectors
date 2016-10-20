@@ -14,8 +14,8 @@ describe('rcs selector library', () => {
         it('should set a new value and get this value', done => {
             rcs.selectorLibrary.set('.test');
 
-            expect(rcs.selectorLibrary.get('.test')).to.equal('e');
-            expect(rcs.selectorLibrary.get('test')).to.equal('e');
+            expect(rcs.selectorLibrary.get('.test')).to.equal('a');
+            expect(rcs.selectorLibrary.get('test')).to.equal('a');
 
             done();
         });
@@ -25,7 +25,7 @@ describe('rcs selector library', () => {
 
             expect(setValueObject.type).to.equal('class');
             expect(setValueObject.selector).to.equal('.test');
-            expect(setValueObject.compressedSelector).to.equal('e');
+            expect(setValueObject.compressedSelector).to.equal('a');
 
             done();
         });
@@ -38,12 +38,12 @@ describe('rcs selector library', () => {
             ]);
 
             // should be set
-            expect(rcs.selectorLibrary.get('.test')).to.equal('e');
-            expect(rcs.selectorLibrary.get('test')).to.equal('e');
-            expect(rcs.selectorLibrary.get('#id')).to.equal('t');
-            expect(rcs.selectorLibrary.get('id')).to.equal('t');
-            expect(rcs.selectorLibrary.get('.jp-selector')).to.equal('n');
-            expect(rcs.selectorLibrary.get('jp-selector')).to.equal('n');
+            expect(rcs.selectorLibrary.get('.test')).to.equal('a');
+            expect(rcs.selectorLibrary.get('test')).to.equal('a');
+            expect(rcs.selectorLibrary.get('#id')).to.equal('b');
+            expect(rcs.selectorLibrary.get('id')).to.equal('b');
+            expect(rcs.selectorLibrary.get('.jp-selector')).to.equal('c');
+            expect(rcs.selectorLibrary.get('jp-selector')).to.equal('c');
 
             // should not be set
             expect(rcs.selectorLibrary.get('.not-set')).to.equal('.not-set');
@@ -81,9 +81,9 @@ describe('rcs selector library', () => {
             const array = rcs.selectorLibrary.getAll();
 
             expect(array).to.be.an('object');
-            expect(array.test).to.equal('e');
-            expect(array.id).to.equal('t');
-            expect(array['jp-selector']).to.equal('n');
+            expect(array.test).to.equal('a');
+            expect(array.id).to.equal('b');
+            expect(array['jp-selector']).to.equal('c');
 
             done();
         });
@@ -94,9 +94,9 @@ describe('rcs selector library', () => {
             });
 
             expect(array).to.be.an('object');
-            expect(array.e).to.equal('test');
-            expect(array.t).to.equal('id');
-            expect(array.n).to.equal('jp-selector');
+            expect(array.a).to.equal('test');
+            expect(array.b).to.equal('id');
+            expect(array.c).to.equal('jp-selector');
 
             done();
         });
@@ -108,7 +108,7 @@ describe('rcs selector library', () => {
                 isSelectors: true
             });
 
-            expect(regex).to.match(/\.e|#t|\.n/g);
+            expect(regex).to.match(/\.a|#b|\.c/g);
 
             done();
         });
@@ -131,7 +131,7 @@ describe('rcs selector library', () => {
                 regex: true
             });
 
-            expect(regex).to.match(/e|t|n/g);
+            expect(regex).to.match(/a|b|c/g);
 
             done();
         });
