@@ -13,11 +13,8 @@
   "author": "Jan Peer Stöcklmair",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.9.0",
     "decimal-to-any": "^1.0.0",
-    "fs-extra": "^0.30.0",
-    "lodash": "^4.16.4",
-    "replacestream": "^4.0.2"
+    "lodash": "^4.16.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
