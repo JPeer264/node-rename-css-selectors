@@ -4,26 +4,18 @@ const rcs    = require('../../lib/utils/rcs');
 const expect = require('chai').expect;
 
 describe('rcs selector library', () => {
-    beforeEach(() => {
-        // reset counter and selectors for tests
-        rcs.selectorLibrary.selectors = {};
-        rcs.nameGenerator.resetCountForTests();
-    });
+    describe('set new values', () => {
+        beforeEach(() => {
+            // reset counter and selectors for tests
+            rcs.selectorLibrary.selectors = {};
+            rcs.nameGenerator.resetCountForTests();
+        });
 
-    describe('set a new values', () => {
         it('should set a new value and get this value', done => {
             rcs.selectorLibrary.set('.test');
 
             expect(rcs.selectorLibrary.get('.test')).to.equal('e');
             expect(rcs.selectorLibrary.get('test')).to.equal('e');
-
-            done();
-        });
-
-        it('should not get a unset value', done => {
-
-            expect(rcs.selectorLibrary.get('.test1')).to.equal('.test1');
-            expect(rcs.selectorLibrary.get('test1')).to.equal('test1');
 
             done();
         });
@@ -59,5 +51,101 @@ describe('rcs selector library', () => {
 
             done();
         });
+
+        it('should generate a library file', done => {
+            // @todo test rcs.selectorLibrary.generateLibraryFile()
+        });
+    });
+
+    describe('get values', () => {
+        beforeEach(() => {
+            // reset counter and selectors for tests
+            rcs.selectorLibrary.selectors = {};
+            rcs.nameGenerator.resetCountForTests();
+
+            rcs.selectorLibrary.set([
+                '.test',
+                '#id',
+                '.jp-selector'
+            ]);
+        });
+
+        it('should not get a unset value', done => {
+            expect(rcs.selectorLibrary.get('.test1')).to.equal('.test1');
+            expect(rcs.selectorLibrary.get('test1')).to.equal('test1');
+
+            done();
+        });
+
+        it('should get all setted classes', done => {
+            const array = rcs.selectorLibrary.getAll();
+
+            expect(array).to.be.an('object');
+            expect(array.test).to.equal('e');
+            expect(array.id).to.equal('t');
+            expect(array['jp-selector']).to.equal('n');
+
+            done();
+        });
+
+        it('should get all setted compressed classes', done => {
+            const array = rcs.selectorLibrary.getAll({
+                origValues: false,
+            });
+
+            expect(array).to.be.an('object');
+            expect(array.e).to.equal('test');
+            expect(array.t).to.equal('id');
+            expect(array.n).to.equal('jp-selector');
+
+            done();
+        });
+
+        it('should return a regex of compressed with classes', done => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: false,
+                regex: true,
+                isSelectors: true
+            });
+
+            expect(regex).to.match(/\.e|#t|\.n/g);
+
+            done();
+        });
+
+        it('should return a regex of non compressed with classes', done => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: true,
+                regex: true,
+                isSelectors: true
+            });
+
+            expect(regex).to.match(/\.test|#id|\.jp-selector/g);
+
+            done();
+        });
+
+        it('should return a regex of non compressed selecotrs', done => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: false,
+                regex: true
+            });
+
+            expect(regex).to.match(/e|t|n/g);
+
+            done();
+        });
+
+        it('should return a regex of compressed selectors', done => {
+            const regex = rcs.selectorLibrary.getAll({
+                origValues: true,
+                regex: true
+            });
+
+            expect(regex).to.match(/test|id|jp-selector/g);
+
+            done();
+        });
+
     });
 });

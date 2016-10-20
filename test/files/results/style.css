@@ -1,23 +1,27 @@
-.a1 {
+.e {
     content: 'block';
 }
 
-.a2 {
+.t {
     content: 'block__element';
 }
 
-.a3 {
+.n {
     content: 'block__element--modifier';
 }
 
-.a4 {
+.r {
     content: 'block--modifier';
 }
 
-.a5:before {
+.i:before {
     content: 'before';
 }
 
-.a3 {
+.n {
     content: 'block__element--modifier';
+}
+
+#s {
+    content: 'id';
 }

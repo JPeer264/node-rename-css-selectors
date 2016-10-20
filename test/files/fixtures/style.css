@@ -21,3 +21,7 @@
 .jp-block__element--modifier {
     content: 'block__element--modifier';
 }
+
+#id {
+    content: 'id';
+}
