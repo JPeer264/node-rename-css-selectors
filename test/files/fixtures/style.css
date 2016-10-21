@@ -10,7 +10,7 @@
     content: 'block__element--modifier';
 }
 
-.jp-block--modifier {
+.jp-block--modifier{
     content: 'block--modifier';
 }
 
@@ -24,4 +24,8 @@
 
 #id {
     content: 'id';
+}
+
+h1 {
+    color: red;
 }

@@ -10,7 +10,7 @@
     content: 'block__element--modifier';
 }
 
-.d {
+.d{
     content: 'block--modifier';
 }
 
@@ -24,4 +24,8 @@
 
 #f {
     content: 'id';
+}
+
+h1 {
+    color: red;
 }
