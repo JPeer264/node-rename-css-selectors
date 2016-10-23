@@ -6,7 +6,7 @@ node_js:
   - "6.0"
 install:
   - npm i -g npm
-  - npm install
+  - yarn
 script: npm run test
 notifications:
   email:
