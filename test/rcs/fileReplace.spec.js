@@ -14,7 +14,7 @@ describe('rcs file replace', () => {
     describe('replaceCss', () => {
         it('should return the modified css file', done => {
             rcs.fileReplace.replaceCss('test/files/fixtures/style.css', (err, data) => {
-                expect(data).to.equal(fs.readFileSync('test/files/results/style.css', 'utf8'));
+                expect(data.data).to.equal(fs.readFileSync('test/files/results/style.css', 'utf8'));
 
                 done();
             });
@@ -43,7 +43,7 @@ describe('rcs file replace', () => {
         it('should return the modified html file', done => {
             rcs.fileReplace.replaceCss('test/files/fixtures/style.css', (err, data) => {
                 rcs.fileReplace.replace('test/files/fixtures/index.html', (err, data) => {
-                    expect(data).to.equal(fs.readFileSync('test/files/results/index.html', 'utf8'));
+                    expect(data.data).to.equal(fs.readFileSync('test/files/results/index.html', 'utf8'));
 
                     done();
                 });
@@ -54,7 +54,7 @@ describe('rcs file replace', () => {
             // `js` file imported as `txt` to avoid having mocha-phantomjs
             rcs.fileReplace.replaceCss('test/files/fixtures/style.css', (err, data) => {
                 rcs.fileReplace.replace('test/files/fixtures/main.txt', (err, data) => {
-                    expect(data).to.equal(fs.readFileSync('test/files/results/main.txt', 'utf8'));
+                    expect(data.data).to.equal(fs.readFileSync('test/files/results/main.txt', 'utf8'));
 
                     done();
                 });
