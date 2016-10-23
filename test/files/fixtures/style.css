@@ -26,6 +26,10 @@
     content: 'id';
 }
 
+.jp-attribute[src] {
+    content: 'attribute';
+}
+
 h1 {
     color: red;
 }

@@ -26,6 +26,10 @@
     content: 'id';
 }
 
+.g[src] {
+    content: 'attribute';
+}
+
 h1 {
     color: red;
 }
