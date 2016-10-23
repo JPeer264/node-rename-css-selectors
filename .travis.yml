@@ -5,7 +5,7 @@ node_js:
   - "4.0"
   - "6.0"
 install:
-  - brew install yarn
+  - npm i -g npm
   - npm install
 script: npm run test
 notifications:
