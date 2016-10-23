@@ -52,9 +52,9 @@ describe('rcs selector library', () => {
             done();
         });
 
-        it('should generate a library file', done => {
-            // @todo test rcs.selectorLibrary.generateLibraryFile()
-        });
+        // it('should generate a library file', done => {
+        //     // @todo test rcs.selectorLibrary.generateLibraryFile()
+        // });
     });
 
     describe('get values', () => {

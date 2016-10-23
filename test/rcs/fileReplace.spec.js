@@ -20,8 +20,18 @@ describe('rcs file replace', () => {
             });
         });
 
+        it('should modify the second one with the values from the first', done => {
+            rcs.fileReplace.replaceCss('test/files/fixtures/style.css', (err, data) => {
+                rcs.fileReplace.replaceCss('test/files/fixtures/style2.css', (err, data) => {
+                    expect(data.data).to.equal(fs.readFileSync('test/files/results/style2.css', 'utf8'));
+
+                    done();
+                });
+            });
+        });
+
         it('should fail', done => {
-            rcs.fileReplace.replaceCss('non/exisiting/path.css', err => {
+            rcs.fileReplace.replaceCss('non/exisiting/path.css', (err, data) => {
                 expect(err).to.be.an('object');
                 expect(err.error).to.equal('ENOENT');
 
@@ -32,7 +42,7 @@ describe('rcs file replace', () => {
 
     describe('replace any file', () => {
         it('should fail', done => {
-            rcs.fileReplace.replace('non/exisiting/path.css', err => {
+            rcs.fileReplace.replace('non/exisiting/path.css', (err, data) => {
                 expect(err).to.be.an('object');
                 expect(err.error).to.equal('ENOENT');
 
