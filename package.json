@@ -13,7 +13,10 @@
   "author": "Jan Peer Stöcklmair",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.1.2",
     "decimal-to-any": "^1.0.0",
+    "fs-extra": "^0.30.0",
+    "glob": "^7.1.1",
     "lodash": "^4.16.4"
   },
   "devDependencies": {
