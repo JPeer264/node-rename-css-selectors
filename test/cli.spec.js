@@ -2,7 +2,7 @@
 
 const cli    = require('../lib/cli');
 const rcs    = require('../lib/utils/rcs');
-const fs     = require('fs');
+const fs     = require('fs-extra');
 const expect = require('chai').expect;
 
 describe('cli.js', () => {
@@ -10,6 +10,10 @@ describe('cli.js', () => {
         // reset counter and selectors for tests
         rcs.selectorLibrary.selectors = {};
         rcs.nameGenerator.resetCountForTests();
+    });
+
+    afterEach(() => {
+        fs.removeSync('test/files/testCache');
     });
 
     it('should process css files', done => {
