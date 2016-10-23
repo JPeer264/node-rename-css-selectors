@@ -1,0 +1,27 @@
+.a {
+    content: 'block';
+}
+
+.c {
+    content: 'block__element--modifier';
+}
+
+.b {
+    content: 'block__element';
+}
+
+.d{
+    content: 'block--modifier';
+}
+
+.c {
+    content: 'block__element--modifier';
+}
+
+.e:before {
+    content: 'before';
+}
+
+#f {
+    content: 'id';
+}
