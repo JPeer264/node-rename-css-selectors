@@ -3,6 +3,7 @@ sudo: true
 dist: trusty
 node_js:
   - "4.0"
+  - "5.0"
   - "6.0"
 install:
   - npm i -g npm
