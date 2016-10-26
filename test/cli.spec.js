@@ -223,5 +223,24 @@ describe('cli.js', () => {
 
             });
         });
+
+        it('should create the both extended library files', done => {
+            cli.generateLibraryFile(testCwd, {
+                extended: true,
+                cssMapping: true,
+                cssMappingMin: true
+            }, (err, data) => {
+                const cssMapping    = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
+                const cssMappingMin = fs.readFileSync(testCwd + '/renaming_map_min.js', 'utf8');
+
+                expect(err).to.not.exist;
+
+                // TODO read variable and check values
+                // expect(cssMapping['jp-block']).to.equal('a');
+
+                done();
+
+            });
+        });
     });
 });
