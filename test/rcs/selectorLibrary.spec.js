@@ -158,5 +158,40 @@ describe('rcs selector library', () => {
 
             done();
         });
+
+        it('should get all extended with selectors', done => {
+            const cssObject = rcs.selectorLibrary.getAll({
+                isSelectors: true,
+                extended: true
+            });
+
+            expect(cssObject['.test']).to.be.an('object');
+            expect(cssObject['.test'].type).to.equal('class');
+            expect(cssObject['.test'].compressedSelector).to.equal('a');
+
+            expect(cssObject['#id']).to.be.an('object');
+            expect(cssObject['#id'].type).to.equal('id');
+            expect(cssObject['#id'].compressedSelector).to.equal('b');
+
+            done();
+        });
+
+        it('should get all normal with selectors', done => {
+            const cssObject = rcs.selectorLibrary.getAll({
+                origValues: false,
+                isSelectors: true,
+                extended: true
+            });
+
+            expect(cssObject['.a']).to.be.an('object');
+            expect(cssObject['.a'].type).to.equal('class');
+            expect(cssObject['.a'].modifiedSelector).to.equal('test');
+
+            expect(cssObject['#b']).to.be.an('object');
+            expect(cssObject['#b'].type).to.equal('id');
+            expect(cssObject['#b'].modifiedSelector).to.equal('id');
+
+            done();
+        });
     });
 });
