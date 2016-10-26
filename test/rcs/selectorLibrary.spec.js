@@ -51,10 +51,6 @@ describe('rcs selector library', () => {
 
             done();
         });
-
-        // it('should generate a library file', done => {
-        //     // @todo test rcs.selectorLibrary.generateLibraryFile()
-        // });
     });
 
     describe('get values', () => {
@@ -147,5 +143,20 @@ describe('rcs selector library', () => {
             done();
         });
 
+        it('should get all extended', done => {
+            const cssObject = rcs.selectorLibrary.getAll({
+                extended: true
+            });
+
+            expect(cssObject['test']).to.be.an('object');
+            expect(cssObject['test'].type).to.equal('class');
+            expect(cssObject['test'].compressedSelector).to.equal('a');
+
+            expect(cssObject['id']).to.be.an('object');
+            expect(cssObject['id'].type).to.equal('id');
+            expect(cssObject['id'].compressedSelector).to.equal('b');
+
+            done();
+        });
     });
 });
