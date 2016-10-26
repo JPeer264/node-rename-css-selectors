@@ -38,6 +38,30 @@ describe('cli.js', () => {
         });
     });
 
+    // duplicated code from the test before
+    // but another function - especially for css
+    it('should process css files with processCss', done => {
+        cli.processCss('**/*.css', {
+            newPath: 'test/files/testCache',
+            cwd: 'test/files/fixtures'
+        }, (err, data) => {
+            let newFile       = fs.readFileSync('test/files/testCache/style.css', 'utf8');
+            let newFile2      = fs.readFileSync('test/files/testCache/style2.css', 'utf8');
+            let newFile3      = fs.readFileSync('test/files/testCache/subdirectory/style.css', 'utf8');
+            let expectedFile  = fs.readFileSync('test/files/results/style.css', 'utf8');
+            let expectedFile2 = fs.readFileSync('test/files/results/style2.css', 'utf8');
+            let expectedFile3 = fs.readFileSync('test/files/results/subdirectory/style.css', 'utf8');
+
+            expect(err).to.not.exist;
+            expect(newFile).to.equal(expectedFile);
+            expect(newFile2).to.equal(expectedFile2);
+            expect(newFile3).to.equal(expectedFile3);
+
+            done();
+        });
+    });
+
+
     it('should process css files and flatten the directories', done => {
         cli.process('**/*.css', {
             collectSelectors: true,
