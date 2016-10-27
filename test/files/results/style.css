@@ -30,6 +30,26 @@
     content: 'attribute';
 }
 
+@media screen and (min-width: .40em) {
+    #f {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+/**
+ * a description
+ */
+@media screen and (min-width: 40em)
+
+{
+    #f
+    {
+        height: .20px;
+        width: .20em;
+    }
+}
+
 h1 {
     color: red;
 }
