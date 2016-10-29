@@ -88,7 +88,7 @@ describe('cli.js', () => {
         });
 
         it('should process js files', done => {
-            rcs.fileReplace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
+            rcs.replace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
                 cli.process('**/*.txt', {
                     newPath: testCwd,
                     cwd: fixturesCwd
@@ -105,7 +105,7 @@ describe('cli.js', () => {
         });
 
         it('should process html files', done => {
-            rcs.fileReplace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
+            rcs.replace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
                 cli.process('**/*.html', {
                     newPath: testCwd,
                     cwd: fixturesCwd
