@@ -16,7 +16,7 @@ describe('rcs file replace', () => {
 
     describe('replaceCss', () => {
         it('should return the modified css file', done => {
-            rcs.fileReplace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
+            rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
                 expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style.css', 'utf8'));
 
                 done();
@@ -24,8 +24,8 @@ describe('rcs file replace', () => {
         });
 
         it('should modify the second one with the values from the first', done => {
-            rcs.fileReplace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
-                rcs.fileReplace.replaceCss(fixturesCwd + '/style2.css', (err, data) => {
+            rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
+                rcs.replace.fileCss(fixturesCwd + '/style2.css', (err, data) => {
                     expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/style2.css', 'utf8'));
 
                     done();
@@ -34,7 +34,7 @@ describe('rcs file replace', () => {
         });
 
         it('should fail', done => {
-            rcs.fileReplace.replaceCss('non/exisiting/path.css', (err, data) => {
+            rcs.replace.fileCss('non/exisiting/path.css', (err, data) => {
                 expect(err).to.be.an('object');
                 expect(err.error).to.equal('ENOENT');
 
@@ -45,7 +45,7 @@ describe('rcs file replace', () => {
 
     describe('replace any file', () => {
         it('should fail', done => {
-            rcs.fileReplace.replace('non/exisiting/path.css', (err, data) => {
+            rcs.replace.file('non/exisiting/path.css', (err, data) => {
                 expect(err).to.be.an('object');
                 expect(err.error).to.equal('ENOENT');
 
@@ -54,8 +54,8 @@ describe('rcs file replace', () => {
         });
 
         it('should return the modified html file', done => {
-            rcs.fileReplace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
-                rcs.fileReplace.replace(fixturesCwd + '/index.html', (err, data) => {
+            rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
+                rcs.replace.file(fixturesCwd + '/index.html', (err, data) => {
                     expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/index.html', 'utf8'));
 
                     done();
@@ -65,8 +65,8 @@ describe('rcs file replace', () => {
 
         it('should return the modified js file', done => {
             // `js` file imported as `txt` to avoid having mocha-phantomjs
-            rcs.fileReplace.replaceCss(fixturesCwd + '/style.css', (err, data) => {
-                rcs.fileReplace.replace(fixturesCwd + '/main.txt', (err, data) => {
+            rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
+                rcs.replace.file(fixturesCwd + '/main.txt', (err, data) => {
                     expect(data.data).to.equal(fs.readFileSync(resultsCwd + '/main.txt', 'utf8'));
 
                     done();
