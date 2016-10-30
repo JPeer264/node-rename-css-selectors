@@ -9,7 +9,7 @@ You can also use a config file, if you already had other projects with the same 
 
 ## Installation
 
-Install with npm or yarn
+Install with [npm](https://docs.npmjs.com/cli/install) or [yarn](https://yarnpkg.com/en/docs/install)
 
 ```js
 npm install --save rename-css-selectors
@@ -30,7 +30,7 @@ const rcs = require('rename-css-selectors')
 // to get a list of variables you want to minify
 // options is optional
 rcs.processCss('**/*.css', options, err => {
-    // all css files are now saved and renamed
+    // all css files are now saved, renamed and stored in the selectorLibrary
 
     // now it is time to process all other files
     rcs.process('**/*.js', options, err => {
@@ -74,6 +74,63 @@ rcs.processCss('**/*.css', options, err => {
 
 **process(src, [options], callback)**
 
+> **Important!** processCss should run first, otherwise there are no minified selectors
+
+> *Note:* If you replace JavaScript files, you might overwrite words within a string which is not supposed to be a css selector
+
+Matches all strings `" "` or `' '` and replaces all matching words which are the same as the stored css values.
+
+Options:
+
+- overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
+- cwd (string): the working directory in which to seach. Default is `process.cwd()`
+- newPath (string): in which folder the new files should go. Default is `rcs`
+- flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
+
+Example:
+
+```js
+const rcs = require('rename-css-selectors')
+
+// the same for html or other files
+rcs.process('**/*.js', options, err => {
+    if (err) return console.error(err)
+
+    console.log('Successfully wrote new files');
+}
+```
+
 ### generateLibraryFile
 
 **generateLibraryFile(pathLocation, [options], callback)**
+
+> *Note:* if you are using the options either cssMapping or cssMappingMin must be set to true
+
+Generates mapping files: all minified, all original selectors or both. They are stored as object in a variable. The file is named as `renaming_map.js` or `renaming_map_min.js`.
+
+Options:
+
+- cssMapping (boolean): writes `renaming_map.js`. Default is `true`
+- cssMappingMin (boolean): writes `renaming_map_min.js`. Default is `false`
+- extended (boolean): instead of a string it writes an object with meta information. Default is `false`
+- **NOT YET IMPLEMENTED** json (boolean): writes an json instead of a js. Default is `false`
+
+```js
+const rcs = require('rename-css-selectors')
+
+// the same for html or other files
+rcs.generateLibraryFile('./mappings', options, err => {
+    if (err) return console.error(err)
+
+    console.log('Successfully wrote mapping files');
+}
+```
+
+Output in `renaming_map_min.js`:
+
+```js
+var CSS_NAME_MAPPING_MIN = {
+    'e': 'any-class',
+    't': 'another-class'
+};
+```
