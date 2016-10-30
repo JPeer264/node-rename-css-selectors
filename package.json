@@ -4,7 +4,9 @@
   "description": "Rename css classes and id's in files",
   "main": "./lib/cli.js",
   "scripts": {
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "coverage": "istanbul cover _mocha -- --recursive",
+    "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },
   "repository": {
     "url": "https://www.github.com/JPeer264/rename-css-selectors",
@@ -14,9 +16,11 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.1.2",
+    "coveralls": "^2.11.14",
     "decimal-to-any": "^1.0.0",
     "fs-extra": "^0.30.0",
     "glob": "^7.1.1",
+    "istanbul": "^0.4.5",
     "lodash": "^4.16.4"
   },
   "devDependencies": {
