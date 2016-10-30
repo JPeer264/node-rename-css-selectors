@@ -2,7 +2,7 @@
   "name": "rename-css-selectors",
   "version": "0.0.0",
   "description": "Rename css classes and id's in files",
-  "main": "index.js",
+  "main": "./lib/cli.js",
   "scripts": {
     "test": "mocha --recursive"
   },
