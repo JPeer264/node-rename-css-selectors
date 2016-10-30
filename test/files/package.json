@@ -1,0 +1,9 @@
+{
+    "name": "Test package.json",
+    "rcs": {
+        "exclude": [
+            "js",
+            "no-js"
+        ]
+    }
+}

@@ -60,14 +60,14 @@ h1 {
     font-size: .5rem;
 }
 
-.i.h {
-    content: 'js reveal';
+.js.h {
+    content: 'js.reveal';
 }
 
-.j.h {
-    content: 'js reveal';
+.no-js.h {
+    content: 'js.reveal';
 }
 
-.k {
+.i {
     content: 'js-reveal';
 }

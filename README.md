@@ -1,9 +1,9 @@
-# Rename CSS Selectors
+# Rename CSS Selectors (RCS)
 
 [![Build Status](https://travis-ci.org/JPeer264/rename-css-selectors.svg?branch=master)](https://travis-ci.org/JPeer264/rename-css-selectors)
 [![Coverage Status](https://coveralls.io/repos/github/JPeer264/rename-css-selectors/badge.svg)](https://coveralls.io/github/JPeer264/rename-css-selectors)
 
-This library renames all CSS selectors in the given files. It will collect all selectors from the given CSS files, it does not matter if those are `scss` or even plain `css` files.
+This library renames all CSS selectors in the given files. It will collect all selectors from the given CSS files.
 
 You can also use a config file, if you already had other projects with the same classes. So all your projects have the same minified selector names - always.
 
@@ -37,6 +37,43 @@ rcs.processCss('**/*.css', options, err => {
         // that's it
     });
 });
+```
+
+## RCS config
+
+### Exclude Classes and IDs
+
+What if you are using something such as Modernizr and you do not want to minify some selectors?
+
+Just create a `.rcsrc` or you can add everything in your `package.json` with the value `rcs`
+
+The `.rcsrc`:
+
+```json
+{
+    "exclude": [
+        "js",
+        "flexbox",
+        "canvas",
+        "svg"
+    ]
+}
+```
+
+The `package.json`:
+
+```json
+{
+    "name": "Your application name",
+    "rcs": {
+        "exclude": [
+            "js",
+            "flexbox",
+            "canvas",
+            "svg"
+        ]
+    }
+}
 ```
 
 ## Methods
