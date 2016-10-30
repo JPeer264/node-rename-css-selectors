@@ -14,6 +14,17 @@
       "no-js"
     ]
   },
+  "keywords": [
+    "css",
+    "minify",
+    "rename",
+    "selectors",
+    "shrink",
+    "classes",
+    "compress",
+    "styles",
+    "munch"
+  ],
   "repository": {
     "url": "https://www.github.com/JPeer264/rename-css-selectors",
     "type": "git"
