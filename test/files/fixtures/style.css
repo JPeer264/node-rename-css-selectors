@@ -53,3 +53,9 @@
 h1 {
     color: red;
 }
+
+.reveal {
+    content: 'reveal';
+    color: #eee;
+    font-size: .5rem;
+}
