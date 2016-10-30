@@ -47,7 +47,7 @@ What if you are using something such as Modernizr and you do not want to minify 
 
 Just create a `.rcsrc` or you can add everything in your `package.json` with the value `rcs`
 
-The `.rcsrc`:
+The `.rcsrc` or the a own config file:
 
 ```json
 {
@@ -81,6 +81,7 @@ The `package.json`:
 - [processCss](#processcss)
 - [process](#process)
 - [generateLibraryFile](#generatelibraryfile)
+- [includeConfig](#includeconfig)
 
 ### processCss
 
@@ -170,4 +171,16 @@ var CSS_NAME_MAPPING_MIN = {
     'e': 'any-class',
     't': 'another-class'
 };
+```
+
+**includeConfig([pathLocation])**
+
+> All available configs [here](#rcs-config)
+
+Includes all configs. This function is synchronous.
+
+```js
+const rcs = require('rename-css-selectors')
+
+rcs.includeConfig()
 ```

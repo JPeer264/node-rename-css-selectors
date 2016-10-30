@@ -7,7 +7,10 @@ describe('rcs selector library', () => {
     describe('set new values', () => {
         beforeEach(() => {
             // reset counter and selectors for tests
-            rcs.selectorLibrary.selectors = {};
+            rcs.selectorLibrary.selectors           = {};
+            rcs.selectorLibrary.compressedSelectors = {};
+            rcs.selectorLibrary.excludes            = [];
+
             rcs.nameGenerator.resetCountForTests();
         });
 

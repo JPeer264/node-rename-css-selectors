@@ -12,7 +12,9 @@ const resultsCwd  = 'test/files/results';
 describe('cli.js', () => {
     beforeEach(() => {
         // reset counter and selectors for tests
-        rcs.selectorLibrary.selectors = {};
+        rcs.selectorLibrary.selectors           = {};
+        rcs.selectorLibrary.compressedSelectors = {};
+        rcs.selectorLibrary.excludes            = [];
         rcs.nameGenerator.resetCountForTests();
     });
 
@@ -241,6 +243,60 @@ describe('cli.js', () => {
                 done();
 
             });
+        });
+    });
+
+    describe('include config', () => {
+        it('should set the config with package.json', done => {
+            // include config
+            cli.includeConfig();
+
+            // include new settings
+            rcs.selectorLibrary.set(['js', 'any-value']);
+
+            expect(rcs.selectorLibrary.get('js')).to.equal('js');
+            expect(rcs.selectorLibrary.get('any-value')).to.equal('a');
+
+            done();
+        });
+
+        it('should set the config with .rcsrc', done => {
+            const file = '.rcsrc';
+
+            fs.writeFileSync(file, `{
+                "exclude": [
+                    "flexbox",
+                    "no-js"
+                ]
+            }`, {
+                encoding: 'utf8'
+            });
+
+            // include config
+            cli.includeConfig();
+
+            // include new settings
+            rcs.selectorLibrary.set(['flexbox', 'any-value']);
+
+            expect(rcs.selectorLibrary.get('flexbox')).to.equal('flexbox');
+            expect(rcs.selectorLibrary.get('any-value')).to.equal('a');
+
+            fs.removeSync(file);
+
+            done();
+        });
+
+        it('should set the config with package.json', done => {
+            // include config
+            cli.includeConfig('test/files/config.json');
+
+            // include new settings
+            rcs.selectorLibrary.set(['own-file', 'any-value']);
+
+            expect(rcs.selectorLibrary.get('own-file')).to.equal('own-file');
+            expect(rcs.selectorLibrary.get('any-value')).to.equal('a');
+
+            done();
         });
     });
 });

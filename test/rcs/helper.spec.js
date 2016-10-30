@@ -36,16 +36,15 @@ describe('helper.js', () => {
     });
 
     it('should read a json file and turn it to an object', done => {
-        const obj = rcs.helper.readJsonToObjSync('test/files/package.json');
+        const obj = rcs.helper.readJsonToObjSync('test/files/config.json');
 
         expect(obj).to.be.an('object');
-        expect(obj.rcs).to.be.an('object');
 
         done();
     });
 
     it('should fail to read a file', done => {
-        const obj = rcs.helper.readJsonToObjSync('not/existing/path/package.json');
+        const obj = rcs.helper.readJsonToObjSync('not/existing/path/config.json');
 
         expect(obj).to.be.false;
 

@@ -8,6 +8,12 @@
     "coverage": "istanbul cover _mocha -- --recursive",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },
+  "rcs": {
+    "exclude": [
+      "js",
+      "no-js"
+    ]
+  },
   "repository": {
     "url": "https://www.github.com/JPeer264/rename-css-selectors",
     "type": "git"
