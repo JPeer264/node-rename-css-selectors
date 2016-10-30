@@ -1,6 +1,6 @@
 {
   "name": "rename-css-selectors",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Rename css classes and id's in files",
   "main": "./lib/cli.js",
   "scripts": {
