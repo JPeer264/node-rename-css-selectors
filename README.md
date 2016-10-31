@@ -25,14 +25,12 @@ npm install --save rename-css-selectors
 or
 ```js
 yarn add rename-css-selectors
-
 ```
 
 ## Usage
 
 ```js
 const rcs = require('rename-css-selectors')
-
 
 // first you have to process the css files
 // to get a list of variables you want to minify
@@ -49,11 +47,13 @@ rcs.processCss('**/*.css', options, err => {
 
 ## RCS config
 
-### Exclude Classes and IDs
+> Just create a `.rcsrc` in your project root or you can add everything in your `package.json` with the value `rcs`
 
-What if you are using something such as Modernizr and you do not want to minify some selectors?
+- [Example](#example)
+- [Exclude](#exclude-classes-and-ids)
+- [Include from other projects](#include-renamed-classes-from-other-project)
 
-Just create a `.rcsrc` or you can add everything in your `package.json` with the value `rcs`
+### Example
 
 The `.rcsrc` or the a own config file:
 
@@ -61,9 +61,7 @@ The `.rcsrc` or the a own config file:
 {
     "exclude": [
         "js",
-        "flexbox",
-        "canvas",
-        "svg"
+        "flexbox"
     ]
 }
 ```
@@ -76,11 +74,28 @@ The `package.json`:
     "rcs": {
         "exclude": [
             "js",
-            "flexbox",
-            "canvas",
-            "svg"
+            "flexbox"
         ]
     }
+}
+```
+
+### Exclude Classes and IDs
+
+`exclude`
+
+What if you are using something such as Modernizr and you do not want to minify some selectors?
+
+Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
+
+```json
+{
+    "exclude": [
+        "js",
+        "flexbox",
+        "canvas",
+        "svg"
+    ]
 }
 ```
 
@@ -185,11 +200,13 @@ var CSS_NAME_MAPPING_MIN = {
 };
 ```
 
+### includeConfig
+
 **includeConfig([pathLocation])**
 
 > All available configs [here](#rcs-config)
 
-Includes all configs. This function is synchronous.
+RCS will lookup first for a `.rcsrc` of the current directory. If there is no such file, it will lookup for a `package.json` with a `"rcsrc": {}` in it. You can also write any path in the parameters and write your own config file. This function is synchronous.
 
 ```js
 const rcs = require('rename-css-selectors')
