@@ -33,15 +33,15 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.1.2",
-    "coveralls": "^2.11.14",
     "decimal-to-any": "^1.0.0",
     "fs-extra": "^0.30.0",
     "glob": "^7.1.1",
-    "istanbul": "^0.4.5",
     "lodash": "^4.16.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   }
 }
