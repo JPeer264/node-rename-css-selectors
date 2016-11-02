@@ -1,7 +1,7 @@
 'use strict';
 
 const cli    = require('../lib/cli');
-const rcs    = require('../lib/utils/rcs');
+const rcs    = require('rcs-core');
 const fs     = require('fs-extra');
 const expect = require('chai').expect;
 

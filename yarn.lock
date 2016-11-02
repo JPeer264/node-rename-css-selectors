@@ -198,7 +198,7 @@ decamelize@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-decimal-to-any:
+decimal-to-any@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/decimal-to-any/-/decimal-to-any-1.0.0.tgz#1e9506e66fa3d4759f11673768885f928f966b5f"
 
@@ -277,7 +277,7 @@ form-data@~2.0.0:
     combined-stream "^1.0.5"
     mime-types "^2.1.11"
 
-fs-extra:
+fs-extra, fs-extra@^0.30.0:
   version "0.30.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-0.30.0.tgz#f233ffcc08d4da7d432daa449776989db1df93f0"
   dependencies:
@@ -587,6 +587,10 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
+lodash@^4.16.4:
+  version "4.16.6"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
+
 log-driver@1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/log-driver/-/log-driver-1.2.5.tgz#7ae4ec257302fd790d557cb10c97100d857b0056"
@@ -716,6 +720,14 @@ punycode@^1.4.1:
 qs@~6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
+
+rcs-core:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.0.1.tgz#e3a1ed41ac93628c60f9df46809484ddb344177d"
+  dependencies:
+    decimal-to-any "^1.0.0"
+    fs-extra "^0.30.0"
+    lodash "^4.16.4"
 
 readable-stream@~2.0.5:
   version "2.0.6"
