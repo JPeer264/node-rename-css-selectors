@@ -1,6 +1,6 @@
 'use strict';
 
-const cli    = require('../lib/cli');
+const app    = require('../');
 const rcs    = require('rcs-core');
 const fs     = require('fs-extra');
 const expect = require('chai').expect;
@@ -9,7 +9,7 @@ const testCwd     = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
 const resultsCwd  = 'test/files/results';
 
-describe('cli.js', () => {
+describe('app.js', () => {
     beforeEach(() => {
         // reset counter and selectors for tests
         rcs.selectorLibrary.selectors           = {};
@@ -24,7 +24,7 @@ describe('cli.js', () => {
 
     describe('processing', () => {
         it('should process css files', done => {
-            cli.process('**/*.css', {
+            app.process('**/*.css', {
                 collectSelectors: true,
                 newPath: testCwd,
                 cwd: fixturesCwd
@@ -48,7 +48,7 @@ describe('cli.js', () => {
         // duplicated code from the test before
         // but another function - especially for css
         it('should process css files with processCss', done => {
-            cli.processCss('**/*.css', {
+            app.processCss('**/*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
@@ -70,7 +70,7 @@ describe('cli.js', () => {
 
 
         it('should process css files and flatten the directories', done => {
-            cli.process('**/*.css', {
+            app.process('**/*.css', {
                 collectSelectors: true,
                 flatten: true,
                 newPath: testCwd,
@@ -91,7 +91,7 @@ describe('cli.js', () => {
 
         it('should process js files', done => {
             rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
-                cli.process('**/*.txt', {
+                app.process('**/*.txt', {
                     newPath: testCwd,
                     cwd: fixturesCwd
                 }, (err, data) => {
@@ -108,7 +108,7 @@ describe('cli.js', () => {
 
         it('should process html files', done => {
             rcs.replace.fileCss(fixturesCwd + '/style.css', (err, data) => {
-                cli.process('**/*.html', {
+                app.process('**/*.html', {
                     newPath: testCwd,
                     cwd: fixturesCwd
                 }, (err, data) => {
@@ -124,7 +124,7 @@ describe('cli.js', () => {
         });
 
         it('should fail', done => {
-            cli.process('path/**/with/nothing/in/it', err => {
+            app.process('path/**/with/nothing/in/it', err => {
                 expect(err).to.be.an('object');
                 expect(err.error).to.equal('ENOENT');
 
@@ -135,7 +135,7 @@ describe('cli.js', () => {
 
     describe('generating files', () => {
         beforeEach(done => {
-            cli.processCss('**/*.css', {
+            app.processCss('**/*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
@@ -144,7 +144,7 @@ describe('cli.js', () => {
         });
 
         it('should create the normal library file', done => {
-            cli.generateLibraryFile(testCwd, (err, data) => {
+            app.generateLibraryFile(testCwd, (err, data) => {
                 const cssMapping = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
 
                 expect(err).to.not.exist;
@@ -158,7 +158,7 @@ describe('cli.js', () => {
         });
 
         it('should create the minified library file', done => {
-            cli.generateLibraryFile(testCwd, {
+            app.generateLibraryFile(testCwd, {
                 cssMapping: false,
                 cssMappingMin: true
             }, (err, data) => {
@@ -175,7 +175,7 @@ describe('cli.js', () => {
         });
 
         it('should create the extended normal library file', done => {
-            cli.generateLibraryFile(testCwd, {
+            app.generateLibraryFile(testCwd, {
                 extended: true
             }, (err, data) => {
                 const cssMapping = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
@@ -191,7 +191,7 @@ describe('cli.js', () => {
         });
 
         it('should create the minified library file', done => {
-            cli.generateLibraryFile(testCwd, {
+            app.generateLibraryFile(testCwd, {
                 cssMapping: false,
                 cssMappingMin: true,
                 extended: true
@@ -209,7 +209,7 @@ describe('cli.js', () => {
         });
 
         it('should create the both library files', done => {
-            cli.generateLibraryFile(testCwd, {
+            app.generateLibraryFile(testCwd, {
                 cssMapping: true,
                 cssMappingMin: true
             }, (err, data) => {
@@ -227,7 +227,7 @@ describe('cli.js', () => {
         });
 
         it('should create the both extended library files', done => {
-            cli.generateLibraryFile(testCwd, {
+            app.generateLibraryFile(testCwd, {
                 extended: true,
                 cssMapping: true,
                 cssMappingMin: true
@@ -249,7 +249,7 @@ describe('cli.js', () => {
     describe('include config', () => {
         it('should set the config with package.json', done => {
             // include config
-            cli.includeConfig();
+            app.includeConfig();
 
             // include new settings
             rcs.selectorLibrary.set(['js', 'any-value']);
@@ -273,7 +273,7 @@ describe('cli.js', () => {
             });
 
             // include config
-            cli.includeConfig();
+            app.includeConfig();
 
             // include new settings
             rcs.selectorLibrary.set(['flexbox', 'any-value']);
@@ -288,7 +288,7 @@ describe('cli.js', () => {
 
         it('should set the config with package.json', done => {
             // include config
-            cli.includeConfig('test/files/config.json');
+            app.includeConfig('test/files/config.json');
 
             // include new settings
             rcs.selectorLibrary.set(['own-file', 'any-value']);
