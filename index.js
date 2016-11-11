@@ -10,9 +10,9 @@ const _     = require('lodash');
 /**
  * parses through every single document and renames the names
  *
- * @module cli
+ * @module renameCssSelectors
  */
-const cli = module.exports = {};
+const renameCssSelectors = module.exports = {};
 
 /**
  * @typedef {Object} processOptions
@@ -30,7 +30,7 @@ const cli = module.exports = {};
  * @param  {Function} cb        the callback
  * @return {Function} cb
  */
-cli.process = (pathString, options, cb) => {
+renameCssSelectors.process = (pathString, options, cb) => {
     const optionsDefault = {
         collectSelectors: false,
         overwrite: false,
@@ -118,24 +118,24 @@ cli.process = (pathString, options, cb) => {
 
 /**
  * process over all css files - set and replace
- * does exactly the same as cli.process, but set the collectSelectors option to true
+ * does exactly the same as renameCssSelectors.process, but set the collectSelectors option to true
  *
  * @param  {pathString}         pathString this pathString can be either an expression for `glob` or a filepath
  * @param  {processOptions}     options
  * @param  {Function} cb        the callback
  * @return {Function} cb
  */
-cli.processCss = (pathString, options, cb) => {
+renameCssSelectors.processCss = (pathString, options, cb) => {
     // set cb if options are not set
     if (typeof cb !== 'function') {
         cb      = options;
         options = {};
     }
 
-    // set the css power for cli.process
+    // set the css power for renameCssSelectors.process
     options.collectSelectors = true;
 
-    cli.process(pathString, options, cb);
+    renameCssSelectors.process(pathString, options, cb);
 } // /processCss
 
 /**
@@ -154,7 +154,7 @@ cli.processCss = (pathString, options, cb) => {
  * @param {String} pathString where it should get saved
  * @param {generateLFOptions} [options]
  */
-cli.generateLibraryFile = (pathString, options, cb) => {
+renameCssSelectors.generateLibraryFile = (pathString, options, cb) => {
     let mappingName = 'CSS_NAME_MAPPING';
     let mappingNameMin = 'CSS_NAME_MAPPING_MIN';
     const optionsDefault = {
@@ -229,7 +229,7 @@ cli.generateLibraryFile = (pathString, options, cb) => {
 /**
  * includes .rcsrc - if not found it will include "rcs" in package.json
  */
-cli.includeConfig = (pathString) => {
+renameCssSelectors.includeConfig = (pathString) => {
     let configObject;
 
     pathString   = pathString || path.join(process.cwd(), '.rcsrc');
