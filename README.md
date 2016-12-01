@@ -112,7 +112,7 @@ Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
 
 ### processCss
 
-**processCss(src, [options], callback)**
+**processCss(src[, options], callback)**
 
 Store all matched selectors into the library and saves the new generated file with all renamed selectors.
 
@@ -137,7 +137,7 @@ rcs.processCss('**/*.css', options, err => {
 
 ### process
 
-**process(src, [options], callback)**
+**process(src[, options], callback)**
 
 > **Important!** processCss should run first, otherwise there are no minified selectors
 
@@ -167,7 +167,7 @@ rcs.process('**/*.js', options, err => {
 
 ### generateLibraryFile
 
-**generateLibraryFile(pathLocation, [options], callback)**
+**generateLibraryFile(pathLocation[, options], callback)**
 
 > *Note:* if you are using the options either cssMapping or cssMappingMin must be set to true
 
