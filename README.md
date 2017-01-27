@@ -1,7 +1,7 @@
 # Rename CSS Selectors (RCS)
 
 [![Build Status](https://travis-ci.org/JPeer264/node-rename-css-selectors.svg?branch=master)](https://travis-ci.org/JPeer264/node-rename-css-selectors)
-[![Coverage Status](https://coveralls.io/repos/github/JPeer264/rename-css-selectors/badge.svg)](https://coveralls.io/github/JPeer264/rename-css-selectors)
+[![Coverage Status](https://coveralls.io/repos/github/JPeer264/node-rename-css-selectors/badge.svg?branch=master)](https://coveralls.io/github/JPeer264/node-rename-css-selectors?branch=master)
 
 This module renames all CSS selectors in the given files. It will collect all selectors from the given CSS files. Do not worry about your selectors, `rcs` will do it for you.
 
