@@ -4,6 +4,7 @@ const rcs   = require('rcs-core');
 const fs    = require('fs-extra');
 const path  = require('path');
 const glob  = require('glob');
+const json  = require('json-extra');
 const async = require('async');
 const _     = require('lodash');
 
@@ -233,11 +234,11 @@ renameCssSelectors.includeConfig = (pathString) => {
     let configObject;
 
     pathString   = pathString || path.join(process.cwd(), '.rcsrc');
-    configObject = rcs.helper.readJsonToObjSync(pathString);
+    configObject = json.readToObjSync(pathString);
 
     if (!configObject) {
         // package.json .rcs if no other config is found
-        configObject = rcs.helper.readJsonToObjSync(path.join(process.cwd(), 'package.json')).rcs;
+        configObject = json.readToObjSync(path.join(process.cwd(), 'package.json')).rcs;
     }
 
     if (configObject.exclude) {
