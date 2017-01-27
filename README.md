@@ -19,11 +19,11 @@ This module renames all CSS selectors in the given files. It will collect all se
 
 Install with [npm](https://docs.npmjs.com/cli/install) or [yarn](https://yarnpkg.com/en/docs/install)
 
-```js
+```sh
 npm install --save rename-css-selectors
 ```
 or
-```js
+```sh
 yarn add rename-css-selectors
 ```
 
