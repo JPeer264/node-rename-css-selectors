@@ -47,6 +47,22 @@ describe('app.js', () => {
 
         // duplicated code from the test before
         // but another function - especially for css
+        it('should process css files and prefix them', done => {
+            app.processCss('**/*.css', {
+                newPath: testCwd,
+                cwd: fixturesCwd,
+                prefix: 'prefixed-'
+            }, (err, data) => {
+                let newFile       = fs.readFileSync(testCwd + '/style.css', 'utf8');
+                let expectedFile  = fs.readFileSync(resultsCwd + '/style-prefix.css', 'utf8');
+
+                expect(err).to.not.exist;
+                expect(newFile).to.equal(expectedFile);
+
+                done();
+            });
+        });
+
         it('should process css files with processCss', done => {
             app.processCss('**/*.css', {
                 newPath: testCwd,

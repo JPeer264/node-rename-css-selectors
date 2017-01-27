@@ -28,6 +28,7 @@
 
 .jp-attribute[src] {
     content: 'attribute';
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
 @media screen and (min-width: .40em) {

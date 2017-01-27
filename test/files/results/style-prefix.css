@@ -1,38 +1,38 @@
-.a {
+.prefixed-a {
     content: 'block';
 }
 
-.b {
+.prefixed-b {
     content: 'block__element';
 }
 
-.c {
+.prefixed-c {
     content: 'block__element--modifier';
 }
 
-.d{
+.prefixed-d{
     content: 'block--modifier';
 }
 
-.e:before {
+.prefixed-e:before {
     content: 'before';
 }
 
-.c {
+.prefixed-c {
     content: 'block__element--modifier';
 }
 
-#f {
+#prefixed-f {
     content: 'id';
 }
 
-.g[src] {
+.prefixed-g[src] {
     content: 'attribute';
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
 @media screen and (min-width: .40em) {
-    #f {
+    #prefixed-f {
         height: .20px;
         width: .20em;
     }
@@ -44,7 +44,7 @@
 @media screen and (min-width: 40em)
 
 {
-    #f
+    #prefixed-f
     {
         height: .20px;
         width: .20em;
@@ -55,20 +55,20 @@ h1 {
     color: red;
 }
 
-.h {
+.prefixed-h {
     content: 'reveal';
     color: #eee;
     font-size: .5rem;
 }
 
-.i.h {
+.prefixed-i.prefixed-h {
     content: 'js reveal';
 }
 
-.j.h {
+.prefixed-j.prefixed-h {
     content: 'js reveal';
 }
 
-.k {
+.prefixed-k {
     content: 'js-reveal';
 }

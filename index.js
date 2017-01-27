@@ -68,7 +68,7 @@ renameCssSelectors.process = (pathString, options, cb) => {
             // call in series
             // not all selectors are stored, maybe some selectors are duplicated in different files
             async.eachSeries(filesArray, (filePath, callback) => {
-                rcs.replace.fileCss(path.join(options.cwd, filePath), (err, data) => {
+                rcs.replace.fileCss(path.join(options.cwd, filePath), options, (err, data) => {
                     let joinedPath;
 
                     if (err) callback(err);
