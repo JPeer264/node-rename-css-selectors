@@ -122,6 +122,9 @@ Options:
 - cwd (string): the working directory in which to seach. Default is `process.cwd()`
 - newPath (string): in which folder the new files should go. Default is `rcs`
 - flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
+- prefix (string): prefix all triggered selectors. Default is `undefined`
+- suffix (string): suffix all triggered selectors. Default is `undefined`
+- preventRandomName (boolean): does not rename the selectors (good for prefixing/suffixing). Default is `false`
 
 Example:
 
@@ -151,9 +154,6 @@ Options:
 - cwd (string): the working directory in which to seach. Default is `process.cwd()`
 - newPath (string): in which folder the new files should go. Default is `rcs`
 - flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
-- prefix (string): prefix all triggered selectors. Default is `undefined`
-- suffix (string): suffix all triggered selectors. Default is `undefined`
-- preventRandomName (boolean): does not rename the selectors (good for prefixing/suffixing). Default is false`
 
 Example:
 
