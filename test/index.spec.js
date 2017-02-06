@@ -161,6 +161,18 @@ describe('app.js', () => {
             });
         });
 
+        it('should not overwrite original files', done => {
+            app.process(['**/style.css', '**/style2.css'], {
+                collectSelectors: true,
+                newPath: fixturesCwd,
+                cwd: fixturesCwd
+            }, err => {
+                expect(err.message).to.equal('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
+
+                done();
+            });
+        });
+
         it('should fail', done => {
             app.process('path/**/with/nothing/in/it', err => {
                 expect(err).to.be.an('object');

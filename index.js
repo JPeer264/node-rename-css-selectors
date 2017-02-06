@@ -76,12 +76,17 @@ renameCssSelectors.process = (pathString, options, cb) => {
             async.eachSeries(filesArray, (filePath, callback) => {
                 rcs.replace.fileCss(path.join(options.cwd, filePath), options, (err, data) => {
                     let joinedPath;
+                    let shouldOverwrite = options.overwrite;
 
                     if (err) callback(err);
 
                     joinedPath = path.join(options.newPath, filePath);
 
-                    rcs.helper.save(joinedPath, data.data, (err) => {
+                    if (!options.overwrite) {
+                        shouldOverwrite = joinedPath !== path.join(options.cwd, filePath);
+                    }
+
+                    rcs.helper.save(joinedPath, data.data, { overwrite: shouldOverwrite }, (err) => {
                         if (err) callback(err);
 
                         callback();
@@ -101,12 +106,17 @@ renameCssSelectors.process = (pathString, options, cb) => {
             async.each(filesArray, (filePath, callback) => {
                 rcs.replace.file(path.join(options.cwd, filePath), (err, data) => {
                     let joinedPath;
+                    let shouldOverwrite = options.overwrite;
 
                     if (err) callback(err);
 
                     joinedPath = path.join(options.newPath, filePath);
 
-                    rcs.helper.save(joinedPath, data.data, (err) => {
+                    if (!options.overwrite) {
+                        shouldOverwrite = joinedPath !== path.join(options.cwd, filePath);
+                    }
+
+                    rcs.helper.save(joinedPath, data.data, { overwrite: shouldOverwrite }, (err) => {
                         if (err) callback(err);
 
                         callback();
