@@ -39,7 +39,7 @@ rcs.processCss('**/*.css', options, err => {
     // all css files are now saved, renamed and stored in the selectorLibrary
 
     // now it is time to process all other files
-    rcs.process('**/*.js', options, err => {
+    rcs.process([ '**/*.js', '**/*.html' ], options, err => {
         // that's it
     });
 });
