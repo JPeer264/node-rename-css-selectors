@@ -45,6 +45,28 @@ describe('app.js', () => {
             });
         });
 
+        it('should process css files as arrays', done => {
+            app.process(['**/style.css', '**/style2.css'], {
+                collectSelectors: true,
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, (err, data) => {
+                let newFile       = fs.readFileSync(testCwd + '/style.css', 'utf8');
+                let newFile2      = fs.readFileSync(testCwd + '/style2.css', 'utf8');
+                let newFile3      = fs.readFileSync(testCwd + '/subdirectory/style.css', 'utf8');
+                let expectedFile  = fs.readFileSync(resultsCwd + '/style.css', 'utf8');
+                let expectedFile2 = fs.readFileSync(resultsCwd + '/style2.css', 'utf8');
+                let expectedFile3 = fs.readFileSync(resultsCwd + '/subdirectory/style.css', 'utf8');
+
+                expect(err).to.not.exist;
+                expect(newFile).to.equal(expectedFile);
+                expect(newFile2).to.equal(expectedFile2);
+                expect(newFile3).to.equal(expectedFile3);
+
+                done();
+            });
+        });
+
         // duplicated code from the test before
         // but another function - especially for css
         it('should process css files and prefix them', done => {

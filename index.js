@@ -40,6 +40,8 @@ renameCssSelectors.process = (pathString, options, cb) => {
         flatten: false
     };
 
+    let globString = pathString;
+
     // @todo add flatten files
 
     // set cb if options are not set
@@ -50,7 +52,11 @@ renameCssSelectors.process = (pathString, options, cb) => {
 
     options = _.merge(optionsDefault, options);
 
-    glob(pathString, {
+    if (Object.prototype.toString.call(pathString) === '[object Array]') {
+        globString = `{${ pathString.join(',') }}`;
+    }
+
+    glob(globString, {
         cwd: options.cwd
     }, (err, filesArray) => {
         if (err) return cb(err);
