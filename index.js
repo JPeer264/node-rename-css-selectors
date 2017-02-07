@@ -172,9 +172,9 @@ renameCssSelectors.processCss = (pathString, options, cb) => {
  * @param {generateMappingOptions} [options]
  */
 renameCssSelectors.generateMapping = (pathString, options, cb) => {
-    let newPath     = path.join(pathString, 'renaming_map');
     let mappingName = 'CSS_NAME_MAPPING';
     let fileNameExt = '.json';
+    let fileName = 'renaming_map';
 
     const optionsDefault = {
         cssMapping: true,
@@ -196,16 +196,17 @@ renameCssSelectors.generateMapping = (pathString, options, cb) => {
 
     if (options.cssMappingMin) {
         options.origValues = false;
-        newPath = path.join(pathString, 'renaming_map_min');
         mappingName = 'CSS_NAME_MAPPING_MIN';
+        fileName = fileName + '_min';
     }
 
     if (typeof options.cssMappingMin === 'string') {
         mappingName = options.cssMappingMin;
+        fileName = options.cssMappingMin;
     }
 
     if (typeof options.cssMapping === 'string') {
-        mappingName = options.cssMapping;
+        fileName = options.cssMapping;
     }
 
     const cssMappingArray = rcs.selectorLibrary.getAll({
@@ -216,6 +217,7 @@ renameCssSelectors.generateMapping = (pathString, options, cb) => {
 
     let cssMappingJsonString = rcs.helper.objectToJson(cssMappingArray);
     let writeData = cssMappingJsonString;
+    let newPath = path.join(pathString, fileName);
 
     // no json
     if (!options.json) {
