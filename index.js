@@ -160,21 +160,20 @@ renameCssSelectors.processCss = (pathString, options, cb) => {
  * @property {Boolean | String} [cssMapping=true]       true will generate the css mapping. A string will generate the css mapping file and the object is called like the string
  * @property {Boolean | String} [cssMappingMin=false]   like the property cssMapping
  * @property {Boolean} [extended=false]                 defines if metadata should be added to the selector
- * @property {Boolean} [json=false]                     defines if metadata should be added to the selector
+ * @property {Boolean} [json=true]                      defines if metadata should be added to the selector
+ * @property {Boolean} [isSelectors=true]               if it should write the selector type into the key (# | .)
  */
 /**
  * generates a file including all old and new selectors/names
  * includes also unused class selectors
  *
- * @todo  generrate a json config file
- *
  * @param {String} pathString where it should get saved
  * @param {generateMappingOptions} [options]
  */
 renameCssSelectors.generateMapping = (pathString, options, cb) => {
-    let mappingName = 'CSS_NAME_MAPPING';
+    let fileName    = 'renaming_map';
     let fileNameExt = '.json';
-    let fileName = 'renaming_map';
+    let mappingName = 'CSS_NAME_MAPPING';
 
     const optionsDefault = {
         cssMapping: true,
@@ -232,6 +231,12 @@ renameCssSelectors.generateMapping = (pathString, options, cb) => {
     });
 }; // /generateMapping
 
+/**
+ * load the mapping file
+ *
+ * @param  {Object | String} pathString could be either the path or the mapping object
+ * @param  {Object}          [options]
+ */
 renameCssSelectors.loadMapping = (pathString, options) => {
     let selectors = pathString;
 
