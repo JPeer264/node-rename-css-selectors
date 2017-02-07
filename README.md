@@ -30,11 +30,11 @@ yarn add rename-css-selectors
 ## Usage
 
 ```js
-const rcs = require('rename-css-selectors');
+const rcs = require('rename-css-selectors')
 
 // if you have some generated mappings - load them!
 // you can also specify the string although it does not exist yet.
-rcs.loadMapping('./renaming_map.json');
+rcs.loadMapping('./renaming_map.json')
 
 // first you have to process the css files
 // to get a list of variables you want to minify
@@ -50,9 +50,9 @@ rcs.processCss('**/*.css', options, err => {
         // do not worry, your old settings are still here, in case you used `loadMapping`
         rcs.generateMapping('./', { overwrite: true }, err => {
             // the mapping file is now saved
-        });
-    });
-});
+        })
+    })
+})
 ```
 
 ## RCS config
@@ -141,7 +141,7 @@ const rcs = require('rename-css-selectors')
 rcs.processCss('**/*.css', options, err => {
     if (err) return console.error(err)
 
-    console.log('Successfully wrote new files and stored values');
+    console.log('Successfully wrote new files and stored values')
 }
 ```
 
@@ -171,7 +171,7 @@ const rcs = require('rename-css-selectors')
 rcs.process('**/*.js', options, err => {
     if (err) return console.error(err)
 
-    console.log('Successfully wrote new files');
+    console.log('Successfully wrote new files')
 }
 ```
 
@@ -188,7 +188,7 @@ Options:
 - cssMapping (string | boolean): writes `renaming_map.json`. If it is a string, the string is the new file name. Default is `true`
 - cssMappingMin (string | boolean): writes `renaming_map_min.json`. If it is a string, the string is the new file name. Default is `false`
 - extended (boolean): instead of a string it writes an object with meta information. Default is `false`
-- json (boolean): writes a `json` instead of a `js`. Default is `true`
+- json (boolean): writes a `json` instead of a `js. Default is `true`
 - overwrite (boolean): if it should overwrite the existing mapping. Default is `false`
 
 ```js
@@ -198,7 +198,7 @@ const rcs = require('rename-css-selectors')
 rcs.generateMapping('./mappings', options, err => {
     if (err) return console.error(err)
 
-    console.log('Successfully wrote mapping files');
+    console.log('Successfully wrote mapping files')
 }
 ```
 
@@ -229,11 +229,11 @@ const rcs = require('rename-css-selectors')
 // loadMapping is synchronous
 // the first parameter can be either a string to the file
 // or the json object directly
-rcs.loadMapping('./renaming_map.json', options);
+rcs.loadMapping('./renaming_map.json', options)
 
 rcs.process('**/*.html', err => {
     ...
-});
+})
 ```
 
 ### includeConfig
