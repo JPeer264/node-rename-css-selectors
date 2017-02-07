@@ -3,6 +3,7 @@
 const app    = require('../');
 const rcs    = require('rcs-core');
 const fs     = require('fs-extra');
+const json   = require('json-extra');
 const expect = require('chai').expect;
 
 const testCwd     = 'test/files/testCache';
@@ -194,13 +195,12 @@ describe('app.js', () => {
         });
 
         it('should create the normal library file', done => {
-            app.generateLibraryFile(testCwd, (err, data) => {
-                const cssMapping = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
+            app.generateMapping(testCwd, (err, data) => {
+                const cssMapping = json.readToObjSync(testCwd + '/renaming_map.json', 'utf8');
 
                 expect(err).to.not.exist;
-
-                // TODO read variable and check values
-                // expect(cssMapping['jp-block']).to.equal('a');
+                expect(cssMapping['.jp-block']).to.equal('a');
+                expect(cssMapping['.jp-block__element']).to.equal('b');
 
                 done();
 
@@ -208,16 +208,15 @@ describe('app.js', () => {
         });
 
         it('should create the minified library file', done => {
-            app.generateLibraryFile(testCwd, {
+            app.generateMapping(testCwd, {
                 cssMapping: false,
                 cssMappingMin: true
             }, (err, data) => {
-                const cssMapping = fs.readFileSync(testCwd + '/renaming_map_min.js', 'utf8');
+                const cssMapping = json.readToObjSync(testCwd + '/renaming_map_min.json', 'utf8');
 
                 expect(err).to.not.exist;
-
-                // TODO read variable and check values
-                // expect(cssMapping['jp-block']).to.equal('a');
+                expect(cssMapping['.a']).to.equal('jp-block');
+                expect(cssMapping['.b']).to.equal('jp-block__element');
 
                 done();
 
@@ -225,15 +224,15 @@ describe('app.js', () => {
         });
 
         it('should create the extended normal library file', done => {
-            app.generateLibraryFile(testCwd, {
+            app.generateMapping(testCwd, {
                 extended: true
             }, (err, data) => {
-                const cssMapping = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
+                const cssMapping = json.readToObjSync(testCwd + '/renaming_map.json', 'utf8');
 
                 expect(err).to.not.exist;
-
-                // TODO read variable and check values
-                // expect(cssMapping['jp-block']).to.equal('a');
+                expect(cssMapping['.jp-block']).to.be.an('object');
+                expect(cssMapping['.jp-block']).to.have.any.keys('type', 'typeChar');
+                expect(cssMapping['.jp-block']['type']).to.equal('class');
 
                 done();
 
@@ -241,54 +240,17 @@ describe('app.js', () => {
         });
 
         it('should create the minified library file', done => {
-            app.generateLibraryFile(testCwd, {
+            app.generateMapping(testCwd, {
                 cssMapping: false,
                 cssMappingMin: true,
                 extended: true
             }, (err, data) => {
-                const cssMapping = fs.readFileSync(testCwd + '/renaming_map_min.js', 'utf8');
+                const cssMappingMin = json.readToObjSync(testCwd + '/renaming_map_min.json', 'utf8');
 
                 expect(err).to.not.exist;
-
-                // TODO read variable and check values
-                // expect(cssMapping['jp-block']).to.equal('a');
-
-                done();
-
-            });
-        });
-
-        it('should create the both library files', done => {
-            app.generateLibraryFile(testCwd, {
-                cssMapping: true,
-                cssMappingMin: true
-            }, (err, data) => {
-                const cssMapping    = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
-                const cssMappingMin = fs.readFileSync(testCwd + '/renaming_map_min.js', 'utf8');
-
-                expect(err).to.not.exist;
-
-                // TODO read variable and check values
-                // expect(cssMapping['jp-block']).to.equal('a');
-
-                done();
-
-            });
-        });
-
-        it('should create the both extended library files', done => {
-            app.generateLibraryFile(testCwd, {
-                extended: true,
-                cssMapping: true,
-                cssMappingMin: true
-            }, (err, data) => {
-                const cssMapping    = fs.readFileSync(testCwd + '/renaming_map.js', 'utf8');
-                const cssMappingMin = fs.readFileSync(testCwd + '/renaming_map_min.js', 'utf8');
-
-                expect(err).to.not.exist;
-
-                // TODO read variable and check values
-                // expect(cssMapping['jp-block']).to.equal('a');
+                expect(cssMappingMin['.a']).to.be.an('object');
+                expect(cssMappingMin['.a']).to.have.any.keys('type', 'typeChar');
+                expect(cssMappingMin['.a']['type']).to.equal('class');
 
                 done();
 

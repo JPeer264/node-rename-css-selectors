@@ -156,7 +156,7 @@ renameCssSelectors.processCss = (pathString, options, cb) => {
 } // /processCss
 
 /**
- * @typedef {Object} generateLFOptions
+ * @typedef {Object} generateMappingOptions
  * @property {Boolean | String} [cssMapping=true]       true will generate the css mapping. A string will generate the css mapping file and the object is called like the string
  * @property {Boolean | String} [cssMappingMin=false]   like the property cssMapping
  * @property {Boolean} [extended=false]                 defines if metadata should be added to the selector
@@ -169,16 +169,20 @@ renameCssSelectors.processCss = (pathString, options, cb) => {
  * @todo  generrate a json config file
  *
  * @param {String} pathString where it should get saved
- * @param {generateLFOptions} [options]
+ * @param {generateMappingOptions} [options]
  */
-renameCssSelectors.generateLibraryFile = (pathString, options, cb) => {
+renameCssSelectors.generateMapping = (pathString, options, cb) => {
+    let newPath     = path.join(pathString, 'renaming_map');
     let mappingName = 'CSS_NAME_MAPPING';
-    let mappingNameMin = 'CSS_NAME_MAPPING_MIN';
+    let fileNameExt = '.json';
+
     const optionsDefault = {
         cssMapping: true,
         cssMappingMin: false,
         extended: false,
-        json: false
+        json: true,
+        origValues: true,
+        isSelectors: true
     }
 
     // set cb if options are not set
@@ -189,59 +193,45 @@ renameCssSelectors.generateLibraryFile = (pathString, options, cb) => {
 
     options = _.merge(optionsDefault, options);
 
-    async.parallel([
-        callback => {
-            // normal classes
-            if (options.cssMapping) {
-                const newPath         = path.join(pathString, 'renaming_map.js');
-                const cssMappingArray = rcs.selectorLibrary.getAll({
-                    origValues: true,
-                    isSelectors: true,
-                    extended: options.extended,
-                });
+    if (options.cssMappingMin) {
+        options.origValues = false;
+        newPath = path.join(pathString, 'renaming_map_min');
+        mappingName = 'CSS_NAME_MAPPING_MIN';
+    }
 
-                if (typeof options.cssMapping === 'string') {
-                    mappingName = options.cssMapping;
-                }
+    if (typeof options.cssMappingMin === 'string') {
+        mappingName = options.cssMappingMin;
+    }
 
-                rcs.helper.save(newPath, `var ${mappingName} = ${rcs.helper.objectToJson(cssMappingArray)} ;`, (err, data) => {
-                    if (err) callback(err);
+    if (typeof options.cssMapping === 'string') {
+        mappingName = options.cssMapping;
+    }
 
-                    callback(null, data);
-                });
-            } else {
-                callback(null);
-            }
-        },
-        callback => {
-            // compressed classes
-            if (options.cssMappingMin) {
-                const newPathMin      = path.join(pathString, 'renaming_map_min.js');
-                const cssMappingMinArray = rcs.selectorLibrary.getAll({
-                    origValues: false,
-                    isSelectors: true,
-                    extended: options.extended,
-                });
-
-                if (typeof options.cssMapping === 'string') {
-                    mappingName = options.cssMapping;
-                }
-
-                rcs.helper.save(newPathMin, `var ${mappingNameMin} = ${rcs.helper.objectToJson(cssMappingMinArray)} ;`, (err, data) => {
-                    if (err) callback(err);
-
-                    callback(null, data);
-                });
-            } else {
-                callback(null);
-            }
-        }
-    ], (err, results) => {
-        if (err) return cb(err);
-
-        return cb(null);
+    const cssMappingArray = rcs.selectorLibrary.getAll({
+        extended: options.extended,
+        origValues: options.origValues,
+        isSelectors: options.isSelectors
     });
-}; // /generateLibraryFile
+
+    let cssMappingJsonString = rcs.helper.objectToJson(cssMappingArray);
+    let writeData = cssMappingJsonString;
+
+    // no json
+    if (!options.json) {
+        writeData   = `var ${ mappingName } = ${ cssMappingJsonString };`
+        fileNameExt = '.js';
+    }
+
+    rcs.helper.save(`${ newPath }${ fileNameExt }`, writeData, (err, data) => {
+        if (err) cb(err);
+
+        cb(null, data);
+    });
+}; // /generateMapping
+
+renameCssSelectors.loadMapping = (pathString, options) => {
+
+}; // /loadMapping
 
 /**
  * includes .rcsrc - if not found it will include "rcs" in package.json
