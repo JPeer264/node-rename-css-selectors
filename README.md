@@ -5,7 +5,7 @@
 
 This module renames all CSS selectors in the given files. It will collect all selectors from the given CSS files. Do not worry about your selectors, `rcs` will do it for you.
 
-**NOT YET IMPLEMENTED** You can also use a config file, if you already had other projects with the same classes. So all your projects have the same minified selector names - always.
+You can also use a config file with the combination of [generateMapping](#generateMapping) and [loadMapping](#loadMapping), if you already had other projects with the same classes. So all your projects have the same minified selector names - always.
 
 ## Contents
 
@@ -107,7 +107,8 @@ Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
 
 - [processCss](#processcss)
 - [process](#process)
-- [generateLibraryFile](#generatelibraryfile)
+- [generateMapping](#generateMapping)
+- [loadMapping](#loadMapping)
 - [includeConfig](#includeconfig)
 
 ### processCss
@@ -168,26 +169,26 @@ rcs.process('**/*.js', options, err => {
 }
 ```
 
-### generateLibraryFile
+### generateMapping
 
-**generateLibraryFile(pathLocation[, options], callback)**
+**generateMapping(pathLocation[, options], callback)**
 
-> *Note:* if you are using the options either cssMapping or cssMappingMin must be set to true
+> *Note:* if you are using the options either `cssMapping` or `cssMappingMin must be set to true. Both to `true` at the same time are not valid.
 
 Generates mapping files: all minified, all original selectors or both. They are stored as object in a variable. The file is named as `renaming_map.js` or `renaming_map_min.js`.
 
 Options:
 
-- cssMapping (boolean): writes `renaming_map.js`. Default is `true`
-- cssMappingMin (boolean): writes `renaming_map_min.js`. Default is `false`
+- cssMapping (string | boolean): writes `renaming_map.js`. If it is a string, the string is the new file name. Default is `true`
+- cssMappingMin (string | boolean): writes `renaming_map_min.js`. If it is a string, the string is the new file name. Default is `false`
 - extended (boolean): instead of a string it writes an object with meta information. Default is `false`
-- **NOT YET IMPLEMENTED** json (boolean): writes an json instead of a js. Default is `false`
+- json (boolean): writes an json instead of a js. Default is `true`
 
 ```js
 const rcs = require('rename-css-selectors')
 
 // the same for html or other files
-rcs.generateLibraryFile('./mappings', options, err => {
+rcs.generateMapping('./mappings', options, err => {
     if (err) return console.error(err)
 
     console.log('Successfully wrote mapping files');
@@ -198,9 +199,34 @@ Output in `renaming_map_min.js`:
 
 ```js
 var CSS_NAME_MAPPING_MIN = {
-    'e': 'any-class',
-    't': 'another-class'
+    '.e': 'any-class',
+    '.t': 'another-class'
 };
+```
+
+### loadMapping
+
+**loadMapping(pathToMapping[, options])**
+
+> *Note:* If you include a file, it **MUST** be the json generated mapping.
+
+Loads the previous generated mapping. This ensures that all your projects have all the time the same renamed selectors.
+
+Options:
+
+- origValues (boolean): Wether the cssMappingMin (`false`) or cssMapping (`true`) should get loaded. Default is `true`
+
+```js
+const rcs = require('rename-css-selectors')
+
+// loadMapping is synchronous
+// the first parameter can be either a string to the file
+// or the json object directly
+rcs.loadMapping('./renaming_map_min.json', options);
+
+rcs.process('**/*.html', err => {
+    ...
+});
 ```
 
 ### includeConfig

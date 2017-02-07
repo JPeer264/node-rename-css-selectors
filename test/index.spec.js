@@ -258,6 +258,107 @@ describe('app.js', () => {
         });
     });
 
+    describe('load mapping', () => {
+        beforeEach(done => {
+            app.processCss('**/*.css', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, (err, data) => {
+                app.generateMapping(testCwd, (err, data) => {
+                    rcs.selectorLibrary.selectors           = {};
+                    rcs.selectorLibrary.compressedSelectors = {};
+                    rcs.selectorLibrary.excludes            = [];
+                    rcs.nameGenerator.resetCountForTests();
+
+                    done();
+                });
+            });
+        });
+
+        it('should load from an object', done => {
+            const cssMapping = json.readToObjSync(testCwd + '/renaming_map.json', 'utf8');
+
+            app.loadMapping(cssMapping);
+
+            app.process('**/*.html', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, (err, data) => {
+                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+
+                expect(err).to.not.exist;
+                expect(newFile).to.equal(expectedFile);
+
+                done();
+            });
+        });
+
+        it('should load from a filestring', done => {
+            app.loadMapping(testCwd + '/renaming_map.json');
+
+            app.process('**/*.html', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, (err, data) => {
+                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+
+                expect(err).to.not.exist;
+                expect(newFile).to.equal(expectedFile);
+
+                done();
+            });
+        });
+
+        it('should load nothing as it does not exist', done => {
+            app.loadMapping(testCwd + '/doesnotexist.json');
+
+            app.process('**/*.html', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, (err, data) => {
+                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+
+                expect(err).to.not.exist;
+                expect(newFile).to.not.equal(expectedFile);
+
+                done();
+            });
+        });
+
+        it('should load from a filestring', done => {
+            app.processCss('**/*.css', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, (err, data) => {
+                app.generateMapping(testCwd, { cssMappingMin: true }, (err, data) => {
+                    rcs.selectorLibrary.selectors           = {};
+                    rcs.selectorLibrary.compressedSelectors = {};
+                    rcs.selectorLibrary.excludes            = [];
+                    rcs.nameGenerator.resetCountForTests();
+
+                    app.loadMapping(testCwd + '/renaming_map_min.json', { origValues: false });
+
+                    app.process('**/*.html', {
+                        newPath: testCwd,
+                        cwd: fixturesCwd
+                    }, (err, data) => {
+                        let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
+                        let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+
+                        expect(err).to.not.exist;
+                        expect(newFile).to.equal(expectedFile);
+
+                        done();
+                    });
+                });
+                });
+            });
+
+    });
+
     describe('include config', () => {
         it('should set the config with package.json', done => {
             // include config
