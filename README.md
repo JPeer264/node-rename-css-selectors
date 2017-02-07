@@ -30,7 +30,11 @@ yarn add rename-css-selectors
 ## Usage
 
 ```js
-const rcs = require('rename-css-selectors')
+const rcs = require('rename-css-selectors');
+
+// if you have some generated mappings - load them!
+// you can also specify the string although it does not exist yet.
+rcs.loadMapping('./renaming_map.json');
 
 // first you have to process the css files
 // to get a list of variables you want to minify
@@ -41,6 +45,12 @@ rcs.processCss('**/*.css', options, err => {
     // now it is time to process all other files
     rcs.process([ '**/*.js', '**/*.html' ], options, err => {
         // that's it
+
+        // maybe you want to add the new selectors to your previous generated mappings
+        // do not worry, your old settings are still here, in case you used `loadMapping`
+        rcs.generateMapping('./', { overwrite: true }, err => {
+            // the mapping file is now saved
+        });
     });
 });
 ```
@@ -98,10 +108,6 @@ Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
     ]
 }
 ```
-
-### Include renamed classes from other project
-
-**todo**
 
 ## Methods
 
@@ -173,16 +179,17 @@ rcs.process('**/*.js', options, err => {
 
 **generateMapping(pathLocation[, options], callback)**
 
-> *Note:* if you are using the options either `cssMapping` or `cssMappingMin must be set to true. Both to `true` at the same time are not valid.
+> *Note:* if you are using the options either `cssMapping` or `cssMappingMin` must be set to true. Both to `true` at the same time are not valid.
 
-Generates mapping files: all minified, all original selectors or both. They are stored as object in a variable. The file is named as `renaming_map.js` or `renaming_map_min.js`.
+Generates mapping files: all minified, all original selectors or both. They are stored as object in a variable. The file is named as `renaming_map.json` or `renaming_map_min.json`.
 
 Options:
 
-- cssMapping (string | boolean): writes `renaming_map.js`. If it is a string, the string is the new file name. Default is `true`
-- cssMappingMin (string | boolean): writes `renaming_map_min.js`. If it is a string, the string is the new file name. Default is `false`
+- cssMapping (string | boolean): writes `renaming_map.json`. If it is a string, the string is the new file name. Default is `true`
+- cssMappingMin (string | boolean): writes `renaming_map_min.json`. If it is a string, the string is the new file name. Default is `false`
 - extended (boolean): instead of a string it writes an object with meta information. Default is `false`
-- json (boolean): writes an json instead of a js. Default is `true`
+- json (boolean): writes a `json` instead of a `js`. Default is `true`
+- overwrite (boolean): if it should overwrite the existing mapping. Default is `false`
 
 ```js
 const rcs = require('rename-css-selectors')
@@ -222,7 +229,7 @@ const rcs = require('rename-css-selectors')
 // loadMapping is synchronous
 // the first parameter can be either a string to the file
 // or the json object directly
-rcs.loadMapping('./renaming_map_min.json', options);
+rcs.loadMapping('./renaming_map.json', options);
 
 rcs.process('**/*.html', err => {
     ...

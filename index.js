@@ -182,7 +182,8 @@ renameCssSelectors.generateMapping = (pathString, options, cb) => {
         extended: false,
         json: true,
         origValues: true,
-        isSelectors: true
+        isSelectors: true,
+        overwrite: false
     }
 
     // set cb if options are not set
@@ -222,7 +223,7 @@ renameCssSelectors.generateMapping = (pathString, options, cb) => {
         fileNameExt = '.js';
     }
 
-    rcs.helper.save(`${ newPath }${ fileNameExt }`, writeData, (err, data) => {
+    rcs.helper.save(`${ newPath }${ fileNameExt }`, writeData, { overwrite: options.overwrite }, (err, data) => {
         if (err) cb(err);
 
         cb(null, data);

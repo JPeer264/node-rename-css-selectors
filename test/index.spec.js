@@ -256,6 +256,29 @@ describe('app.js', () => {
 
             });
         });
+
+        it('should overwrite mapping files', done => {
+            app.generateMapping(testCwd, (err, data) => {
+                app.generateMapping(testCwd, { overwrite: true }, (err2, data) => {
+                    expect(err).to.not.exist;
+                    expect(err2).to.not.exist;
+
+                    done();
+                });
+            });
+        });
+
+        it('should not overwrite mapping files', done => {
+            app.generateMapping(testCwd, (err, data) => {
+                app.generateMapping(testCwd, (err2, data) => {
+                    expect(err).to.not.exist;
+                    expect(err2).to.exist;
+                    expect(err2.message).to.equal('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
+
+                    done();
+                });
+            });
+        });
     });
 
     describe('load mapping', () => {
