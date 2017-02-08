@@ -731,9 +731,9 @@ qs@~6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-rcs-core@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.5.0.tgz#e6c3f732b326f80eba13445f9e62f9fcaaf4b599"
+rcs-core@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.5.1.tgz#7fb06c0a564a6757780193c5cee4d28b28e0de9d"
   dependencies:
     decimal-to-any "^1.0.0"
     fs-extra "^2.0.0"
