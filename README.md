@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/JPeer264/node-rename-css-selectors.svg?branch=master)](https://travis-ci.org/JPeer264/node-rename-css-selectors)
 [![Coverage Status](https://coveralls.io/repos/github/JPeer264/node-rename-css-selectors/badge.svg?branch=master)](https://coveralls.io/github/JPeer264/node-rename-css-selectors?branch=master)
 
+> **Note:** Please make sure your files are not minified/uglified. Do that after processing it with `rename-css-selectors`
+
 This module renames all CSS selectors in the given files. It will collect all selectors from the given CSS files. Do not worry about your selectors, `rcs` will do it for you.
 
 You can also use a config file with the combination of [generateMapping](#generateMapping) and [loadMapping](#loadMapping), if you already had other projects with the same classes. So all your projects have the same minified selector names - always.
