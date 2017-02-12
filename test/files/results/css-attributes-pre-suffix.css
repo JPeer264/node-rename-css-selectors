@@ -1,0 +1,11 @@
+.prefix-selector-suffix[class*="block"] {
+}
+
+.prefix-block-suffix[class*="block"] {
+}
+
+.prefix-a-suffix[id^="prefix-pre-"] {
+}
+
+.prefix-b-suffix[class$="ctor-suffix"] {
+}

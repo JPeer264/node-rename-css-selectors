@@ -1,0 +1,11 @@
+.selector[class*="block"] {
+}
+
+.block[class*="block"] {
+}
+
+.a[id^="pre-"] {
+}
+
+.b[class$="ctor"] {
+}

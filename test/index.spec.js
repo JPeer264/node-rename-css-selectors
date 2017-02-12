@@ -13,9 +13,11 @@ const resultsCwd  = 'test/files/results';
 describe('app.js', () => {
     beforeEach(() => {
         // reset counter and selectors for tests
-        rcs.selectorLibrary.selectors           = {};
-        rcs.selectorLibrary.compressedSelectors = {};
         rcs.selectorLibrary.excludes            = [];
+        rcs.selectorLibrary.selectors           = {};
+        rcs.selectorLibrary.attributeSelectors  = {};
+        rcs.selectorLibrary.compressedSelectors = {};
+
         rcs.nameGenerator.resetCountForTests();
     });
 
@@ -25,7 +27,7 @@ describe('app.js', () => {
 
     describe('processing', () => {
         it('should process css files', done => {
-            app.process('**/*.css', {
+            app.process('**/style*.css', {
                 collectSelectors: true,
                 newPath: testCwd,
                 cwd: fixturesCwd
@@ -71,7 +73,7 @@ describe('app.js', () => {
         // duplicated code from the test before
         // but another function - especially for css
         it('should process css files and prefix them', done => {
-            app.processCss('**/*.css', {
+            app.processCss('**/style*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd,
                 prefix: 'prefixed-'
@@ -87,7 +89,7 @@ describe('app.js', () => {
         });
 
         it('should process css files with processCss', done => {
-            app.processCss('**/*.css', {
+            app.processCss('**/style*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
@@ -108,7 +110,7 @@ describe('app.js', () => {
         });
 
         it('should process css files without options', done => {
-            app.processCss(fixturesCwd + '/**/*.css', (err, data) => {
+            app.processCss(fixturesCwd + '/**/style*.css', (err, data) => {
                 let newFile       = fs.readFileSync('./rcs/' + fixturesCwd + '/style.css', 'utf8');
                 let expectedFile  = fs.readFileSync(resultsCwd + '/style.css', 'utf8');
 
@@ -121,8 +123,46 @@ describe('app.js', () => {
             });
         });
 
+        it('should replace the selector attributes correctly', done => {
+            app.processCss('css-attributes.css', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, err => {
+                expect(fs.readFileSync(testCwd + '/css-attributes.css', 'utf8')).to.equal(fs.readFileSync(resultsCwd + '/css-attributes.css', 'utf8'));
+
+                done();
+            });
+        });
+
+        it('should replace the selector attributes with pre and suffixes correctly', done => {
+            app.processCss('css-attributes.css', {
+                prefix: 'prefix-',
+                suffix: '-suffix',
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, err => {
+                expect(fs.readFileSync(testCwd + '/css-attributes.css', 'utf8')).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-pre-suffix.css', 'utf8'));
+
+                done();
+            });
+        });
+
+        it('should replace the selector attributes without caring about attribute selectors', done => {
+            app.processCss('css-attributes.css', {
+                prefix: 'prefix-',
+                suffix: '-suffix',
+                ignoreAttributeSelector: true,
+                newPath: testCwd,
+                cwd: fixturesCwd
+            }, err => {
+                expect(fs.readFileSync(testCwd + '/css-attributes.css', 'utf8')).to.equal(fs.readFileSync(resultsCwd + '/css-attributes-ignore.css', 'utf8'));
+
+                done();
+            });
+        });
+
         it('should process css files and flatten the directories', done => {
-            app.process('**/*.css', {
+            app.process('**/style*.css', {
                 collectSelectors: true,
                 flatten: true,
                 newPath: testCwd,
@@ -199,7 +239,7 @@ describe('app.js', () => {
 
     describe('generating files', () => {
         beforeEach(done => {
-            app.processCss('**/*.css', {
+            app.processCss('**/style*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
@@ -341,7 +381,7 @@ describe('app.js', () => {
 
     describe('load mapping', () => {
         beforeEach(done => {
-            app.processCss('**/*.css', {
+            app.processCss('**/style*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
@@ -410,7 +450,7 @@ describe('app.js', () => {
         });
 
         it('should load from a filestring', done => {
-            app.processCss('**/*.css', {
+            app.processCss('**/style*.css', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
