@@ -4,8 +4,8 @@
   "description": "Rename css classes and id's in files",
   "main": "./index.js",
   "scripts": {
-    "test": "mocha --recursive",
-    "coverage": "istanbul cover _mocha -- --recursive",
+    "test": "find ./test/** ./lib/**/__tests__ -name *.spec.js | xargs mocha",
+    "coverage": "istanbul cover _mocha -- -R spec test lib",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },
   "rcs": {
