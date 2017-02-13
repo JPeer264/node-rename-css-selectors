@@ -145,7 +145,7 @@ rcs.processCss('**/*.css', options, err => {
     if (err) return console.error(err)
 
     console.log('Successfully wrote new files and stored values')
-}
+})
 ```
 
 ### process
@@ -175,7 +175,7 @@ rcs.process('**/*.js', options, err => {
     if (err) return console.error(err)
 
     console.log('Successfully wrote new files')
-}
+})
 ```
 
 ### generateMapping
