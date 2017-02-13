@@ -789,8 +789,8 @@ qs@~6.2.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
 rcs-core:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.6.0.tgz#f3417fd4a6e763dc9ad7c5b375bd57616518d503"
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.7.0.tgz#9b45bb9dd7ca4aaa0ee350bd6d71cdd6831f1754"
   dependencies:
     array-includes "^3.0.2"
     decimal-to-any "^1.0.0"
