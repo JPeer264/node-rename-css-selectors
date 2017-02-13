@@ -48,6 +48,24 @@ describe('app.js', () => {
             });
         });
 
+        it('should process synchronously css files', () => {
+            app.processCssSync('**/style*.css', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            });
+
+            let newFile       = fs.readFileSync(testCwd + '/style.css', 'utf8');
+            let newFile2      = fs.readFileSync(testCwd + '/style2.css', 'utf8');
+            let newFile3      = fs.readFileSync(testCwd + '/subdirectory/style.css', 'utf8');
+            let expectedFile  = fs.readFileSync(resultsCwd + '/style.css', 'utf8');
+            let expectedFile2 = fs.readFileSync(resultsCwd + '/style2.css', 'utf8');
+            let expectedFile3 = fs.readFileSync(resultsCwd + '/subdirectory/style.css', 'utf8');
+
+            expect(newFile).to.equal(expectedFile);
+            expect(newFile2).to.equal(expectedFile2);
+            expect(newFile3).to.equal(expectedFile3);
+        });
+
         it('should process css files as arrays', done => {
             app.process(['**/style.css', '**/style2.css'], {
                 collectSelectors: true,
@@ -68,6 +86,24 @@ describe('app.js', () => {
 
                 done();
             });
+        });
+
+        it('should process synchornously css files as arrays', () => {
+            app.processCssSync(['**/style.css', '**/style2.css'], {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            })
+
+            let newFile       = fs.readFileSync(testCwd + '/style.css', 'utf8');
+            let newFile2      = fs.readFileSync(testCwd + '/style2.css', 'utf8');
+            let newFile3      = fs.readFileSync(testCwd + '/subdirectory/style.css', 'utf8');
+            let expectedFile  = fs.readFileSync(resultsCwd + '/style.css', 'utf8');
+            let expectedFile2 = fs.readFileSync(resultsCwd + '/style2.css', 'utf8');
+            let expectedFile3 = fs.readFileSync(resultsCwd + '/subdirectory/style.css', 'utf8');
+
+            expect(newFile).to.equal(expectedFile);
+            expect(newFile2).to.equal(expectedFile2);
+            expect(newFile3).to.equal(expectedFile3);
         });
 
         // duplicated code from the test before
@@ -213,6 +249,31 @@ describe('app.js', () => {
                     done();
                 });
             });
+        });
+
+        it('should process all files synchronously', () => {
+            let newFile;
+            let expectedFile;
+
+            app.processCssSync('style.css', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            });
+
+            app.processSync('**/*.txt', {
+                newPath: testCwd,
+                cwd: fixturesCwd
+            });
+
+            newFile      = fs.readFileSync(testCwd + '/main.txt', 'utf8');
+            expectedFile = fs.readFileSync(resultsCwd + '/main.txt', 'utf8');
+
+            expect(newFile).to.equal(expectedFile);
+
+            newFile      = fs.readFileSync(testCwd + '/style.css', 'utf8');
+            expectedFile = fs.readFileSync(resultsCwd + '/style.css', 'utf8');
+
+            expect(newFile).to.equal(expectedFile);
         });
 
         it('should not overwrite original files', done => {
