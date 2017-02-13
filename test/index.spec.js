@@ -317,8 +317,16 @@ describe('app.js', () => {
                 expect(cssMapping['.jp-block__element']).to.equal('b');
 
                 done();
-
             });
+        });
+
+        it('should create the normal mapping file synchornously', () => {
+            app.generateMappingSync(testCwd);
+
+            const cssMapping = json.readToObjSync(testCwd + '/renaming_map.json', 'utf8');
+
+            expect(cssMapping['.jp-block']).to.equal('a');
+            expect(cssMapping['.jp-block__element']).to.equal('b');
         });
 
         it('should create the minified mapping file', done => {

@@ -211,6 +211,60 @@ renameCssSelectors.processCss = (pathString, options, cb) => {
 } // /processCss
 
 /**
+ * The synchronous method of generateMapping
+ */
+renameCssSelectors.generateMappingSync = (pathString, options) => {
+    let fileName    = 'renaming_map';
+    let fileNameExt = '.json';
+    let mappingName = 'CSS_NAME_MAPPING';
+
+    const optionsDefault = {
+        cssMapping: true,
+        cssMappingMin: false,
+        extended: false,
+        json: true,
+        origValues: true,
+        isSelectors: true,
+        overwrite: false
+    }
+
+    options = _.merge(optionsDefault, options);
+
+    if (options.cssMappingMin) {
+        options.origValues = false;
+        mappingName = 'CSS_NAME_MAPPING_MIN';
+        fileName = fileName + '_min';
+    }
+
+    if (typeof options.cssMappingMin === 'string') {
+        mappingName = options.cssMappingMin;
+        fileName = options.cssMappingMin;
+    }
+
+    if (typeof options.cssMapping === 'string') {
+        fileName = options.cssMapping;
+    }
+
+    const cssMappingArray = rcs.selectorLibrary.getAll({
+        extended: options.extended,
+        origValues: options.origValues,
+        isSelectors: options.isSelectors
+    });
+
+    let cssMappingJsonString = rcs.helper.objectToJson(cssMappingArray);
+    let writeData = cssMappingJsonString;
+    let newPath = path.join(pathString, fileName);
+
+    // no json
+    if (!options.json) {
+        writeData   = `var ${ mappingName } = ${ cssMappingJsonString };`
+        fileNameExt = '.js';
+    }
+
+    rcs.helper.saveSync(`${ newPath }${ fileNameExt }`, writeData, { overwrite: options.overwrite });
+} // /generateMappingSync
+
+/**
  * @typedef {Object} generateMappingOptions
  * @property {Boolean | String} [cssMapping=true]       true will generate the css mapping. A string will generate the css mapping file and the object is called like the string
  * @property {Boolean | String} [cssMappingMin=false]   like the property cssMapping
