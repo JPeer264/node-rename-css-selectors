@@ -22,9 +22,9 @@ renameCssSelectors.processCssSync = require('./lib/processCss/processCssSync');
 renameCssSelectors.processCss     = require('./lib/processCss/processCss');
 
 // MAPPING
-renameCssSelectors.generateMappingSync = require('./lib/mapping/generateSync');
-renameCssSelectors.generateMapping = require('./lib/mapping/generate');
-renameCssSelectors.loadMapping = require('./lib/mapping/load');
+renameCssSelectors.generateMappingSync = require('./lib/mapping/generateMappingSync');
+renameCssSelectors.generateMapping = require('./lib/mapping/generateMapping');
+renameCssSelectors.loadMapping = require('./lib/mapping/loadMapping');
 
 // CONFIG
-renameCssSelectors.includeConfig = require('./lib/config/include');
+renameCssSelectors.includeConfig = require('./lib/config/includeConfig');
