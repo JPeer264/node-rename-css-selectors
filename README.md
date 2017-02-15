@@ -32,6 +32,8 @@ yarn add rename-css-selectors
 
 ## Usage
 
+Async:
+
 ```js
 const rcs = require('rename-css-selectors')
 
@@ -56,6 +58,22 @@ rcs.processCss('**/*.css', options, err => {
         })
     })
 })
+```
+
+Sync:
+
+```js
+const rcs = require('rename-css-selectors')
+
+rcs.loadMapping('./renaming_map.json')
+
+try {
+    rcs.processCssSync('**/*.css', options)
+    rcs.processSync([ '**/*.js', '**/*.html' ], options)
+    rcs.generateMappingSync('./', { overwrite: true })
+} catch (error) {
+    console.log(error)
+}
 ```
 
 ## Before/After
