@@ -13,6 +13,7 @@ You can also use a config file with the combination of [generateMapping](#genera
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Before/After](#beforeafter)
 - [RCS Config](#rcs-config)
 - [Methods](#methods)
 - [LICENSE](#license)
@@ -56,6 +57,80 @@ rcs.processCss('**/*.css', options, err => {
     })
 })
 ```
+
+## Before/After
+
+- [CSS](#css)
+- [HTML](#html)
+- [JS](#js)
+- [Others](#others)
+
+### CSS
+
+**Before**
+```css
+.selector {
+    ...
+}
+
+.another-selector {
+    ...
+}
+```
+
+**After**
+```css
+.e {
+    ...
+}
+
+.t {
+    ...
+}
+```
+
+### HTML
+
+> The CSS from before is used
+
+**Before**
+```html
+...
+<div class="selector column">...</div>
+<span class="another-selector"></span>
+...
+```
+
+**After**
+```html
+...
+<div class="e column">...</div>
+<span class="t"></span>
+...
+```
+
+### JS
+
+**Before**
+```js
+...
+$('.selector').addClass('column')
+document.getElementsByClassName('another-selector')
+```
+
+**After**
+
+> `.column` is never triggered, because it never appeared in CSS
+
+```js
+...
+$('.e').addClass('column')
+document.getElementsByClassName('t')
+```
+
+### Others
+
+Every file can be triggered...
 
 ## RCS config
 
