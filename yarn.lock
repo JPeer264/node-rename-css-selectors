@@ -790,9 +790,9 @@ qs@~6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-rcs-core@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.9.3.tgz#180aa2524dfc4a074d817d8f4d8c9a85edc76fb3"
+rcs-core@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-0.11.1.tgz#29fe2dce96a9938da96e55baaf0f4a11bd65a299"
   dependencies:
     array-includes "^3.0.2"
     decimal-to-any "1.0.0"
