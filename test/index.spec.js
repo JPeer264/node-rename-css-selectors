@@ -28,14 +28,14 @@ describe('integration tests', () => {
 
     describe('processing', () => {
         it('should process js files', done => {
-            rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/style.css', 'utf8'));
+            rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
 
             app.process('**/*.txt', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
-                let newFile      = fs.readFileSync(testCwd + '/main.txt', 'utf8');
-                let expectedFile = fs.readFileSync(resultsCwd + '/main.txt', 'utf8');
+                let newFile      = fs.readFileSync(testCwd + '/js/main.txt', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/js/main.txt', 'utf8');
 
                 expect(err).to.not.exist;
                 expect(newFile).to.equal(expectedFile);
@@ -45,14 +45,14 @@ describe('integration tests', () => {
         });
 
         it('should process html files', done => {
-            rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/style.css', 'utf8'));
+            rcs.selectorLibrary.fillLibrary(fs.readFileSync(fixturesCwd + '/css/style.css', 'utf8'));
 
             app.process('**/*.html', {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
-                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
-                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+                let newFile      = fs.readFileSync(testCwd + '/html/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/html/index.html', 'utf8');
 
                 expect(err).to.not.exist;
                 expect(newFile).to.equal(expectedFile);
@@ -88,8 +88,8 @@ describe('integration tests', () => {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
-                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
-                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+                let newFile      = fs.readFileSync(testCwd + '/html/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/html/index.html', 'utf8');
 
                 expect(err).to.not.exist;
                 expect(newFile).to.equal(expectedFile);
@@ -105,8 +105,8 @@ describe('integration tests', () => {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
-                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
-                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+                let newFile      = fs.readFileSync(testCwd + '/html/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/html/index.html', 'utf8');
 
                 expect(err).to.not.exist;
                 expect(newFile).to.equal(expectedFile);
@@ -122,8 +122,8 @@ describe('integration tests', () => {
                 newPath: testCwd,
                 cwd: fixturesCwd
             }, (err, data) => {
-                let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
-                let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+                let newFile      = fs.readFileSync(testCwd + '/html/index.html', 'utf8');
+                let expectedFile = fs.readFileSync(resultsCwd + '/html/index.html', 'utf8');
 
                 expect(err).to.not.exist;
                 expect(newFile).to.not.equal(expectedFile);
@@ -149,8 +149,8 @@ describe('integration tests', () => {
                         newPath: testCwd,
                         cwd: fixturesCwd
                     }, (err, data) => {
-                        let newFile      = fs.readFileSync(testCwd + '/index.html', 'utf8');
-                        let expectedFile = fs.readFileSync(resultsCwd + '/index.html', 'utf8');
+                        let newFile      = fs.readFileSync(testCwd + '/html/index.html', 'utf8');
+                        let expectedFile = fs.readFileSync(resultsCwd + '/html/index.html', 'utf8');
 
                         expect(err).to.not.exist;
                         expect(newFile).to.equal(expectedFile);
