@@ -207,6 +207,7 @@ Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
 ## Methods
 
 - [processCss](#processcss)
+- [processJs](#processjs)
 - [process](#process)
 - [generateMapping](#generateMapping)
 - [loadMapping](#loadMapping)
@@ -238,6 +239,32 @@ rcs.processCss('**/*.css', options, err => {
     if (err) return console.error(err)
 
     console.log('Successfully wrote new files and stored values')
+})
+```
+
+### processJs
+
+**process(src[, options], callback)**
+
+> **Important!** processCss should run first, otherwise there are no minified selectors
+
+Options:
+
+- overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
+- cwd (string): the working directory in which to seach. Default is `process.cwd()`
+- newPath (string): in which folder the new files should go. Default is `rcs`
+- flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
+- jsx (boolean): if the file is a react jsx file. Default is `false`
+
+Example:
+
+```js
+const rcs = require('rename-css-selectors')
+
+rcs.processJs('**/*.js', options, err => {
+    if (err) return console.error(err)
+
+    console.log('Successfully wrote new javascript files')
 })
 ```
 
