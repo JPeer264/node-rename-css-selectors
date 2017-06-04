@@ -219,6 +219,8 @@ Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
 
 Store all matched selectors into the library and saves the new generated file with all renamed selectors.
 
+Sync: `processCssSync`
+
 Options:
 
 - overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
@@ -247,6 +249,8 @@ rcs.processCss('**/*.css', options, err => {
 **process(src[, options], callback)**
 
 > **Important!** processCss should run first, otherwise there are no minified selectors
+
+Sync: `processJsSync`
 
 Options:
 
@@ -277,6 +281,8 @@ rcs.processJs('**/*.js', options, err => {
 > *Note:* If you replace JavaScript files, you might overwrite words within a string which is not supposed to be a css selector
 
 Matches all strings `" "` or `' '` and replaces all matching words which are the same as the stored css values.
+
+Sync: `processSync`
 
 Options:
 
