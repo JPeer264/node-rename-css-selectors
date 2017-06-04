@@ -2,13 +2,10 @@ language: node_js
 sudo: true
 dist: trusty
 node_js:
-  - "4.0"
-  - "5.0"
-  - "6.0"
+  - 4
+  - 6
 install:
-  - npm i -g npm
-  - npm install
-script: npm run test
+  - yarn
 notifications:
   email:
     on_failure: change
