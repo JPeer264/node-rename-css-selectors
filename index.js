@@ -20,6 +20,8 @@ renameCssSelectors.processSync    = require('./lib/process/processSync');
 renameCssSelectors.process        = require('./lib/process/process');
 renameCssSelectors.processCssSync = require('./lib/processCss/processCssSync');
 renameCssSelectors.processCss     = require('./lib/processCss/processCss');
+renameCssSelectors.processJsSync  = require('./lib/processJs/processJsSync');
+renameCssSelectors.processJs      = require('./lib/processJs/processJs');
 
 // MAPPING
 renameCssSelectors.generateMappingSync = require('./lib/mapping/generateMappingSync');
