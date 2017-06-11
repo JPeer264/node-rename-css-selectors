@@ -1,8 +1,8 @@
 // jQuery example
-$('.a');
+$(".a");
 
 // vanillaJS example
-document.getElementsByClassName('b');
-document.getElementById('c');
+document.getElementsByClassName(" b");
+document.getElementById("c");
 
-angular.module('service.reveal');
+angular.module("service.reveal");

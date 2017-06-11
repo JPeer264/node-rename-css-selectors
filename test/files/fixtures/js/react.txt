@@ -18,10 +18,10 @@ class Events extends Component {
 
   renderEvent() {
     if (this.props.events.length === 0) {
-      return (<p class="jp-block jp-pseudo">is</p>);
+      return <p class="jp-block jp-pseudo">is</p>;
     }
 
-    return (<ListView class="jp-block__element" data={this.props.events} />);
+    return <ListView class="jp-block__element" data={this.props.events} />;
   }
 
   render() {
