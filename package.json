@@ -5,6 +5,8 @@
   "main": "./index.js",
   "scripts": {
     "test": "mocha -R spec --recursive test lib",
+    "lint": "eslint lib --ignore-pattern '**/tests/**'",
+    "fix": "eslint lib --ignore-pattern '**/tests/**' --fix",
     "coverage": "istanbul cover _mocha -- -R spec --recursive test lib",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },
@@ -42,6 +44,9 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "^2.11.15",
+    "eslint": "^4.2.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   }
