@@ -13,13 +13,10 @@ const resultsCwd  = 'test/files/results';
 
 describe('integration tests', () => {
     beforeEach(() => {
-        // reset counter and selectors for tests
-        rcs.selectorLibrary.excludes            = [];
-        rcs.selectorLibrary.selectors           = {};
-        rcs.selectorLibrary.attributeSelectors  = {};
-        rcs.selectorLibrary.compressedSelectors = {};
-
-        rcs.nameGenerator.resetCountForTests();
+        rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+        rcs.nameGenerator.reset();
+        rcs.selectorLibrary.reset();
+        rcs.keyframesLibrary.reset();
     });
 
     afterEach(() => {
@@ -69,10 +66,10 @@ describe('integration tests', () => {
                 cwd: fixturesCwd
             }, (err, data) => {
                 app.generateMapping(testCwd, (err, data) => {
-                    rcs.selectorLibrary.selectors           = {};
-                    rcs.selectorLibrary.compressedSelectors = {};
-                    rcs.selectorLibrary.excludes            = [];
-                    rcs.nameGenerator.resetCountForTests();
+                    rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+                    rcs.nameGenerator.reset();
+                    rcs.selectorLibrary.reset();
+                    rcs.keyframesLibrary.reset();
 
                     done();
                 });
@@ -138,10 +135,10 @@ describe('integration tests', () => {
                 cwd: fixturesCwd
             }, (err, data) => {
                 app.generateMapping(testCwd, { cssMappingMin: true }, (err, data) => {
-                    rcs.selectorLibrary.selectors           = {};
-                    rcs.selectorLibrary.compressedSelectors = {};
-                    rcs.selectorLibrary.excludes            = [];
-                    rcs.nameGenerator.resetCountForTests();
+                    rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+                    rcs.nameGenerator.reset();
+                    rcs.selectorLibrary.reset();
+                    rcs.keyframesLibrary.reset();
 
                     app.loadMapping(testCwd + '/renaming_map_min.json', { origValues: false });
 

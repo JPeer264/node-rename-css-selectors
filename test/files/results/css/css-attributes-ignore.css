@@ -4,8 +4,8 @@
 .prefix-b-suffix[class*="block"] {
 }
 
-.prefix-c-suffix[id^="pre-"] {
+.prefix-c-suffix[id^="prefix-pre-"] {
 }
 
-.prefix-d-suffix[class$="ctor"] {
+.prefix-d-suffix[class$="ctor-suffix"] {
 }

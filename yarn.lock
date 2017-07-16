@@ -997,14 +997,14 @@ js-tokens@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@3.6.1, js-yaml@3.x:
+js-yaml@3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.6.1.tgz#6e5fe67d8b205ce4d22fad05b7781e8dadcc4b30"
   dependencies:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-js-yaml@^3.8.4:
+js-yaml@3.x, js-yaml@^3.8.4:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.9.0.tgz#4ffbbf25c2ac963b8299dc74da7e3740de1c18ce"
   dependencies:
@@ -1192,17 +1192,17 @@ mimic-fn@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
 
-"minimatch@2 || 3", minimatch@^3.0.2, minimatch@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.3.tgz#2a4e4090b96b2db06a9d7df01055a62a77c9b774"
-  dependencies:
-    brace-expansion "^1.0.0"
-
-minimatch@^3.0.4:
+"minimatch@2 || 3", minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:
     brace-expansion "^1.1.7"
+
+minimatch@^3.0.2, minimatch@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.3.tgz#2a4e4090b96b2db06a9d7df01055a62a77c9b774"
+  dependencies:
+    brace-expansion "^1.0.0"
 
 minimist@0.0.8, minimist@~0.0.1:
   version "0.0.8"
@@ -1416,9 +1416,9 @@ qs@~6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-rcs-core@1.0.0-alpha.1:
-  version "1.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-1.0.0-alpha.1.tgz#a09005fffa4b2e720501f097e2a60c716a0f7f5c"
+rcs-core@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-1.0.1.tgz#499fcdc54ba7423c1e69fb8c035542b4b9aec0c3"
   dependencies:
     array-includes "^3.0.2"
     ast-traverse "^0.1.1"
