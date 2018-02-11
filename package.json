@@ -39,7 +39,7 @@
     "glob": "^7.1.1",
     "json-extra": "^0.5.0",
     "lodash": "^4.17.4",
-    "rcs-core": "^1.0.3"
+    "rcs-core": "^1.0.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
