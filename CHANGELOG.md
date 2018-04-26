@@ -1,3 +1,7 @@
+1.3.5 - April, 26 2018
+
+* 691303b Chore: update to rcs-core@1.0.5 (JPeer264)
+
 1.3.4 - February, 11 2018
 
 * adb9f09 Chore: update rcs-core to 1.0.4 (closes #14) (#15) (Jan Peer Stöcklmair)
