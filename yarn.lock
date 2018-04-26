@@ -1448,9 +1448,9 @@ qs@~6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-rcs-core@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-1.0.4.tgz#ba364d7f7096a6c154c1744fc4d58839a3169e12"
+rcs-core@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-1.0.5.tgz#6ea3dad913141a6d7388b72ea2a94df1a19c2f05"
   dependencies:
     array-includes "^3.0.2"
     ast-traverse "^0.1.1"
