@@ -1190,6 +1190,10 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
+lodash.merge@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
+
 lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
@@ -1448,9 +1452,9 @@ qs@~6.2.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-rcs-core@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-1.0.5.tgz#6ea3dad913141a6d7388b72ea2a94df1a19c2f05"
+rcs-core@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-2.0.1.tgz#b4ec1b9b5e3a3919397ca0dfc68779d22a358e75"
   dependencies:
     array-includes "^3.0.2"
     ast-traverse "^0.1.1"
@@ -1458,7 +1462,7 @@ rcs-core@1.0.5:
     espree "^3.4.3"
     fs-extra "^2.0.0"
     json-extra "^0.5.0"
-    lodash "^4.17.4"
+    lodash.merge "^4.6.1"
     object.entries "^1.0.4"
     postcss "^6.0.17"
     recast "^0.12.5"
