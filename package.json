@@ -5,8 +5,8 @@
   "main": "./index.js",
   "scripts": {
     "test": "mocha -R spec --recursive test lib",
-    "lint": "eslint lib --ignore-pattern '**/tests/**'",
-    "fix": "eslint lib --ignore-pattern '**/tests/**' --fix",
+    "lint": "eslint lib index.js --ignore-pattern '**/tests/**'",
+    "fix": "npm run lint -- --fix",
     "coverage": "istanbul cover _mocha -- -R spec --recursive test lib",
     "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
   },

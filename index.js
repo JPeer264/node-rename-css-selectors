@@ -1,27 +1,17 @@
-'use strict';
-
-const rcs   = require('rcs-core');
-const fs    = require('fs-extra');
-const path  = require('path');
-const glob  = require('glob');
-const json  = require('json-extra');
-const async = require('async');
-const _     = require('lodash');
-
 /**
  * parses through every single document and renames the names
  *
  * @module renameCssSelectors
  */
-const renameCssSelectors = module.exports = {};
+const renameCssSelectors = {};
 
 // PROCESS
-renameCssSelectors.processSync    = require('./lib/process/processSync');
-renameCssSelectors.process        = require('./lib/process/process');
+renameCssSelectors.processSync = require('./lib/process/processSync');
+renameCssSelectors.process = require('./lib/process/process');
 renameCssSelectors.processCssSync = require('./lib/processCss/processCssSync');
-renameCssSelectors.processCss     = require('./lib/processCss/processCss');
-renameCssSelectors.processJsSync  = require('./lib/processJs/processJsSync');
-renameCssSelectors.processJs      = require('./lib/processJs/processJs');
+renameCssSelectors.processCss = require('./lib/processCss/processCss');
+renameCssSelectors.processJsSync = require('./lib/processJs/processJsSync');
+renameCssSelectors.processJs = require('./lib/processJs/processJs');
 
 // MAPPING
 renameCssSelectors.generateMappingSync = require('./lib/mapping/generateMappingSync');
@@ -30,3 +20,5 @@ renameCssSelectors.loadMapping = require('./lib/mapping/loadMapping');
 
 // CONFIG
 renameCssSelectors.includeConfig = require('./lib/config/includeConfig');
+
+module.exports = renameCssSelectors;
