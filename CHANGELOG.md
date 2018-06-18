@@ -1,3 +1,11 @@
+2.0.0 - June, 18 2018
+
+* b9a751d Feat: update rcs-core and add parserOptions in processJs (closes #16) (JPeer264)
+* 448747a Style: remove eslint warnings (JPeer264)
+* 465aab5 Chore: remove Node 4 support, add v8 and v10 (JPeer264)
+* 569dae2 Style: eslint fix (JPeer264)
+* f1e5e56 Feat: update to rcs-core@2.0.1 (JPeer264)
+
 1.3.5 - April, 26 2018
 
 * 691303b Chore: update to rcs-core@1.0.5 (JPeer264)
