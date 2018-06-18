@@ -258,7 +258,7 @@ Options:
 - cwd (string): the working directory in which to seach. Default is `process.cwd()`
 - newPath (string): in which folder the new files should go. Default is `rcs`
 - flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
-- jsx (boolean): if the file is a react jsx file. Default is `false`
+- parserOptions (object): all available options from `espree`: Default is [here](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/replace.md#js)
 
 Example:
 
