@@ -230,7 +230,7 @@ Options:
 - prefix (string): prefix all triggered selectors. Default is `undefined`
 - suffix (string): suffix all triggered selectors. Default is `undefined`
 - preventRandomName (boolean): does not rename the selectors (good for prefixing/suffixing). Default is `false`
-- ignoreAttributeSelector (boolean): set to true it will not care about CSS attribute selectors e.g.: [class*="selector"]. Default is `false`
+- ignoreAttributeSelectors (boolean): set to true it will not care about CSS attribute selectors e.g.: [class*="selector"]. Default is `false`
 
 Example:
 

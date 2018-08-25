@@ -99,7 +99,7 @@ test.cb('should replace the selector attributes without caring about attribute s
   processCss('css/css-attributes.css', {
     prefix: 'prefix-',
     suffix: '-suffix',
-    ignoreAttributeSelector: true,
+    ignoreAttributeSelectors: true,
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
