@@ -4,17 +4,22 @@
   "description": "Rename css classes and id's in files",
   "main": "./index.js",
   "scripts": {
-    "test": "mocha -R spec --recursive test lib",
-    "lint": "eslint lib index.js --ignore-pattern '**/tests/**'",
+    "test": "nyc ava -s",
+    "lint": "eslint lib index.js test",
     "fix": "npm run lint -- --fix",
-    "coverage": "istanbul cover _mocha -- -R spec --recursive test lib",
-    "coveralls": "npm run coverage && coveralls < coverage/lcov.info"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "rcs": {
     "exclude": [
       "js",
       "no-js"
     ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
   },
   "keywords": [
     "css",
@@ -42,12 +47,14 @@
     "rcs-core": "^2.1.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "ava": "^0.25.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "coveralls": "^2.11.15",
     "eslint": "^4.2.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
+    "nyc": "^12.0.2"
   }
 }
