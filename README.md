@@ -13,8 +13,6 @@ You can also use a config file with the combination of [generateMapping](#genera
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Before/After](#beforeafter)
-- [RCS Config](#rcs-config)
 - [Methods](#methods)
 - [LICENSE](#license)
 
@@ -32,7 +30,7 @@ yarn add rename-css-selectors
 
 ## Usage
 
-Async:
+With callbacks:
 
 ```js
 const rcs = require('rename-css-selectors')
@@ -60,324 +58,62 @@ rcs.processCss('**/*.css', options, err => {
 })
 ```
 
+With promises:
+
+```js
+const rcs = require('rename-css-selectors');
+
+rcs.loadMapping('./renaming_map.json');
+
+rcs.processCss('**/*.css', options)
+    .then(() => rcs.process([ '**/*.js', '**/*.html' ], options))
+    .then(() => rcs.generateMapping('./', { overwrite: true }))
+    .catch(console.error);
+```
+
+With async/await:
+
+```js
+const rcs = require('rename-css-selectors');
+
+rcs.loadMapping('./renaming_map.json');
+
+(async () => {
+    try {
+        await rcs.processCss('**/*.css', options);
+        await rcs.process([ '**/*.js', '**/*.html' ], options);
+        await rcs.generateMapping('./', { overwrite: true });
+    } catch (err) {
+        console.error(err);
+    }
+})();
+```
+
+
 Sync:
 
 ```js
-const rcs = require('rename-css-selectors')
+const rcs = require('rename-css-selectors');
 
-rcs.loadMapping('./renaming_map.json')
+rcs.loadMapping('./renaming_map.json');
 
 try {
-    rcs.processCssSync('**/*.css', options)
-    rcs.processSync([ '**/*.js', '**/*.html' ], options)
-    rcs.generateMappingSync('./', { overwrite: true })
-} catch (error) {
-    console.log(error)
-}
-```
-
-## Before/After
-
-- [CSS](#css)
-- [HTML](#html)
-- [JS](#js)
-- [Others](#others)
-
-### CSS
-
-**Before**
-```css
-.selector {
-    ...
-}
-
-.another-selector {
-    ...
-}
-```
-
-**After**
-```css
-.e {
-    ...
-}
-
-.t {
-    ...
-}
-```
-
-### HTML
-
-> The CSS from before is used
-
-**Before**
-```html
-...
-<div class="selector column">...</div>
-<span class="another-selector"></span>
-...
-```
-
-**After**
-```html
-...
-<div class="e column">...</div>
-<span class="t"></span>
-...
-```
-
-### JS
-
-**Before**
-```js
-...
-$('.selector').addClass('column')
-document.getElementsByClassName('another-selector')
-```
-
-**After**
-
-> `.column` is never triggered, because it never appeared in CSS
-
-```js
-...
-$('.e').addClass('column')
-document.getElementsByClassName('t')
-```
-
-### Others
-
-Every file can be triggered...
-
-## RCS config
-
-> Just create a `.rcsrc` in your project root or you can add everything in your `package.json` with the value `rcs`
-
-- [Example](#example)
-- [Exclude](#exclude-classes-and-ids)
-- [Include from other projects](#include-renamed-classes-from-other-project)
-
-### Example
-
-The `.rcsrc` or the a own config file:
-
-```json
-{
-    "exclude": [
-        "js",
-        "flexbox"
-    ]
-}
-```
-
-The `package.json`:
-
-```json
-{
-    "name": "Your application name",
-    "rcs": {
-        "exclude": [
-            "js",
-            "flexbox"
-        ]
-    }
-}
-```
-
-### Exclude Classes and IDs
-
-`exclude`
-
-What if you are using something such as Modernizr and you do not want to minify some selectors?
-
-Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
-
-```json
-{
-    "exclude": [
-        "js",
-        "flexbox",
-        "canvas",
-        "svg"
-    ]
+    rcs.processCssSync('**/*.css', options);
+    rcs.processSync([ '**/*.js', '**/*.html' ], options);
+    rcs.generateMappingSync('./', { overwrite: true });
+} catch (err) {
+    console.error(err);
 }
 ```
 
 ## Methods
 
-- [processCss](#processcss)
-- [processJs](#processjs)
-- [process](#process)
-- [generateMapping](#generateMapping)
-- [loadMapping](#loadMapping)
-- [includeConfig](#includeconfig)
-
-### processCss
-
-**processCss(src[, options], callback)**
-
-Store all matched selectors into the library and saves the new generated file with all renamed selectors.
-
-Sync: `processCssSync`
-
-Options:
-
-- overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
-- cwd (string): the working directory in which to seach. Default is `process.cwd()`
-- newPath (string): in which folder the new files should go. Default is `rcs`
-- flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
-- prefix (string): prefix all triggered selectors. Default is `undefined`
-- suffix (string): suffix all triggered selectors. Default is `undefined`
-- preventRandomName (boolean): does not rename the selectors (good for prefixing/suffixing). Default is `false`
-- ignoreAttributeSelectors (boolean): set to true it will not care about CSS attribute selectors e.g.: [class*="selector"]. Default is `false`
-
-Example:
-
-```js
-const rcs = require('rename-css-selectors')
-
-rcs.processCss('**/*.css', options, err => {
-    if (err) return console.error(err)
-
-    console.log('Successfully wrote new files and stored values')
-})
-```
-
-### processJs
-
-**process(src[, options], callback)**
-
-> **Important!** processCss should run first, otherwise there are no minified selectors
-
-Sync: `processJsSync`
-
-Options:
-
-- overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
-- cwd (string): the working directory in which to seach. Default is `process.cwd()`
-- newPath (string): in which folder the new files should go. Default is `rcs`
-- flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
-- parserOptions (object): all available options from `espree`: Default is [here](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/replace.md#js)
-
-Example:
-
-```js
-const rcs = require('rename-css-selectors')
-
-rcs.processJs('**/*.js', options, err => {
-    if (err) return console.error(err)
-
-    console.log('Successfully wrote new javascript files')
-})
-```
-
-### process
-
-**process(src[, options], callback)**
-
-> **Important!** processCss should run first, otherwise there are no minified selectors
-
-> *Note:* If you replace JavaScript files, you might overwrite words within a string which is not supposed to be a css selector
-
-Matches all strings `" "` or `' '` and replaces all matching words which are the same as the stored css values.
-
-Sync: `processSync`
-
-Options:
-
-- overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
-- cwd (string): the working directory in which to seach. Default is `process.cwd()`
-- newPath (string): in which folder the new files should go. Default is `rcs`
-- flatten (boolean): flatten the hierarchie - no subfolders. Default is `false`
-
-Example:
-
-```js
-const rcs = require('rename-css-selectors')
-
-// the same for html or other files
-rcs.process('**/*.js', options, err => {
-    if (err) return console.error(err)
-
-    console.log('Successfully wrote new files')
-})
-```
-
-### generateMapping
-
-**generateMapping(pathLocation[, options], callback)**
-
-> *Note:* if you are using the options either `cssMapping` or `cssMappingMin` must be set to true. Both to `true` at the same time are not valid.
-
-Generates mapping files: all minified, all original selectors or both. They are stored as object in a variable. The file is named as `renaming_map.json` or `renaming_map_min.json`.
-
-Options:
-
-- cssMapping (string | boolean): writes `renaming_map.json`. If it is a string, the string is the new file name. Default is `true`
-- cssMappingMin (string | boolean): writes `renaming_map_min.json`. If it is a string, the string is the new file name. Default is `false`
-- extended (boolean): instead of a string it writes an object with meta information. Default is `false`
-- json (boolean): writes a `json` instead of a `js. Default is `true`
-- overwrite (boolean): if it should overwrite the existing mapping. Default is `false`
-
-```js
-const rcs = require('rename-css-selectors')
-
-// the same for html or other files
-rcs.generateMapping('./mappings', options, err => {
-    if (err) return console.error(err)
-
-    console.log('Successfully wrote mapping files')
-}
-```
-
-Output in `renaming_map_min.js`:
-
-```js
-var CSS_NAME_MAPPING_MIN = {
-    '.e': 'any-class',
-    '.t': 'another-class'
-};
-```
-
-### loadMapping
-
-**loadMapping(pathToMapping[, options])**
-
-> *Note:* If you include a file, it **MUST** be the json generated mapping.
-
-Loads the previous generated mapping. This ensures that all your projects have all the time the same renamed selectors.
-
-Options:
-
-- origValues (boolean): Wether the cssMappingMin (`false`) or cssMapping (`true`) should get loaded. Default is `true`
-
-```js
-const rcs = require('rename-css-selectors')
-
-// loadMapping is synchronous
-// the first parameter can be either a string to the file
-// or the json object directly
-rcs.loadMapping('./renaming_map.json', options)
-
-rcs.process('**/*.html', err => {
-    ...
-})
-```
-
-### includeConfig
-
-**includeConfig([pathLocation])**
-
-> All available configs [here](#rcs-config)
-
-RCS will lookup first for a `.rcsrc` of the current directory. If there is no such file, it will lookup for a `package.json` with a `"rcsrc": {}` in it. You can also write any path in the parameters and write your own config file. This function is synchronous.
-
-```js
-const rcs = require('rename-css-selectors')
-
-rcs.includeConfig()
-```
+- [rcs.processCss](docs/api/processCss.md)
+- [rcs.processJs](docs/api/processJs.md)
+- [rcs.process](docs/api/process.md)
+- [rcs.generateMapping](docs/api/generateMapping.md)
+- [rcs.loadMapping](docs/api/loadMapping.md)
+- [rcs.includeConfig](docs/api/includeconfig.md)
 
 # LICENSE
 
