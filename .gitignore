@@ -5,3 +5,4 @@ npm-debug.log
 **/testCache/**
 coverage
 .vscode
+.nyc_output
