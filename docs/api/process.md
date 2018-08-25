@@ -17,9 +17,10 @@ Parameters:
 
 Options:
 
-- overwrite (boolean): ensures that it does not overwrite the same file accidently. Default is `false`
-- cwd (string): the working directory in which to serach. Default is `process.cwd()`
-- newPath (string): in which folder the new files should go. Default is `rcs`
+- overwrite `<Boolean>`: ensures that it does not overwrite the same file accidently. Default is `false`
+- cwd `<String>`: the working directory in which to serach. Default is `process.cwd()`
+- newPath `<String>`: in which folder the new files should go. Default is `rcs`
+- collectSelectors `<Boolean>`: Force the algorithm to collect just CSS selectors and not renaming files
 
 Example:
 

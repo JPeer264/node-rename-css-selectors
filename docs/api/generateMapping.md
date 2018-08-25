@@ -6,6 +6,8 @@
 
 Generates mapping files: all minified, all original selectors or both. They are stored as object in a variable. The file is named as `renaming_map.json` or `renaming_map_min.json`.
 
+Sync: `generateMappingSync`
+
 Parameters:
 - pathLocation `<String>`
 - options `<Object>` *optional*
@@ -13,11 +15,12 @@ Parameters:
 
 Options:
 
-- cssMapping (string | boolean): writes `renaming_map.json`. If it is a string, the string is the new file name. Default is `true`
-- cssMappingMin (string | boolean): writes `renaming_map_min.json`. If it is a string, the string is the new file name. Default is `false`
-- extended (boolean): instead of a string it writes an object with meta information. Default is `false`
-- json (boolean): writes a `json` instead of a `js. Default is `true`
-- overwrite (boolean): if it should overwrite the existing mapping. Default is `false`
+- cssMapping `<String | Boolean>`: writes `renaming_map.json`. If it is a string, the string is the new file name. Default is `true`
+- cssMappingMin `<String | Boolean>`: writes `renaming_map_min.json`. If it is a string, the string is the new file name. Default is `false`
+- extended `<Boolean>`: instead of a string it writes an object with meta information. Default is `false`
+- json `<Boolean>`: writes a `json` instead of a `js`. Default is `true`
+- overwrite `<Boolean>`: if it should overwrite the existing mapping. Default is `false`
+- isSelectors `<Boolean>`: if it should write the selector type into the key (# | .). Default is `true`
 
 Example:
 
