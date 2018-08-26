@@ -37,21 +37,6 @@ test.cb('processing | should process js files', (t) => {
   });
 });
 
-test.cb.only('processing | should process all files automatically', (t) => {
-  app.process.process(['**/*.{js,html}', 'css/style.css'], {
-    newPath: testCwd,
-    cwd: fixturesCwd,
-  }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/js/main.js'), 'utf8');
-    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/main.js'), 'utf8');
-
-    t.falsy(err);
-    t.is(newFile, expectedFile);
-
-    t.end();
-  });
-});
-
 
 test.cb('processing | should process html files', (t) => {
   rcs.selectorLibrary.fillLibrary(fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'));

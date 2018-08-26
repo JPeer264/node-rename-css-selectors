@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import rcs from 'rcs-core';
 
-import { process } from '../';
+import { process } from '..';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
