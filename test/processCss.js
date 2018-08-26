@@ -1,19 +1,19 @@
 import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
-import rcs from 'rcs-core';
+import rcsCore from 'rcs-core';
 
-import processCss from '../lib/processCss/processCss';
+import rcs from '../';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
-  rcs.keyframesLibrary.reset();
+  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.nameGenerator.reset();
+  rcsCore.selectorLibrary.reset();
+  rcsCore.keyframesLibrary.reset();
 });
 
 test.afterEach(() => {
@@ -21,7 +21,7 @@ test.afterEach(() => {
 });
 
 test.cb('should process css files and prefix them', (t) => {
-  processCss('**/style*.css', {
+  rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
     prefix: 'prefixed-',
@@ -36,8 +36,8 @@ test.cb('should process css files and prefix them', (t) => {
   });
 });
 
-test.cb('should process css files with processCss', (t) => {
-  processCss('**/style*.css', {
+test.cb('should process css files with rcs.process.css', (t) => {
+  rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, (err) => {
@@ -58,7 +58,7 @@ test.cb('should process css files with processCss', (t) => {
 });
 
 test.cb('should process css files without options', (t) => {
-  processCss(path.join(fixturesCwd, '/**/style*.css'), (err) => {
+  rcs.process.css(path.join(fixturesCwd, '/**/style*.css'), (err) => {
     const newFile = fs.readFileSync(path.join('./rcs/', fixturesCwd, '/css/style.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
@@ -72,7 +72,7 @@ test.cb('should process css files without options', (t) => {
 });
 
 test.cb('should replace the selector attributes correctly', (t) => {
-  processCss('css/css-attributes.css', {
+  rcs.process.css('css/css-attributes.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
@@ -83,7 +83,7 @@ test.cb('should replace the selector attributes correctly', (t) => {
 });
 
 test.cb('should replace the selector attributes with pre and suffixes correctly', (t) => {
-  processCss('css/css-attributes.css', {
+  rcs.process.css('css/css-attributes.css', {
     prefix: 'prefix-',
     suffix: '-suffix',
     newPath: testCwd,
@@ -96,7 +96,7 @@ test.cb('should replace the selector attributes with pre and suffixes correctly'
 });
 
 test.cb('should replace the selector attributes without caring about attribute selectors', (t) => {
-  processCss('css/css-attributes.css', {
+  rcs.process.css('css/css-attributes.css', {
     prefix: 'prefix-',
     suffix: '-suffix',
     ignoreAttributeSelectors: true,

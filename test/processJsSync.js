@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import rcs from 'rcs-core';
 import path from 'path';
 
-import { processJsSync } from '../';
+import { process } from '../';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
@@ -23,7 +23,7 @@ test.afterEach(() => {
 });
 
 test('should process js files', (t) => {
-  processJsSync('js/main.txt', {
+  process.jsSync('js/main.txt', {
     newPath: testCwd,
     cwd: fixturesCwd,
   });
@@ -35,7 +35,7 @@ test('should process js files', (t) => {
 });
 
 test('should process jsx files', (t) => {
-  processJsSync('js/react.txt', {
+  process.jsSync('js/react.txt', {
     newPath: testCwd,
     cwd: fixturesCwd,
     jsx: true,
@@ -48,7 +48,7 @@ test('should process jsx files', (t) => {
 });
 
 test('should not process jsx files', (t) => {
-  processJsSync('js/react.txt', {
+  process.jsSync('js/react.txt', {
     newPath: testCwd,
     cwd: fixturesCwd,
   });
@@ -60,7 +60,7 @@ test('should not process jsx files', (t) => {
 });
 
 test('should process complex files', (t) => {
-  processJsSync('js/complex.txt', {
+  process.jsSync('js/complex.txt', {
     newPath: testCwd,
     cwd: fixturesCwd,
   });
@@ -72,7 +72,7 @@ test('should process complex files', (t) => {
 });
 
 test('should not process multiple files', (t) => {
-  processJsSync('js/*.txt', {
+  process.jsSync('js/*.txt', {
     newPath: testCwd,
     cwd: fixturesCwd,
     jsx: true,

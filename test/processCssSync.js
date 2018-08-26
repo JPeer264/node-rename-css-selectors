@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import rcs from 'rcs-core';
 
-import processCssSync from '../lib/processCss/processCssSync';
+import { process } from '../';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
@@ -21,7 +21,7 @@ test.afterEach(() => {
 });
 
 test('should process css files synchornously', (t) => {
-  processCssSync('**/style*.css', {
+  process.cssSync('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   });
@@ -39,7 +39,7 @@ test('should process css files synchornously', (t) => {
 });
 
 test('should process css files as arrays synchornously', (t) => {
-  processCssSync(['**/style.css', '**/style2.css'], {
+  process.cssSync(['**/style.css', '**/style2.css'], {
     newPath: testCwd,
     cwd: fixturesCwd,
   });

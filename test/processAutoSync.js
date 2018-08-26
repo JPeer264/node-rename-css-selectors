@@ -3,8 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import rcs from 'rcs-core';
 
-import processSync from '../lib/process/processSync';
-import processCssSync from '../lib/processCss/processCssSync';
+import { process } from '../';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
@@ -25,12 +24,12 @@ test('should process all files synchronously', (t) => {
   let newFile;
   let expectedFile;
 
-  processCssSync('css/style.css', {
+  process.cssSync('css/style.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   });
 
-  processSync('**/*.txt', {
+  process.anySync('**/*.txt', {
     newPath: testCwd,
     cwd: fixturesCwd,
   });
