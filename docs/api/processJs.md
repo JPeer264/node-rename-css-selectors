@@ -1,10 +1,10 @@
-# processJs
+# rcs.process.js
 
-**process(src[, options][, callback])**
+**rcs.process.js(src[, options][, callback])**
 
-> **Important!** processCss should run first, otherwise there are no minified selectors
+> **Important!** process.css should run first, otherwise there are no minified selectors
 
-Sync: `processJsSync`
+Sync: `process.jsSync`
 
 Parameters:
 - src `<String | Array>`
@@ -22,25 +22,25 @@ Example:
 const rcs = require('rename-css-selectors');
 
 // callback
-rcs.processJs('**/*.js', options, (err) => {
+rcs.process.js('**/*.js', options, (err) => {
   if (err) {
     return console.error(err);
   }
 
-  console.log('Successfully wrote new javascript files');
+  console.log('Successfully wrote new JavaScript files');
 });
 
 // promise
-rcs.processJs('**/*.js', options)
-  .then(() => console.log('Successfully wrote new javascript files'))
+rcs.process.js('**/*.js', options)
+  .then(() => console.log('Successfully wrote new JavaScript files'))
   .catch(console.error);
 
 // async/await
 (async () => {
   try {
-    await rcs.processJs('**/*.js', options);
+    await rcs.process.js('**/*.js', options);
 
-    console.log('Successfully wrote new javascript files');
+    console.log('Successfully wrote new JavaScript files');
   } catch (err) {
     console.error(err);
   }

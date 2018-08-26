@@ -39,23 +39,17 @@ const rcs = require('rename-css-selectors')
 // you can also specify the string although it does not exist yet.
 rcs.loadMapping('./renaming_map.json')
 
-// first you have to process the css files
-// to get a list of variables you want to minify
-// options is optional
-rcs.processCss('**/*.css', options, err => {
+rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options, (err) => {
     // all css files are now saved, renamed and stored in the selectorLibrary
+    // also other files are not renamed
+    // that's it
 
-    // now it is time to process all other files
-    rcs.process([ '**/*.js', '**/*.html' ], options, err => {
-        // that's it
-
-        // maybe you want to add the new selectors to your previous generated mappings
-        // do not worry, your old settings are still here, in case you used `loadMapping`
-        rcs.generateMapping('./', { overwrite: true }, err => {
-            // the mapping file is now saved
-        })
-    })
-})
+    // maybe you want to add the new selectors to your previous generated mappings
+    // do not worry, your old settings are still here, in case you used `loadMapping`
+    rcs.generateMapping('./', { overwrite: true }, (err) => {
+        // the mapping file is now saved
+    });
+});
 ```
 
 With promises:
@@ -65,8 +59,7 @@ const rcs = require('rename-css-selectors');
 
 rcs.loadMapping('./renaming_map.json');
 
-rcs.processCss('**/*.css', options)
-    .then(() => rcs.process([ '**/*.js', '**/*.html' ], options))
+rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options)
     .then(() => rcs.generateMapping('./', { overwrite: true }))
     .catch(console.error);
 ```
@@ -80,8 +73,7 @@ rcs.loadMapping('./renaming_map.json');
 
 (async () => {
     try {
-        await rcs.processCss('**/*.css', options);
-        await rcs.process([ '**/*.js', '**/*.html' ], options);
+        await rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options);
         await rcs.generateMapping('./', { overwrite: true });
     } catch (err) {
         console.error(err);
@@ -98,8 +90,7 @@ const rcs = require('rename-css-selectors');
 rcs.loadMapping('./renaming_map.json');
 
 try {
-    rcs.processCssSync('**/*.css', options);
-    rcs.processSync([ '**/*.js', '**/*.html' ], options);
+    rcs.process.autoSync(['**/*.js', '**/*.html', '**/*.css'], options);
     rcs.generateMappingSync('./', { overwrite: true });
 } catch (err) {
     console.error(err);
@@ -108,9 +99,11 @@ try {
 
 ## Methods
 
-- [rcs.processCss](docs/api/processCss.md)
-- [rcs.processJs](docs/api/processJs.md)
-- [rcs.process](docs/api/process.md)
+- [rcs.process.auto](docs/api/processAuto.md)
+- [rcs.process.css](docs/api/processCss.md)
+- [rcs.process.js](docs/api/processJs.md)
+- [rcs.process.html](docs/api/processHtml.md)
+- [rcs.process.any](docs/api/processAny.md)
 - [rcs.generateMapping](docs/api/generateMapping.md)
 - [rcs.loadMapping](docs/api/loadMapping.md)
 - [rcs.includeConfig](docs/api/includeconfig.md)
