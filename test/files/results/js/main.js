@@ -1,9 +1,10 @@
+/* eslint-disable */
 // jQuery example
-$(".jp-block");
+$(".a");
 
 // vanillaJS example
-document.getElementsByClassName(" jp-block__element");
-document.getElementById("jp-block__element--modifier");
+document.getElementsByClassName(" b");
+document.getElementById("c");
 
 const restSpread = {
     weirdFormatting: true,

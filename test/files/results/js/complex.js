@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Finds the index of the first character
  * that's not common between the two given strings.
@@ -17,7 +18,7 @@ function firstDifferenceIndex(string1, string2) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"table":"jp-block","key":"jp-pseudo"};
+module.exports = {"table":"a","key":"e"};
 
 /***/ }),
 /* 523 */
