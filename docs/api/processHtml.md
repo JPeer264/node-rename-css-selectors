@@ -1,4 +1,4 @@
-# process.html
+# rcs.process.html
 
 **rcs.process.html(src[, options][, callback])**
 
