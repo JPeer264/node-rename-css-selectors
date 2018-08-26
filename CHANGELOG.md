@@ -1,3 +1,15 @@
+3.0.0 - August, 26 2018
+
+* 10c303b Docs: improve readme (JPeer264)
+* 6c5eb44 Test: add tests for html (closes #21) (#28) (Jan Peer Stöcklmair)
+* ec8f026 Fix: rename if path is Array and includes just one element (closes #19) (#27) (Jan Peer Stöcklmair)
+* d05ba8b Feat: refactor process (#26) (Jan Peer Stöcklmair)
+* e0e728e Style: other way of exporting (JPeer264)
+* 8e7001f Docs: update to new docs structure (closes #17) (#24) (Jan Peer Stöcklmair)
+* 6625141 Feat: add promise functionality (#25) (Jan Peer Stöcklmair)
+* f241fd0 Style: consistent code (JPeer264)
+* ed9eb26 Test: mocha to ava (#23) (Jan Peer Stöcklmair)
+
 2.0.0 - June, 18 2018
 
 * b9a751d Feat: update rcs-core and add parserOptions in processJs (closes #16) (JPeer264)
