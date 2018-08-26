@@ -3,6 +3,11 @@ module.exports = {
     "plugins": [
         "import"
     ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
     "rules": {
         // disabled until babel rewrite
         "strict": 1,

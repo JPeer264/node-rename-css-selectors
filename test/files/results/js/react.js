@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
@@ -18,10 +19,10 @@ class Events extends Component {
 
   renderEvent() {
     if (this.props.events.length === 0) {
-      return <p class="jp-block jp-pseudo">is</p>;
+      return <p class="a e">is</p>;
     }
 
-    return <ListView class="jp-block__element" data={this.props.events} />;
+    return <ListView class="b" data={this.props.events} />;
   }
 
   render() {

@@ -19,7 +19,11 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "files": [
+      "test/**/*.js",
+      "!test/files/**/*.js"
+    ]
   },
   "keywords": [
     "css",
@@ -44,7 +48,7 @@
     "glob": "^7.1.1",
     "json-extra": "^0.5.0",
     "lodash.merge": "^4.6.1",
-    "rcs-core": "^2.1.0",
+    "rcs-core": "^2.3.1",
     "universalify": "^0.1.2"
   },
   "devDependencies": {
@@ -56,6 +60,7 @@
     "eslint": "^4.2.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0",
+    "html-minifier": "^3.5.20",
     "nyc": "^12.0.2"
   }
 }

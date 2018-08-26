@@ -1,22 +1,22 @@
 import test from 'ava';
 import path from 'path';
-import rcs from 'rcs-core';
+import rcsCore from 'rcs-core';
 import fs from 'fs-extra';
 import json from 'json-extra';
 
 import generateMappingSync from '../lib/mapping/generateMappingSync';
-import processCss from '../lib/processCss/processCss';
+import rcs from '../';
 
 const testCwd = path.join(process.cwd(), '/test/files/testCache');
 const fixturesCwd = path.join(process.cwd(), '/test/files/fixtures');
 
 test.beforeEach.cb((t) => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
-  rcs.keyframesLibrary.reset();
+  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.nameGenerator.reset();
+  rcsCore.selectorLibrary.reset();
+  rcsCore.keyframesLibrary.reset();
 
-  processCss('**/style*.css', {
+  rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {

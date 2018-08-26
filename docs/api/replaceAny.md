@@ -1,10 +1,12 @@
-# rcs.process.css
+# rcs.process.any
 
-**rcs.process.css(src[, options][, callback])**
+**rcs.process.any(src[, options][, callback])**
 
-Store all matched selectors into the library and saves the new generated file with all renamed selectors.
+> **Important!** process.any should run first, otherwise there are no minified selectors
 
-Sync: `process.cssSync`
+Matches all strings (`" "` or `' '`) and replaces all matching words which are the same as the stored CSS selectors.
+
+Sync: `process.anySync`
 
 Parameters:
 - src `<String | Array>`
@@ -14,7 +16,6 @@ Parameters:
 Options:
 
 - *all options of [rcs.process](process.md)*
-- *plus options [rcsCore.fillLibrary](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/filllibraries.md)*
 
 Example:
 
@@ -22,7 +23,7 @@ Example:
 const rcs = require('rename-css-selectors');
 
 // callback
-rcs.process.css('**/*.css', options, (err) => {
+rcs.process.any('**/*.txt', options, (err) => {
   if (err) {
     return console.error(err);
   }
@@ -31,14 +32,14 @@ rcs.process.css('**/*.css', options, (err) => {
 });
 
 // promise
-rcs.process.css('**/*.css', options)
+rcs.process.any('**/*.txt', options)
   .then(() => console.log('Successfully wrote new files and stored values'));
   .catch(console.error);
 
 // async/await
 (async () => {
   try {
-    await rcs.process.css('**/*.css', options);
+    await rcs.process.any('**/*.txt', options);
 
     console.log('Successfully wrote new files and stored values')
   } catch (err) {

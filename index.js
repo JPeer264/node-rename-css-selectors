@@ -1,10 +1,6 @@
 // process
-const processSync = require('./lib/process/processSync');
-const process = require('./lib/process/process');
-const processCssSync = require('./lib/processCss/processCssSync');
-const processCss = require('./lib/processCss/processCss');
-const processJsSync = require('./lib/processJs/processJsSync');
-const processJs = require('./lib/processJs/processJs');
+const typeChooserSync = require('./lib/process/typeChooser/typeChooserSync');
+const typeChooser = require('./lib/process/typeChooser/typeChooser');
 
 // mapping
 const generateMappingSync = require('./lib/mapping/generateMappingSync');
@@ -15,12 +11,18 @@ const loadMapping = require('./lib/mapping/loadMapping');
 const includeConfig = require('./lib/config/includeConfig');
 
 module.exports = {
-  processSync,
-  process,
-  processCssSync,
-  processCss,
-  processJsSync,
-  processJs,
+  process: {
+    cssSync: typeChooserSync('css'),
+    css: typeChooser('css'),
+    jsSync: typeChooserSync('js'),
+    js: typeChooser('js'),
+    htmlSync: typeChooserSync('html'),
+    html: typeChooser('html'),
+    anySync: typeChooserSync('any'),
+    any: typeChooser('any'),
+    autoSync: typeChooserSync('auto'),
+    auto: typeChooser('auto'),
+  },
   generateMappingSync,
   generateMapping,
   loadMapping,
