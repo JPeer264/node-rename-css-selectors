@@ -19,7 +19,11 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "files": [
+      "test/**/*.js",
+      "!test/files/**/*.js"
+    ]
   },
   "keywords": [
     "css",

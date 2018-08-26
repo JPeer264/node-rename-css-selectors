@@ -1,30 +1,31 @@
 import test from 'ava';
 import fs from 'fs-extra';
-import rcs from 'rcs-core';
+import rcsCore from 'rcs-core';
 import path from 'path';
 import json from 'json-extra';
+import { minify } from 'html-minifier';
 
-import app from '..';
+import rcs from '../';
 
 const testCwd = './test/files/testCache';
 const fixturesCwd = './test/files/fixtures';
 const resultsCwd = './test/files/results';
 
 test.beforeEach.cb((t) => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
-  rcs.keyframesLibrary.reset();
+  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.nameGenerator.reset();
+  rcsCore.selectorLibrary.reset();
+  rcsCore.keyframesLibrary.reset();
 
-  app.processCss('**/style*.css', {
+  rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
-    app.generateMapping(testCwd, () => {
-      rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-      rcs.nameGenerator.reset();
-      rcs.selectorLibrary.reset();
-      rcs.keyframesLibrary.reset();
+    rcs.generateMapping(testCwd, () => {
+      rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+      rcsCore.nameGenerator.reset();
+      rcsCore.selectorLibrary.reset();
+      rcsCore.keyframesLibrary.reset();
 
       t.end();
     });
@@ -38,9 +39,9 @@ test.afterEach(() => {
 test.cb('should load from an object', (t) => {
   const cssMapping = json.readToObjSync(path.join(testCwd, '/renaming_map.json'), 'utf8');
 
-  app.loadMapping(cssMapping);
+  rcs.loadMapping(cssMapping);
 
-  app.process('**/*.html', {
+  rcs.process.html('**/*.html', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, (err) => {
@@ -48,16 +49,19 @@ test.cb('should load from an object', (t) => {
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
     t.falsy(err);
-    t.is(newFile, expectedFile);
+    t.is(
+      minify(newFile, { collapseWhitespace: true }),
+      minify(expectedFile, { collapseWhitespace: true }),
+    );
 
     t.end();
   });
 });
 
 test.cb('should load from a filestring', (t) => {
-  app.loadMapping(path.join(testCwd, '/renaming_map.json'));
+  rcs.loadMapping(path.join(testCwd, '/renaming_map.json'));
 
-  app.process('**/*.html', {
+  rcs.process.html('**/*.html', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, (err) => {
@@ -65,16 +69,19 @@ test.cb('should load from a filestring', (t) => {
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
     t.falsy(err);
-    t.is(newFile, expectedFile);
+    t.is(
+      minify(newFile, { collapseWhitespace: true }),
+      minify(expectedFile, { collapseWhitespace: true }),
+    );
 
     t.end();
   });
 });
 
 test.cb('should load nothing as it does not exist', (t) => {
-  app.loadMapping(path.join(testCwd, '/doesnotexist.json'));
+  rcs.loadMapping(path.join(testCwd, '/doesnotexist.json'));
 
-  app.process('**/*.html', {
+  rcs.process.html('**/*.html', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, (err) => {
@@ -82,26 +89,29 @@ test.cb('should load nothing as it does not exist', (t) => {
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
     t.falsy(err);
-    t.not(newFile, expectedFile);
+    t.not(
+      minify(newFile, { collapseWhitespace: true }),
+      minify(expectedFile, { collapseWhitespace: true }),
+    );
 
     t.end();
   });
 });
 
 test.cb('should load from a filestring', (t) => {
-  app.processCss('**/style*.css', {
+  rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
-    app.generateMapping(testCwd, { cssMappingMin: true }, () => {
-      rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-      rcs.nameGenerator.reset();
-      rcs.selectorLibrary.reset();
-      rcs.keyframesLibrary.reset();
+    rcs.generateMapping(testCwd, { cssMappingMin: true }, () => {
+      rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+      rcsCore.nameGenerator.reset();
+      rcsCore.selectorLibrary.reset();
+      rcsCore.keyframesLibrary.reset();
 
-      app.loadMapping(path.join(testCwd, '/renaming_map_min.json'), { origValues: false });
+      rcs.loadMapping(path.join(testCwd, '/renaming_map_min.json'), { origValues: false });
 
-      app.process('**/*.html', {
+      rcs.process.html('**/*.html', {
         newPath: testCwd,
         cwd: fixturesCwd,
       }, (err) => {
@@ -109,7 +119,10 @@ test.cb('should load from a filestring', (t) => {
         const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
         t.falsy(err);
-        t.is(newFile, expectedFile);
+        t.is(
+          minify(newFile, { collapseWhitespace: true }),
+          minify(expectedFile, { collapseWhitespace: true }),
+        );
 
         t.end();
       });

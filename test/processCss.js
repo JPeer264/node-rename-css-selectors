@@ -16,9 +16,7 @@ test.beforeEach(() => {
   rcsCore.keyframesLibrary.reset();
 });
 
-test.afterEach(() => {
-  fs.removeSync(testCwd);
-});
+test.afterEach.always(() => fs.removeSync(testCwd));
 
 test.cb('should process css files and prefix them', (t) => {
   rcs.process.css('**/style*.css', {
@@ -58,14 +56,14 @@ test.cb('should process css files with rcs.process.css', (t) => {
 });
 
 test.cb('should process css files without options', (t) => {
-  rcs.process.css(path.join(fixturesCwd, '/**/style*.css'), (err) => {
-    const newFile = fs.readFileSync(path.join('./rcs/', fixturesCwd, '/css/style.css'), 'utf8');
+  rcs.process.css(path.join(fixturesCwd, 'css/**/style*.css'), (err) => {
+    const newFile = fs.readFileSync(path.join(process.cwd(), 'rcs', fixturesCwd, '/css/style.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
     t.falsy(err);
     t.is(newFile, expectedFile);
 
-    fs.removeSync('./rcs');
+    fs.removeSync(path.join(process.cwd(), 'rcs'));
 
     t.end();
   });
