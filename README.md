@@ -30,7 +30,9 @@ yarn add rename-css-selectors
 
 ## Usage
 
-With callbacks:
+Async:
+
+> There are 3 different ways of writing async `rcs` code: callbacks, promises and async/await
 
 ```js
 const rcs = require('rename-css-selectors')
@@ -39,6 +41,7 @@ const rcs = require('rename-css-selectors')
 // you can also specify the string although it does not exist yet.
 rcs.loadMapping('./renaming_map.json')
 
+// callback
 rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options, (err) => {
     // all css files are now saved, renamed and stored in the selectorLibrary
     // also other files are not renamed
@@ -50,27 +53,13 @@ rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options, (err) => {
         // the mapping file is now saved
     });
 });
-```
 
-With promises:
-
-```js
-const rcs = require('rename-css-selectors');
-
-rcs.loadMapping('./renaming_map.json');
-
+// promise
 rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options)
     .then(() => rcs.generateMapping('./', { overwrite: true }))
     .catch(console.error);
-```
 
-With async/await:
-
-```js
-const rcs = require('rename-css-selectors');
-
-rcs.loadMapping('./renaming_map.json');
-
+// async/await
 (async () => {
     try {
         await rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options);
@@ -80,7 +69,6 @@ rcs.loadMapping('./renaming_map.json');
     }
 })();
 ```
-
 
 Sync:
 
@@ -106,7 +94,7 @@ try {
 - [rcs.process.any](docs/api/processAny.md)
 - [rcs.generateMapping](docs/api/generateMapping.md)
 - [rcs.loadMapping](docs/api/loadMapping.md)
-- [rcs.includeConfig](docs/api/includeconfig.md)
+- [rcs.includeConfig](docs/api/includeConfig.md)
 
 # LICENSE
 
