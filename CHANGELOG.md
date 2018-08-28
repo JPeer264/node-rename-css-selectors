@@ -1,3 +1,7 @@
+3.1.0 - August, 28 2018
+
+* 368693c Feat: rcs.process.pug (closes #22) (#29) (Jan Peer Stöcklmair)
+
 3.0.0 - August, 26 2018
 
 * 10c303b Docs: improve readme (JPeer264)
