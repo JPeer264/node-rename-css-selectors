@@ -18,6 +18,8 @@ module.exports = {
     js: typeChooser('js'),
     htmlSync: typeChooserSync('html'),
     html: typeChooser('html'),
+    pugSync: typeChooserSync('pug'),
+    pug: typeChooser('pug'),
     anySync: typeChooserSync('any'),
     any: typeChooser('any'),
     autoSync: typeChooserSync('auto'),

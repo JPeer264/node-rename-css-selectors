@@ -91,6 +91,7 @@ try {
 - [rcs.process.css](docs/api/processCss.md)
 - [rcs.process.js](docs/api/processJs.md)
 - [rcs.process.html](docs/api/processHtml.md)
+- [rcs.process.pug](docs/api/processPug.md)
 - [rcs.process.any](docs/api/processAny.md)
 - [rcs.generateMapping](docs/api/generateMapping.md)
 - [rcs.loadMapping](docs/api/loadMapping.md)
