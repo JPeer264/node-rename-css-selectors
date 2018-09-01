@@ -1,3 +1,7 @@
+3.1.1 - September, 01 2018
+
+* c05c023 Chore: update rcs-core to 2.4.1 (JPeer264)
+
 3.1.0 - August, 28 2018
 
 * 368693c Feat: rcs.process.pug (closes #22) (#29) (Jan Peer Stöcklmair)
