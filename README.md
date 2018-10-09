@@ -37,9 +37,12 @@ Async:
 ```js
 const rcs = require('rename-css-selectors')
 
+// if you want to include the .rcsrc config
+rcs.includeConfig();
+
 // if you have some generated mappings - load them!
 // you can also specify the string although it does not exist yet.
-rcs.loadMapping('./renaming_map.json')
+rcs.loadMapping('./renaming_map.json');
 
 // callback
 rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options, (err) => {
