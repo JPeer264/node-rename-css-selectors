@@ -1,3 +1,8 @@
+3.1.2 - December, 16 2018
+
+* fbb35f2 Chore: update rcs-core (JPeer264)
+* abaf6d4 Docs: show how to include rcsrc (#33) (Jan Peer Stöcklmair)
+
 3.1.1 - September, 01 2018
 
 * c05c023 Chore: update rcs-core to 2.4.1 (JPeer264)
