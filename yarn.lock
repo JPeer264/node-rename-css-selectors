@@ -4000,9 +4000,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-rcs-core@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-2.4.1.tgz#ffe18938b6ecbcac05f1f9678c46db2073ab0d8f"
+rcs-core@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-2.4.2.tgz#2a8fb4cefd9abf0bff06058b28edc9f191597278"
   dependencies:
     array-includes "^3.0.2"
     ast-traverse "^0.1.1"
