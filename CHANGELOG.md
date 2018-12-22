@@ -1,3 +1,7 @@
+3.1.3 - December, 23 2018
+
+* 7a16dbb Chore: update rcs-core to 2.4.3 (JPeer264)
+
 3.1.2 - December, 16 2018
 
 * fbb35f2 Chore: update rcs-core (JPeer264)
