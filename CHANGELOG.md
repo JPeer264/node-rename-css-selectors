@@ -1,3 +1,7 @@
+3.2.0 - May, 10 2019
+
+* 0b52450 Feat: css variables support / update rcs-core (closes #37) (JPeer264)
+
 3.1.4 - February, 06 2019
 
 * 4c02258 Chore: update rcs-core (JPeer264)
