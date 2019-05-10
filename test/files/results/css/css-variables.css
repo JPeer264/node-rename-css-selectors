@@ -1,0 +1,98 @@
+.d {
+    --a: #111;
+    --b: #f0f0f0;
+    --c: #999;
+}
+
+.e {
+    --a: red;
+    --b: white;
+    --c: black;
+}
+
+.f {
+    color: var(--a);
+    background-color: var(--b);
+    font-size: 1.2em;
+    line-height: 1.4;
+    width: 100%;
+    max-width: 400px;
+    padding: 5px;
+    border: 1px solid var(--c);
+    margin: 0 0 20px;
+}
+
+.g {
+    content: 'block';
+}
+
+.h {
+    content: 'block__element';
+}
+
+.i {
+    content: 'block__element--modifier';
+}
+
+.j{
+    content: 'block--modifier';
+}
+
+.k:before {
+    content: 'before';
+}
+
+.i {
+    content: 'block__element--modifier';
+}
+
+#l {
+    content: 'id';
+}
+
+.m[src] {
+    content: 'attribute';
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+@media screen and (min-width: .40em) {
+    #l {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+/**
+ * a description
+ */
+@media screen and (min-width: 40em)
+
+{
+    #l
+    {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+h1 {
+    color: red;
+}
+
+.n {
+    content: 'reveal';
+    color: #eee;
+    font-size: .5rem;
+}
+
+.o.n {
+    content: 'js reveal';
+}
+
+.p.n {
+    content: 'js reveal';
+}
+
+.q {
+    content: 'js-reveal';
+}
