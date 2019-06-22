@@ -15,6 +15,7 @@ test.beforeEach(() => {
   rcsCore.nameGenerator.reset();
   rcsCore.selectorLibrary.reset();
   rcsCore.keyframesLibrary.reset();
+  rcsCore.cssVariablesLibrary.reset();
 });
 
 test.afterEach(() => {
@@ -105,6 +106,37 @@ test.cb('should fail', (t) => {
   rcs.process.auto('path/**/with/nothing/in/it', (err) => {
     t.truthy(err);
     t.is(err.error, 'ENOENT');
+
+    t.end();
+  });
+});
+
+test.cb('should process auto file with css variables', (t) => {
+  rcs.process.auto('css/css-variables.css', {
+    newPath: testCwd,
+    cwd: fixturesCwd,
+  }, (err) => {
+    const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
+    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables.css'), 'utf8');
+
+    t.falsy(err);
+    t.is(newFile, expectedFile);
+
+    t.end();
+  });
+});
+
+test.cb('should not process auto file with css variables', (t) => {
+  rcs.process.auto('css/css-variables.css', {
+    newPath: testCwd,
+    cwd: fixturesCwd,
+    ignoreCssVariables: true,
+  }, (err) => {
+    const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
+    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables-ignore.css'), 'utf8');
+
+    t.falsy(err);
+    t.is(newFile, expectedFile);
 
     t.end();
   });

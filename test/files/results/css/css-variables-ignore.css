@@ -1,0 +1,98 @@
+.a {
+    --theme-primary: #111;
+    --theme-secondary: #f0f0f0;
+    --theme-tertiary: #999;
+}
+
+.b {
+    --theme-primary: red;
+    --theme-secondary: white;
+    --theme-tertiary: black;
+}
+
+.c {
+    color: var(--theme-primary);
+    background-color: var(--theme-secondary);
+    font-size: 1.2em;
+    line-height: 1.4;
+    width: 100%;
+    max-width: 400px;
+    padding: 5px;
+    border: 1px solid var(--theme-tertiary);
+    margin: 0 0 20px;
+}
+
+.d {
+    content: 'block';
+}
+
+.e {
+    content: 'block__element';
+}
+
+.f {
+    content: 'block__element--modifier';
+}
+
+.g{
+    content: 'block--modifier';
+}
+
+.h:before {
+    content: 'before';
+}
+
+.f {
+    content: 'block__element--modifier';
+}
+
+#i {
+    content: 'id';
+}
+
+.j[src] {
+    content: 'attribute';
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+@media screen and (min-width: .40em) {
+    #i {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+/**
+ * a description
+ */
+@media screen and (min-width: 40em)
+
+{
+    #i
+    {
+        height: .20px;
+        width: .20em;
+    }
+}
+
+h1 {
+    color: red;
+}
+
+.k {
+    content: 'reveal';
+    color: #eee;
+    font-size: .5rem;
+}
+
+.l.k {
+    content: 'js reveal';
+}
+
+.m.k {
+    content: 'js reveal';
+}
+
+.n {
+    content: 'js-reveal';
+}
