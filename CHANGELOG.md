@@ -1,3 +1,7 @@
+3.2.3 - June, 22 2019
+
+* 13610be Fix: process fill html for sync variant (JPeer264)
+
 3.2.2 - June, 22 2019
 
 * 10b644a Fix: fill library from html files (#41) (Jan Peer Stöcklmair)
