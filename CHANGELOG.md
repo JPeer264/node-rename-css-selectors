@@ -1,3 +1,8 @@
+3.2.2 - June, 22 2019
+
+* 10b644a Fix: fill library from html files (#41) (Jan Peer Stöcklmair)
+* 3a28005 Fix: forgot to pass ignoreCssVariables options (closes #39) (#40) (Jan Peer Stöcklmair)
+
 3.2.1 - May, 10 2019
 
 * ce44c98 Chore: seems like something went wrong with the rcs-core release (JPeer264)
