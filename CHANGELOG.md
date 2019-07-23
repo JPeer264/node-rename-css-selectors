@@ -1,3 +1,7 @@
+3.2.4 - July, 23 2019
+
+* 912f491 Chore: update rcs-core (JPeer264)
+
 3.2.3 - June, 22 2019
 
 * 13610be Fix: process fill html for sync variant (JPeer264)
