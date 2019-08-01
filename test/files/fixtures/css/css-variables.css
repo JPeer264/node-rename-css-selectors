@@ -87,6 +87,8 @@ h1 {
 
 .js.reveal {
     content: 'js reveal';
+    margin-right: calc(var(--theme-primary, var(--0px)) - var(--theme-secondary, var(--0px)));
+    margin-bottom: calc(var(--theme-tertiary, var(--0px)) - var(--theme-primary, var(--0px)));
 }
 
 .no-js.reveal {
