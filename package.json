@@ -1,6 +1,6 @@
 {
   "name": "rename-css-selectors",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Rename css classes and id's in files",
   "main": "./index.js",
   "scripts": {
