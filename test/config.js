@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import rcs from 'rcs-core';
 
-import includeConfig from '../lib/config/includeConfig';
+import config from '../lib/config/config';
 
 const testFiles = path.join(process.cwd(), '/test/files');
 
@@ -16,7 +16,7 @@ test.beforeEach(() => {
 
 test.cb('should set the config with package.json', (t) => {
   // include config
-  includeConfig();
+  config.load();
 
   // include new settings
   rcs.selectorLibrary.set(['.js', '.any-value']);
@@ -40,7 +40,7 @@ test.cb('should set the config with .rcsrc', (t) => {
     });
 
   // include config
-  includeConfig();
+  config.load();
 
   // include new settings
   rcs.selectorLibrary.set(['.flexbox', '.any-value']);
@@ -55,13 +55,39 @@ test.cb('should set the config with .rcsrc', (t) => {
 
 test.cb('should set the config with package.json', (t) => {
   // include config
-  includeConfig(path.join(testFiles, '/config.json'));
+  config.load(path.join(testFiles, '/config.json'));
 
   // include new settings
   rcs.selectorLibrary.set(['.own-file', '.any-value']);
 
   t.is(rcs.selectorLibrary.get('own-file'), 'own-file');
   t.is(rcs.selectorLibrary.get('any-value'), 'a');
+
+  t.end();
+});
+
+test.cb('should load ignored patterns', (t) => {
+  const file = '.rcsrc';
+
+  fs.writeFileSync(file, `{
+            "ignore": [
+                "a.js",
+                "./b.css",
+                "/path/to/whatever/c.html",
+                "/d/", // regex
+            ]
+        }`, {
+      encoding: 'utf8',
+    });
+
+  // include config
+  config.load();
+
+  t.true(config.isIgnored("a.js"));
+  t.true(config.isIgnored("./b.css"));
+  t.true(config.isIgnored("d.whatever"));
+
+  fs.removeSync(file);
 
   t.end();
 });

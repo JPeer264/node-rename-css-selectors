@@ -8,7 +8,7 @@ const generateMapping = require('./lib/mapping/generateMapping');
 const loadMapping = require('./lib/mapping/loadMapping');
 
 // config
-const includeConfig = require('./lib/config/includeConfig');
+const config = require('./lib/config/config');
 
 module.exports = {
   process: {
@@ -28,5 +28,5 @@ module.exports = {
   generateMappingSync,
   generateMapping,
   loadMapping,
-  includeConfig,
+  config,
 };
