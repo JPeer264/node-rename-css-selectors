@@ -48,7 +48,7 @@
     "glob": "^7.1.1",
     "json-extra": "^0.5.0",
     "lodash.merge": "^4.6.1",
-    "rcs-core": "^2.6.0",
+    "rcs-core": "^3.0.0",
     "universalify": "^0.1.2"
   },
   "devDependencies": {
