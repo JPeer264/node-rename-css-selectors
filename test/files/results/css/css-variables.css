@@ -87,6 +87,8 @@ h1 {
 
 .o.n {
     content: 'js reveal';
+    margin-right: calc(var(--a, var(--0px)) - var(--b, var(--0px)));
+    margin-bottom: calc(var(--c, var(--0px)) - var(--a, var(--0px)));
 }
 
 .p.n {

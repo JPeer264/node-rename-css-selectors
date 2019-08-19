@@ -1,3 +1,12 @@
+3.2.5 - August, 01 2019
+
+* 5f6bf01 Test: add testcase for #43 (JPeer264)
+* 50388ff Chore: update rcs-core to 2.6.2 (JPeer264)
+
+3.2.4 - July, 23 2019
+
+* 912f491 Chore: update rcs-core (JPeer264)
+
 3.2.3 - June, 22 2019
 
 * 13610be Fix: process fill html for sync variant (JPeer264)
