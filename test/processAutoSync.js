@@ -11,10 +11,12 @@ const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 test.beforeEach(() => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
+  rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
+  rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcsCore.keyframesLibrary.reset();
+  rcsCore.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.cssVariablesLibrary.reset();
 });
 
 test.afterEach(() => {

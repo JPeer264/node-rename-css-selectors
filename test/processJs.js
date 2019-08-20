@@ -11,12 +11,12 @@ const resultsCwd = 'test/files/results';
 
 
 test.before(() => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
+  rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
   rcsCore.keyframesLibrary.reset();
 
-  rcsCore.selectorLibrary.fillLibrary(fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'));
+  rcsCore.selectorsLibrary.fillLibrary(fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'));
 });
 
 test.afterEach(() => {
@@ -39,12 +39,12 @@ test.cb('should process js files', (t) => {
 });
 
 test.cb('should process jsx files', (t) => {
-  rcs.process.js('js/react.js', {
+  rcs.process.js('js/react.jsx', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/js/react.js'), 'utf8');
-    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/react.js'), 'utf8');
+    const newFile = fs.readFileSync(path.join(testCwd, '/js/react.jsx'), 'utf8');
+    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/react.jsx'), 'utf8');
 
     t.falsy(err);
     t.is(newFile, expectedFile);
@@ -54,7 +54,7 @@ test.cb('should process jsx files', (t) => {
 });
 
 test.cb('should not process jsx files', (t) => {
-  rcs.process.js('js/react.js', {
+  rcs.process.js('js/react.jsx', {
     newPath: testCwd,
     cwd: fixturesCwd,
     parserOptions: {
@@ -85,17 +85,17 @@ test.cb('should process complex files', (t) => {
 });
 
 test.cb('should not process multiple files', (t) => {
-  rcs.process.js('js/*.js', {
+  rcs.process.js('js/*.js*', {
     newPath: testCwd,
     cwd: fixturesCwd,
     jsx: true,
   }, (err) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/js/complex.js'), 'utf8');
     const newFileTwo = fs.readFileSync(path.join(testCwd, '/js/main.js'), 'utf8');
-    const newFileThree = fs.readFileSync(path.join(testCwd, '/js/react.js'), 'utf8');
+    const newFileThree = fs.readFileSync(path.join(testCwd, '/js/react.jsx'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/complex.js'), 'utf8');
     const expectedFileTwo = fs.readFileSync(path.join(resultsCwd, '/js/main.js'), 'utf8');
-    const expectedFileThree = fs.readFileSync(path.join(resultsCwd, '/js/react.js'), 'utf8');
+    const expectedFileThree = fs.readFileSync(path.join(resultsCwd, '/js/react.jsx'), 'utf8');
 
     t.falsy(err);
     t.is(newFile, expectedFile);

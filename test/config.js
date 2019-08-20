@@ -8,9 +8,9 @@ import config from '../lib/config/config';
 const testFiles = path.join(process.cwd(), '/test/files');
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
+  rcs.selectorsLibrary.getClassSelector().nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorsLibrary.getIdSelector().nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorsLibrary.reset();
   rcs.keyframesLibrary.reset();
 });
 
@@ -19,10 +19,10 @@ test.cb('should set the config with package.json', (t) => {
   config.load();
 
   // include new settings
-  rcs.selectorLibrary.set(['.js', '.any-value']);
+  rcs.selectorsLibrary.set(['.js', '.any-value']);
 
-  t.is(rcs.selectorLibrary.get('js'), 'js');
-  t.is(rcs.selectorLibrary.get('any-value'), 'a');
+  t.is(rcs.selectorsLibrary.get('js'), 'js');
+  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
 
   t.end();
 });
@@ -34,6 +34,9 @@ test.cb('should set the config with .rcsrc', (t) => {
             "exclude": [
                 "flexbox",
                 "no-js"
+            ],
+            "reserve": [
+                "ad"
             ]
         }`, {
       encoding: 'utf8',
@@ -43,10 +46,10 @@ test.cb('should set the config with .rcsrc', (t) => {
   config.load();
 
   // include new settings
-  rcs.selectorLibrary.set(['.flexbox', '.any-value']);
+  rcs.selectorsLibrary.set(['.flexbox', '.any-value']);
 
-  t.is(rcs.selectorLibrary.get('flexbox'), 'flexbox');
-  t.is(rcs.selectorLibrary.get('any-value'), 'a');
+  t.is(rcs.selectorsLibrary.get('flexbox'), 'flexbox');
+  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
 
   fs.removeSync(file);
 
@@ -58,10 +61,10 @@ test.cb('should set the config with package.json', (t) => {
   config.load(path.join(testFiles, '/config.json'));
 
   // include new settings
-  rcs.selectorLibrary.set(['.own-file', '.any-value']);
+  rcs.selectorsLibrary.set(['.own-file', '.any-value']);
 
-  t.is(rcs.selectorLibrary.get('own-file'), 'own-file');
-  t.is(rcs.selectorLibrary.get('any-value'), 'a');
+  t.is(rcs.selectorsLibrary.get('own-file'), 'own-file');
+  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
 
   t.end();
 });
@@ -72,9 +75,7 @@ test.cb('should load ignored patterns', (t) => {
   fs.writeFileSync(file, `{
             "ignore": [
                 "a.js",
-                "./b.css",
-                "/path/to/whatever/c.html",
-                "/d/", // regex
+                "**.min.js"
             ]
         }`, {
       encoding: 'utf8',
@@ -84,9 +85,26 @@ test.cb('should load ignored patterns', (t) => {
   config.load();
 
   t.true(config.isIgnored("a.js"));
-  t.true(config.isIgnored("./b.css"));
-  t.true(config.isIgnored("d.whatever"));
+  t.true(config.isIgnored("b.min.js"));
+  t.false(config.isIgnored("b.js"));
 
+  fs.removeSync(file);
+
+  t.end();
+});
+
+test.cb('should recover from bad config', (t) => {
+  const file = '.rcsrc';
+
+  fs.writeFileSync(file, '{}', {
+      encoding: 'utf8',
+    });
+
+  // include config
+  const prevPatternSize = config.ignorePatterns.length;
+  config.load();
+
+  t.is(config.ignorePatterns.length, prevPatternSize);
   fs.removeSync(file);
 
   t.end();

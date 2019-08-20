@@ -11,9 +11,9 @@ const testCwd = path.join(process.cwd(), '/test/files/testCache');
 const fixturesCwd = path.join(process.cwd(), '/test/files/fixtures');
 
 test.beforeEach.cb((t) => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
+  rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
   rcsCore.keyframesLibrary.reset();
 
   rcs.process.css('**/style*.css', {
@@ -33,8 +33,8 @@ test('should create the normal mapping file synchronously', (t) => {
 
   const cssMapping = json.readToObjSync(path.join(testCwd, '/renaming_map.json'), 'utf8');
 
-  t.is(cssMapping['.jp-block'], 'a');
-  t.is(cssMapping['.jp-block__element'], 'b');
+  t.is(cssMapping['class']['.jp-block'], 'a');
+  t.is(cssMapping['class']['.jp-block__element'], 'b');
 });
 
 test('should create the minified mapping file synchronously', (t) => {
@@ -45,8 +45,8 @@ test('should create the minified mapping file synchronously', (t) => {
 
   const cssMappingMin = json.readToObjSync(path.join(testCwd, '/renaming_map_min.json'), 'utf8');
 
-  t.is(cssMappingMin['.a'], 'jp-block');
-  t.is(cssMappingMin['.b'], 'jp-block__element');
+  t.is(cssMappingMin['class']['.a'], 'jp-block');
+  t.is(cssMappingMin['class']['.b'], 'jp-block__element');
 });
 
 test('should create the custom names minified mapping file synchronously', (t) => {
@@ -56,8 +56,8 @@ test('should create the custom names minified mapping file synchronously', (t) =
 
   const cssMapping = json.readToObjSync(path.join(testCwd, '/custom-name.json'), 'utf8');
 
-  t.is(cssMapping['.jp-block'], 'a');
-  t.is(cssMapping['.jp-block__element'], 'b');
+  t.is(cssMapping['class']['.jp-block'], 'a');
+  t.is(cssMapping['class']['.jp-block__element'], 'b');
 });
 
 test('should create the minified mapping file with a custom name synchronously', (t) => {
@@ -67,8 +67,8 @@ test('should create the minified mapping file with a custom name synchronously',
 
   const cssMappingMin = json.readToObjSync(path.join(testCwd, '/custom-name.json'), 'utf8');
 
-  t.is(cssMappingMin['.a'], 'jp-block');
-  t.is(cssMappingMin['.b'], 'jp-block__element');
+  t.is(cssMappingMin['class']['.a'], 'jp-block');
+  t.is(cssMappingMin['class']['.b'], 'jp-block__element');
 });
 
 test('should create the minified mapping js file synchronously', (t) => {

@@ -12,9 +12,9 @@ const fixturesCwd = './test/files/fixtures';
 const resultsCwd = './test/files/results';
 
 test.beforeEach.cb((t) => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
+  rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
   rcsCore.keyframesLibrary.reset();
 
   rcs.process.css('**/style*.css', {
@@ -22,9 +22,7 @@ test.beforeEach.cb((t) => {
     cwd: fixturesCwd,
   }, () => {
     rcs.generateMapping(testCwd, () => {
-      rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-      rcsCore.nameGenerator.reset();
-      rcsCore.selectorLibrary.reset();
+      rcsCore.selectorsLibrary.reset();
       rcsCore.keyframesLibrary.reset();
 
       t.end();
@@ -104,9 +102,7 @@ test.cb('should load from a filestring', (t) => {
     cwd: fixturesCwd,
   }, () => {
     rcs.generateMapping(testCwd, { cssMappingMin: true }, () => {
-      rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-      rcsCore.nameGenerator.reset();
-      rcsCore.selectorLibrary.reset();
+      rcsCore.selectorsLibrary.reset();
       rcsCore.keyframesLibrary.reset();
 
       rcs.loadMapping(path.join(testCwd, '/renaming_map_min.json'), { origValues: false });
