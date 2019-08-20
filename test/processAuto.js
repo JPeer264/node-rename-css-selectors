@@ -45,6 +45,21 @@ test.cb('should process css files', (t) => {
   });
 });
 
+test.cb('should process unknown files', (t) => {
+  rcs.process.auto(['css/style.css', 'unknown.txt'], {
+    newPath: testCwd,
+    cwd: fixturesCwd,
+  }, (err) => {
+    const newFile = fs.readFileSync(path.join(testCwd, 'unknown.txt'), 'utf8');
+    const expectedFile = fs.readFileSync(path.join(resultsCwd, 'unknown.txt'), 'utf8');
+
+    t.falsy(err);
+    t.is(newFile, expectedFile);
+
+    t.end();
+  });
+});
+
 test.cb('processing | should process all files automatically', (t) => {
   rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
     newPath: testCwd,

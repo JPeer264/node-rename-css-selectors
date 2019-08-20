@@ -92,20 +92,3 @@ test.cb('should load ignored patterns', (t) => {
 
   t.end();
 });
-
-test.cb('should recover from bad config', (t) => {
-  const file = '.rcsrc';
-
-  fs.writeFileSync(file, '{}', {
-      encoding: 'utf8',
-    });
-
-  // include config
-  const prevPatternSize = config.ignorePatterns.length;
-  config.load();
-
-  t.is(config.ignorePatterns.length, prevPatternSize);
-  fs.removeSync(file);
-
-  t.end();
-});
