@@ -84,9 +84,9 @@ test.cb('should load ignored patterns', (t) => {
   // include config
   config.load();
 
-  t.true(config.isIgnored("a.js"));
-  t.true(config.isIgnored("b.min.js"));
-  t.false(config.isIgnored("b.js"));
+  t.true(config.isIgnored('a.js'));
+  t.true(config.isIgnored('b.min.js'));
+  t.false(config.isIgnored('b.js'));
 
   fs.removeSync(file);
 

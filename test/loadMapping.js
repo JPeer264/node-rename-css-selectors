@@ -18,10 +18,10 @@ test.afterEach(() => {
 
 test('should load from an object', (t) => {
   loadMapping({
-    'class' : {
+    class: {
       '.jp-block': 'a-class',
     },
-    'id' : {
+    id: {
       '#compressed': 'b',
     },
   });

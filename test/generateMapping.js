@@ -30,8 +30,8 @@ test.cb('should create the normal mapping file', (t) => {
     const cssMapping = json.readToObjSync(path.join(testCwd, '/renaming_map.json'), 'utf8');
 
     t.falsy(err);
-    t.is(cssMapping['class']['.jp-block'], 'a');
-    t.is(cssMapping['class']['.jp-block__element'], 'b');
+    t.is(cssMapping.class['.jp-block'], 'a');
+    t.is(cssMapping.class['.jp-block__element'], 'b');
 
     t.end();
   });
@@ -45,8 +45,8 @@ test.cb('should create the minified mapping file', (t) => {
     const cssMappingMin = json.readToObjSync(path.join(testCwd, '/renaming_map_min.json'), 'utf8');
 
     t.falsy(err);
-    t.is(cssMappingMin['class']['.a'], 'jp-block');
-    t.is(cssMappingMin['class']['.b'], 'jp-block__element');
+    t.is(cssMappingMin.class['.a'], 'jp-block');
+    t.is(cssMappingMin.class['.b'], 'jp-block__element');
 
     t.end();
   });
@@ -59,8 +59,8 @@ test.cb('should create the extended normal mapping file', (t) => {
     const cssMapping = json.readToObjSync(path.join(testCwd, '/renaming_map.json'), 'utf8');
 
     t.falsy(err);
-    t.truthy(cssMapping['class']['.jp-block'].type);
-    t.is(cssMapping['class']['.jp-block'].type, 'class');
+    t.truthy(cssMapping.class['.jp-block'].type);
+    t.is(cssMapping.class['.jp-block'].type, 'class');
 
     t.end();
   });
@@ -75,7 +75,7 @@ test.cb('should create the minified mapping file', (t) => {
     const cssMappingMin = json.readToObjSync(path.join(testCwd, '/renaming_map_min.json'), 'utf8');
 
     t.falsy(err);
-    t.is(cssMappingMin['class']['.a'].type, 'class');
+    t.is(cssMappingMin.class['.a'].type, 'class');
 
     t.end();
   });
@@ -88,8 +88,8 @@ test.cb('should create the minified mapping file with a custom name', (t) => {
     const cssMappingMin = json.readToObjSync(path.join(testCwd, '/custom-name.json'), 'utf8');
 
     t.falsy(err);
-    t.is(cssMappingMin['class']['.a'], 'jp-block');
-    t.is(cssMappingMin['class']['.b'], 'jp-block__element');
+    t.is(cssMappingMin.class['.a'], 'jp-block');
+    t.is(cssMappingMin.class['.b'], 'jp-block__element');
 
     t.end();
   });
@@ -137,8 +137,8 @@ test.cb('should create the custom names minified mapping file', (t) => {
     const cssMapping = json.readToObjSync(path.join(testCwd, '/custom-name.json'), 'utf8');
 
     t.falsy(err);
-    t.is(cssMapping['class']['.jp-block'], 'a');
-    t.is(cssMapping['class']['.jp-block__element'], 'b');
+    t.is(cssMapping.class['.jp-block'], 'a');
+    t.is(cssMapping.class['.jp-block__element'], 'b');
 
     t.end();
   });
