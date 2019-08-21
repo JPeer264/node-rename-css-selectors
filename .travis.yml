@@ -7,6 +7,9 @@ node_js:
   - 10
 install:
   - yarn
+script:
+  - npm run lint
+  - npm test
 notifications:
   email:
     on_failure: change
