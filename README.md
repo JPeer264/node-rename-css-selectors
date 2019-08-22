@@ -100,6 +100,12 @@ try {
 - [rcs.loadMapping](docs/api/loadMapping.md)
 - [rcs.config](docs/api/config.md)
 
+## Caveats
+
+Correctly using `rename-css-selectors` on large project means few rules should be followed.
+[This document](docs/caveats.md) explains most of them.
+
+
 # LICENSE
 
 MIT © [Jan Peer Stöcklmair](https://www.jpeer.at)
