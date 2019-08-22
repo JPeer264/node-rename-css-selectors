@@ -8,10 +8,8 @@ import loadMapping from '../lib/mapping/loadMapping';
 const testCwd = path.join(process.cwd(), '/test/files/testCache');
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
-  rcs.keyframesLibrary.reset();
+  rcs.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcs.selectorsLibrary.reset();
 });
 
 test.afterEach(() => {
@@ -20,11 +18,15 @@ test.afterEach(() => {
 
 test('should load from an object', (t) => {
   loadMapping({
-    '.jp-block': 'a-class',
-    '#compressed': 'b',
+    class: {
+      '.jp-block': 'a-class',
+    },
+    id: {
+      '#compressed': 'b',
+    },
   });
 
-  t.is(rcs.selectorLibrary.get('jp-block'), 'a-class');
-  t.is(rcs.selectorLibrary.get('#compressed'), 'b');
+  t.is(rcs.selectorsLibrary.get('jp-block'), 'a-class');
+  t.is(rcs.selectorsLibrary.get('#compressed'), 'b');
 });
 

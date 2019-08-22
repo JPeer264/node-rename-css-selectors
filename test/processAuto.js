@@ -11,10 +11,11 @@ const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 test.beforeEach(() => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
+  rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
+  rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcsCore.keyframesLibrary.reset();
+  rcsCore.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcsCore.cssVariablesLibrary.reset();
 });
 
@@ -39,6 +40,21 @@ test.cb('should process css files', (t) => {
     t.is(newFile, expectedFile);
     t.is(newFile2, expectedFile2);
     t.is(newFile3, expectedFile3);
+
+    t.end();
+  });
+});
+
+test.cb('should process unknown files', (t) => {
+  rcs.process.auto(['css/style.css', 'unknown.txt'], {
+    newPath: testCwd,
+    cwd: fixturesCwd,
+  }, (err) => {
+    const newFile = fs.readFileSync(path.join(testCwd, 'unknown.txt'), 'utf8');
+    const expectedFile = fs.readFileSync(path.join(resultsCwd, 'unknown.txt'), 'utf8');
+
+    t.falsy(err);
+    t.is(newFile, expectedFile);
 
     t.end();
   });

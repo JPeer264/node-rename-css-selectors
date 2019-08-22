@@ -11,9 +11,9 @@ const testCwd = path.join(testFiles, 'testCache');
 const fixturesCwd = path.join(testFiles, 'fixtures');
 
 test.beforeEach(() => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
+  rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
   rcsCore.keyframesLibrary.reset();
 });
 

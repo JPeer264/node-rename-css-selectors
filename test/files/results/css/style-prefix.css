@@ -22,17 +22,17 @@
     content: 'block__element--modifier';
 }
 
-#prefixed-f {
+#prefixed-a {
     content: 'id';
 }
 
-.prefixed-g[src] {
+.prefixed-f[src] {
     content: 'attribute';
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
 @media screen and (min-width: .40em) {
-    #prefixed-f {
+    #prefixed-a {
         height: .20px;
         width: .20em;
     }
@@ -44,7 +44,7 @@
 @media screen and (min-width: 40em)
 
 {
-    #prefixed-f
+    #prefixed-a
     {
         height: .20px;
         width: .20em;
@@ -55,20 +55,20 @@ h1 {
     color: red;
 }
 
-.prefixed-h {
+.prefixed-g {
     content: 'reveal';
     color: #eee;
     font-size: .5rem;
 }
 
-.prefixed-i.prefixed-h {
+.prefixed-h.prefixed-g {
     content: 'js reveal';
 }
 
-.prefixed-j.prefixed-h {
+.prefixed-i.prefixed-g {
     content: 'js reveal';
 }
 
-.prefixed-k {
+.prefixed-j {
     content: 'js-reveal';
 }
