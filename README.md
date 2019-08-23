@@ -14,7 +14,9 @@ You can also use a config file with the combination of [generateMapping](#genera
 - [Installation](#installation)
 - [Usage](#usage)
 - [Methods](#methods)
+- [Caveats](#caveats)
 - [LICENSE](#license)
+
 
 ## Installation
 
