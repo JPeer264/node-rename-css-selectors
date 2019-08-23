@@ -3,7 +3,7 @@
 $(".a");
 
 // vanillaJS example
-document.getElementsByClassName(" b");
+document.getElementsByClassName(" jp-block__element");
 document.getElementById("c");
 
 const restSpread = {
