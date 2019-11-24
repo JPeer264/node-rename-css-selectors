@@ -1,3 +1,12 @@
+3.2.6 - November, 24 2019
+
+* 1764ccc Chore: update rcs-core to latest alpha 3 (JPeer264)
+* 4cf2420 Improve documentation with usual caveats (#45) (X-Ryl669)
+* 33a3722 Add support for warning the user about bad library usage (#46) (X-Ryl669)
+* c230f13 Update rcs core (#44) (X-Ryl669)
+* a10956d Chore: drop support for node v6, add support v12 (JPeer264)
+* 8e35da9 Chore: add husky/lint-staged | travis lint check (JPeer264)
+
 3.2.5 - August, 01 2019
 
 * 5f6bf01 Test: add testcase for #43 (JPeer264)
