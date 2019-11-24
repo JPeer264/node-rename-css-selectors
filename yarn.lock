@@ -4673,10 +4673,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-rcs-core@^3.0.0-alpha.1:
-  version "3.0.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-3.0.0-alpha.1.tgz#681d9d78100e2e6da008c1288b6cb7da6d90b46b"
-  integrity sha512-kDdUsDevOfUPbrpYDfjyrfrFQ3n2fY3YLYZgYDF4lwEu7igLSPzMlZO9aok+deGHegpyPN5uklkb3RKJVrj6XA==
+rcs-core@^3.0.0-alpha.3:
+  version "3.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/rcs-core/-/rcs-core-3.0.0-alpha.3.tgz#c1e0134606bb054f811670b2daeb7f9c0b10bd83"
+  integrity sha512-VQp2aDy5ttdD8bBIC9oEdPkkw/x6wME/3E6TxBW+M2YmWTyNJJXj4/kQCF5zebrahChiS+k3aWR4tIcADURpig==
   dependencies:
     array-includes "^3.0.2"
     ast-traverse "^0.1.1"
