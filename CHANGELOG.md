@@ -1,3 +1,7 @@
+3.2.8 - February, 13 2020
+
+* 36cb329 Chore: update rcs-core (JPeer264)
+
 3.2.5 - August, 01 2019
 
 * 5f6bf01 Test: add testcase for #43 (JPeer264)
