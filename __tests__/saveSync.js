@@ -1,24 +1,23 @@
-import test from 'ava';
 import fs from 'fs-extra';
 import path from 'path';
 
 import saveSync from '../lib/helper/saveSync';
 
-const testCwd = 'test/files/testCache';
+const testCwd = '__tests__/files/testCache';
 
-test.afterEach(() => {
+afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test('saveSync | should save', (t) => {
+test('saveSync | should save', () => {
   const filePath = path.join(testCwd, '/config.txt');
 
   saveSync(filePath, 'test content');
 
-  t.is(fs.readFileSync(filePath, 'utf8'), 'test content');
+  expect(fs.readFileSync(filePath, 'utf8')).toBe('test content');
 });
 
-test('saveSync | should not overwrite the same file', (t) => {
+test('saveSync | should not overwrite the same file', () => {
   const filePath = path.join(testCwd, '/../config.json');
   const oldFile = fs.readFileSync(filePath, 'utf8');
   let failed = false;
@@ -29,9 +28,9 @@ test('saveSync | should not overwrite the same file', (t) => {
     // if no error is thrown before it should fail here
     failed = true;
   } catch (e) {
-    t.is(e.message, 'File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
+    expect(e.message).toBe('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
   }
 
-  t.is(failed, false);
-  t.is(fs.readFileSync(filePath, 'utf8'), oldFile);
+  expect(failed).toBe(false);
+  expect(fs.readFileSync(filePath, 'utf8')).toBe(oldFile);
 });

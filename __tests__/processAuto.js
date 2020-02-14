@@ -1,4 +1,3 @@
-import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
 import { minify } from 'html-minifier';
@@ -6,19 +5,19 @@ import { minify } from 'html-minifier';
 import rcs from '../lib';
 import reset from './helpers/reset';
 
-const testCwd = 'test/files/testCache';
-const fixturesCwd = 'test/files/fixtures';
-const resultsCwd = 'test/files/results';
+const testCwd = '__tests__/files/testCache';
+const fixturesCwd = '__tests__/files/fixtures';
+const resultsCwd = '__tests__/files/results';
 
-test.beforeEach(() => {
+beforeEach(() => {
   reset();
 });
 
-test.afterEach(() => {
+afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test.cb('should process css files', (t) => {
+test('should process css files', (done) => {
   rcs.process.auto('**/style*.css', {
     collectSelectors: true,
     newPath: testCwd,
@@ -31,16 +30,16 @@ test.cb('should process css files', (t) => {
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
     const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
-    t.is(newFile2, expectedFile2);
-    t.is(newFile3, expectedFile3);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
+    expect(newFile2).toBe(expectedFile2);
+    expect(newFile3).toBe(expectedFile3);
 
-    t.end();
+    done();
   });
 });
 
-test.cb('processing | should process all files automatically', (t) => {
+test('processing | should process all files automatically', (done) => {
   rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -52,19 +51,17 @@ test.cb('processing | should process all files automatically', (t) => {
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
     const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
-    t.is(newFile2, expectedFile2);
-    t.is(
-      minify(newFile3, { collapseWhitespace: true }),
-      minify(expectedFile3, { collapseWhitespace: true }),
-    );
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
+    expect(newFile2).toBe(expectedFile2);
+    expect(minify(newFile3, { collapseWhitespace: true }))
+      .toBe(minify(expectedFile3, { collapseWhitespace: true }));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should process css files as arrays', (t) => {
+test('should process css files as arrays', (done) => {
   rcs.process.auto(['**/style.css', '**/style2.css'], {
     collectSelectors: true,
     newPath: testCwd,
@@ -77,37 +74,38 @@ test.cb('should process css files as arrays', (t) => {
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
     const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
-    t.is(newFile2, expectedFile2);
-    t.is(newFile3, expectedFile3);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
+    expect(newFile2).toBe(expectedFile2);
+    expect(newFile3).toBe(expectedFile3);
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should not overwrite original files', (t) => {
+test('should not overwrite original files', (done) => {
   rcs.process.auto(['**/style.css', '**/style2.css'], {
     collectSelectors: true,
     newPath: fixturesCwd,
     cwd: fixturesCwd,
   }, (err) => {
-    t.is(err.message, 'File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
+    expect(err.message)
+      .toBe('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should fail', (t) => {
+test('should fail', (done) => {
   rcs.process.auto('path/**/with/nothing/in/it', (err) => {
-    t.truthy(err);
-    t.is(err.error, 'ENOENT');
+    expect(err).toBeTruthy();
+    expect(err.error).toBe('ENOENT');
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should process auto file with css variables', (t) => {
+test('should process auto file with css variables', (done) => {
   rcs.process.auto('css/css-variables.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -115,14 +113,14 @@ test.cb('should process auto file with css variables', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should not process auto file with css variables', (t) => {
+test('should not process auto file with css variables', (done) => {
   rcs.process.auto('css/css-variables.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -131,14 +129,14 @@ test.cb('should not process auto file with css variables', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables-ignore.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should fillLibraries from html and css | issue #38', (t) => {
+test('should fillLibraries from html and css | issue #38', (done) => {
   rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -148,16 +146,12 @@ test.cb('should fillLibraries from html and css | issue #38', (t) => {
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index-with-style.html'), 'utf8');
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(
-      minify(newFile, { collapseWhitespace: true }),
-      minify(expectedFile, { collapseWhitespace: true }),
-    );
-    t.is(
-      minify(newFile2, { collapseWhitespace: true }),
-      minify(expectedFile2, { collapseWhitespace: true }),
-    );
+    expect(err).toBeFalsy();
+    expect(minify(newFile, { collapseWhitespace: true }))
+      .toBe(minify(expectedFile, { collapseWhitespace: true }));
+    expect(minify(newFile2, { collapseWhitespace: true }))
+      .toBe(minify(expectedFile2, { collapseWhitespace: true }));
 
-    t.end();
+    done();
   });
 });

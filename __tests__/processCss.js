@@ -1,21 +1,20 @@
-import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
 
 import rcs from '../lib';
 import reset from './helpers/reset';
 
-const testCwd = 'test/files/testCache';
-const fixturesCwd = 'test/files/fixtures';
-const resultsCwd = 'test/files/results';
+const testCwd = '__tests__/files/testCache';
+const fixturesCwd = '__tests__/files/fixtures';
+const resultsCwd = '__tests__/files/results';
 
-test.beforeEach(() => {
+beforeEach(() => {
   reset();
 });
 
-test.afterEach.always(() => fs.removeSync(testCwd));
+afterEach(() => fs.removeSync(testCwd));
 
-test.cb('should process css files and prefix them', (t) => {
+test('should process css files and prefix them', (done) => {
   rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -24,14 +23,14 @@ test.cb('should process css files and prefix them', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style-prefix.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should process css files with rcs.process.css', (t) => {
+test('should process css files with rcs.process.css', (done) => {
   rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -43,54 +42,56 @@ test.cb('should process css files with rcs.process.css', (t) => {
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
     const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
-    t.is(newFile2, expectedFile2);
-    t.is(newFile3, expectedFile3);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
+    expect(newFile2).toBe(expectedFile2);
+    expect(newFile3).toBe(expectedFile3);
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should process css files without options', (t) => {
+test('should process css files without options', (done) => {
   rcs.process.css(path.join(fixturesCwd, 'css/**/style*.css'), (err) => {
     const newFile = fs.readFileSync(path.join(process.cwd(), 'rcs', fixturesCwd, '/css/style.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
 
     fs.removeSync(path.join(process.cwd(), 'rcs'));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should replace the selector attributes correctly', (t) => {
+test('should replace the selector attributes correctly', (done) => {
   rcs.process.css('css/css-attributes.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
-    t.is(fs.readFileSync(path.join(testCwd, '/css/css-attributes.css'), 'utf8'), fs.readFileSync(path.join(resultsCwd, '/css/css-attributes.css'), 'utf8'));
+    expect(fs.readFileSync(path.join(testCwd, '/css/css-attributes.css'), 'utf8'))
+      .toBe(fs.readFileSync(path.join(resultsCwd, '/css/css-attributes.css'), 'utf8'));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should replace the selector attributes with pre and suffixes correctly', (t) => {
+test('should replace the selector attributes with pre and suffixes correctly', (done) => {
   rcs.process.css('css/css-attributes.css', {
     prefix: 'prefix-',
     suffix: '-suffix',
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
-    t.is(fs.readFileSync(path.join(testCwd, '/css/css-attributes.css'), 'utf8'), fs.readFileSync(path.join(resultsCwd, '/css/css-attributes-pre-suffix.css'), 'utf8'));
+    expect(fs.readFileSync(path.join(testCwd, '/css/css-attributes.css'), 'utf8'))
+      .toBe(fs.readFileSync(path.join(resultsCwd, '/css/css-attributes-pre-suffix.css'), 'utf8'));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should replace the selector attributes without caring about attribute selectors', (t) => {
+test('should replace the selector attributes without caring about attribute selectors', (done) => {
   rcs.process.css('css/css-attributes.css', {
     prefix: 'prefix-',
     suffix: '-suffix',
@@ -98,13 +99,14 @@ test.cb('should replace the selector attributes without caring about attribute s
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
-    t.is(fs.readFileSync(path.join(testCwd, '/css/css-attributes.css'), 'utf8'), fs.readFileSync(path.join(resultsCwd, '/css/css-attributes-ignore.css'), 'utf8'));
+    expect(fs.readFileSync(path.join(testCwd, '/css/css-attributes.css'), 'utf8'))
+      .toBe(fs.readFileSync(path.join(resultsCwd, '/css/css-attributes-ignore.css'), 'utf8'));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should process css file with css variables', (t) => {
+test('should process css file with css variables', (done) => {
   rcs.process.css('css/css-variables.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -112,9 +114,9 @@ test.cb('should process css file with css variables', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables.css'), 'utf8');
 
-    t.falsy(err);
-    t.is(newFile, expectedFile);
+    expect(err).toBeFalsy();
+    expect(newFile).toBe(expectedFile);
 
-    t.end();
+    done();
   });
 });

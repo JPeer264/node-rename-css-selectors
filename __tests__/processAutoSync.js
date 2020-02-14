@@ -1,4 +1,3 @@
-import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
 import { minify } from 'html-minifier';
@@ -6,19 +5,19 @@ import { minify } from 'html-minifier';
 import rcs from '../lib';
 import reset from './helpers/reset';
 
-const testCwd = 'test/files/testCache';
-const fixturesCwd = 'test/files/fixtures';
-const resultsCwd = 'test/files/results';
+const testCwd = '__tests__/files/testCache';
+const fixturesCwd = '__tests__/files/fixtures';
+const resultsCwd = '__tests__/files/results';
 
-test.beforeEach(() => {
+beforeEach(() => {
   reset();
 });
 
-test.afterEach(() => {
+afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test('should process all files synchronously', (t) => {
+test('should process all files synchronously', () => {
   let newFile;
   let expectedFile;
 
@@ -30,15 +29,15 @@ test('should process all files synchronously', (t) => {
   newFile = fs.readFileSync(path.join(testCwd, '/js/main.js'), 'utf8');
   expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/main.js'), 'utf8');
 
-  t.is(newFile, expectedFile);
+  expect(newFile).toBe(expectedFile);
 
   newFile = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
   expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
-  t.is(newFile, expectedFile);
+  expect(newFile).toBe(expectedFile);
 });
 
-test('should fillLibraries from html and css | issue #38', (t) => {
+test('should fillLibraries from html and css | issue #38', () => {
   rcs.process.autoSync(['**/*.{js,html}', 'css/style.css'], {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -49,12 +48,8 @@ test('should fillLibraries from html and css | issue #38', (t) => {
   const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index-with-style.html'), 'utf8');
   const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
-  t.is(
-    minify(newFile, { collapseWhitespace: true }),
-    minify(expectedFile, { collapseWhitespace: true }),
-  );
-  t.is(
-    minify(newFile2, { collapseWhitespace: true }),
-    minify(expectedFile2, { collapseWhitespace: true }),
-  );
+  expect(minify(newFile, { collapseWhitespace: true }))
+    .toBe(minify(expectedFile, { collapseWhitespace: true }));
+  expect(minify(newFile2, { collapseWhitespace: true }))
+    .toBe(minify(expectedFile2, { collapseWhitespace: true }));
 });

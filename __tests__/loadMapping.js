@@ -1,4 +1,3 @@
-import test from 'ava';
 import path from 'path';
 import rcs from 'rcs-core';
 import fs from 'fs-extra';
@@ -8,20 +7,20 @@ import reset from './helpers/reset';
 
 const testCwd = path.join(process.cwd(), '/test/files/testCache');
 
-test.beforeEach(() => {
+beforeEach(() => {
   reset();
 });
 
-test.afterEach(() => {
+afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test('should load from an object', (t) => {
+test('should load from an object', () => {
   loadMapping({
     '.jp-block': 'a-class',
     '#compressed': 'b',
   });
 
-  t.is(rcs.selectorsLibrary.get('jp-block'), 'a-class');
-  t.is(rcs.selectorsLibrary.get('#compressed'), 'b');
+  expect(rcs.selectorsLibrary.get('jp-block')).toBe('a-class');
+  expect(rcs.selectorsLibrary.get('#compressed')).toBe('b');
 });
