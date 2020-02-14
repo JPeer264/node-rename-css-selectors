@@ -5,7 +5,7 @@ import json from 'json-extra';
 
 import reset from './helpers/reset';
 import generateMapping from '../lib/mapping/generateMapping';
-import rcs from '../';
+import rcs from '../lib';
 
 const testCwd = path.join(process.cwd(), '/test/files/testCache');
 const fixturesCwd = path.join(process.cwd(), '/test/files/fixtures');

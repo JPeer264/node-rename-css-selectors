@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import rcsCore from 'rcs-core';
 
-import rcs from '../';
+import rcs from '../lib';
 import reset from './helpers/reset';
 
 const testCwd = 'test/files/testCache';
