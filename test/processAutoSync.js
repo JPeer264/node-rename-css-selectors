@@ -1,20 +1,17 @@
 import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
-import rcsCore from 'rcs-core';
 import { minify } from 'html-minifier';
 
 import rcs from '../';
+import reset from './helpers/reset';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
 const resultsCwd = 'test/files/results';
 
 test.beforeEach(() => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
-  rcsCore.keyframesLibrary.reset();
+  reset();
 });
 
 test.afterEach(() => {

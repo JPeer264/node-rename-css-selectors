@@ -1,31 +1,25 @@
 import test from 'ava';
 import fs from 'fs-extra';
-import rcsCore from 'rcs-core';
 import path from 'path';
 import json from 'json-extra';
 import { minify } from 'html-minifier';
 
 import rcs from '../';
+import reset from './helpers/reset';
 
 const testCwd = './test/files/testCache';
 const fixturesCwd = './test/files/fixtures';
 const resultsCwd = './test/files/results';
 
 test.beforeEach.cb((t) => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
-  rcsCore.keyframesLibrary.reset();
+  reset();
 
   rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
   }, () => {
     rcs.generateMapping(testCwd, () => {
-      rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-      rcsCore.nameGenerator.reset();
-      rcsCore.selectorLibrary.reset();
-      rcsCore.keyframesLibrary.reset();
+      reset();
 
       t.end();
     });
@@ -104,10 +98,7 @@ test.cb('should load from a filestring', (t) => {
     cwd: fixturesCwd,
   }, () => {
     rcs.generateMapping(testCwd, { cssMappingMin: true }, () => {
-      rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-      rcsCore.nameGenerator.reset();
-      rcsCore.selectorLibrary.reset();
-      rcsCore.keyframesLibrary.reset();
+      reset();
 
       rcs.loadMapping(path.join(testCwd, '/renaming_map_min.json'), { origValues: false });
 

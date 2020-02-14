@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import rcsCore from 'rcs-core';
 
 import rcs from '../';
+import reset from './helpers/reset';
 
 const testCwd = 'test/files/testCache';
 const fixturesCwd = 'test/files/fixtures';
@@ -11,12 +12,9 @@ const resultsCwd = 'test/files/results';
 
 
 test.before(() => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
-  rcsCore.keyframesLibrary.reset();
+  reset();
 
-  rcsCore.selectorLibrary.fillLibrary(fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'));
+  rcsCore.selectorsLibrary.fillLibrary(fs.readFileSync(path.join(fixturesCwd, '/css/style.css'), 'utf8'));
 });
 
 test.afterEach(() => {

@@ -3,15 +3,13 @@ import path from 'path';
 import fs from 'fs-extra';
 import rcs from 'rcs-core';
 
+import reset from './helpers/reset';
 import includeConfig from '../lib/config/includeConfig';
 
 const testFiles = path.join(process.cwd(), '/test/files');
 
 test.beforeEach(() => {
-  rcs.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.nameGenerator.reset();
-  rcs.selectorLibrary.reset();
-  rcs.keyframesLibrary.reset();
+  reset();
 });
 
 test.cb('should set the config with package.json', (t) => {
@@ -19,10 +17,10 @@ test.cb('should set the config with package.json', (t) => {
   includeConfig();
 
   // include new settings
-  rcs.selectorLibrary.set(['.js', '.any-value']);
+  rcs.selectorsLibrary.set(['.js', '.any-value']);
 
-  t.is(rcs.selectorLibrary.get('js'), 'js');
-  t.is(rcs.selectorLibrary.get('any-value'), 'a');
+  t.is(rcs.selectorsLibrary.get('js'), 'js');
+  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
 
   t.end();
 });
@@ -43,10 +41,10 @@ test.cb('should set the config with .rcsrc', (t) => {
   includeConfig();
 
   // include new settings
-  rcs.selectorLibrary.set(['.flexbox', '.any-value']);
+  rcs.selectorsLibrary.set(['.flexbox', '.any-value']);
 
-  t.is(rcs.selectorLibrary.get('flexbox'), 'flexbox');
-  t.is(rcs.selectorLibrary.get('any-value'), 'a');
+  t.is(rcs.selectorsLibrary.get('flexbox'), 'flexbox');
+  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
 
   fs.removeSync(file);
 
@@ -58,10 +56,10 @@ test.cb('should set the config with package.json', (t) => {
   includeConfig(path.join(testFiles, '/config.json'));
 
   // include new settings
-  rcs.selectorLibrary.set(['.own-file', '.any-value']);
+  rcs.selectorsLibrary.set(['.own-file', '.any-value']);
 
-  t.is(rcs.selectorLibrary.get('own-file'), 'own-file');
-  t.is(rcs.selectorLibrary.get('any-value'), 'a');
+  t.is(rcs.selectorsLibrary.get('own-file'), 'own-file');
+  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
 
   t.end();
 });

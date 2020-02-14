@@ -1,9 +1,9 @@
 import test from 'ava';
 import path from 'path';
-import rcsCore from 'rcs-core';
 import fs from 'fs-extra';
 import json from 'json-extra';
 
+import reset from './helpers/reset';
 import generateMappingSync from '../lib/mapping/generateMappingSync';
 import rcs from '../';
 
@@ -11,10 +11,7 @@ const testCwd = path.join(process.cwd(), '/test/files/testCache');
 const fixturesCwd = path.join(process.cwd(), '/test/files/fixtures');
 
 test.beforeEach.cb((t) => {
-  rcsCore.nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcsCore.nameGenerator.reset();
-  rcsCore.selectorLibrary.reset();
-  rcsCore.keyframesLibrary.reset();
+  reset();
 
   rcs.process.css('**/style*.css', {
     newPath: testCwd,
