@@ -6,8 +6,8 @@ import reset from './helpers/reset';
 import generateMappingSync from '../lib/mapping/generateMappingSync';
 import rcs from '../lib';
 
-const testCwd = path.join(process.cwd(), '/test/files/testCache');
-const fixturesCwd = path.join(process.cwd(), '/test/files/fixtures');
+const testCwd = path.join(process.cwd(), '/__tests__/files/testCache');
+const fixturesCwd = path.join(process.cwd(), '/__tests__/files/fixtures');
 
 beforeEach((done) => {
   reset();
