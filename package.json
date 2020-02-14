@@ -2,12 +2,13 @@
   "name": "rename-css-selectors",
   "version": "3.2.8",
   "description": "Rename css classes and id's in files",
-  "main": "./index.js",
+  "main": "dest",
   "scripts": {
     "test": "nyc ava -s",
     "build": "tsc && babel dest -d dest",
     "lint": "eslint lib index.js test",
     "fix": "npm run lint -- --fix",
+    "prepublish": "npm run build",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "rcs": {
