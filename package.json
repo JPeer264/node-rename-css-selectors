@@ -5,6 +5,7 @@
   "main": "./index.js",
   "scripts": {
     "test": "nyc ava -s",
+    "build": "tsc && babel dest -d dest",
     "lint": "eslint lib index.js test",
     "fix": "npm run lint -- --fix",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
@@ -54,16 +55,21 @@
     "rcs-core": "^3.*"
   },
   "devDependencies": {
+    "@types/node": "^13.7.1",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
     "ava": "^0.25.0",
     "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "coveralls": "^2.11.15",
-    "eslint": "^4.2.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1",
     "html-minifier": "^3.5.20",
     "nyc": "^12.0.2",
-    "rcs-core": "^3.0.1"
+    "rcs-core": "^3.0.1",
+    "typescript": "^3.7.5"
   }
 }
