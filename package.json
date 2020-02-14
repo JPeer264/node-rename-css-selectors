@@ -56,14 +56,12 @@
     "rcs-core": "^3.*"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
-    "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^1.0.2",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "coveralls": "^2.11.15",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
