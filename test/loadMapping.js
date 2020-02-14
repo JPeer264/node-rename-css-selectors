@@ -25,4 +25,3 @@ test('should load from an object', (t) => {
   t.is(rcs.selectorsLibrary.get('jp-block'), 'a-class');
   t.is(rcs.selectorsLibrary.get('#compressed'), 'b');
 });
-

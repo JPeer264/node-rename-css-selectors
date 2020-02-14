@@ -34,8 +34,8 @@ test.cb('should set the config with .rcsrc', (t) => {
                 "no-js"
             ]
         }`, {
-      encoding: 'utf8',
-    });
+    encoding: 'utf8',
+  });
 
   // include config
   includeConfig();
