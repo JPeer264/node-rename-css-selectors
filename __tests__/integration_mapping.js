@@ -1,4 +1,3 @@
-import test from 'ava';
 import fs from 'fs-extra';
 import path from 'path';
 import json from 'json-extra';
@@ -7,11 +6,11 @@ import { minify } from 'html-minifier';
 import rcs from '../lib';
 import reset from './helpers/reset';
 
-const testCwd = './test/files/testCache';
-const fixturesCwd = './test/files/fixtures';
-const resultsCwd = './test/files/results';
+const testCwd = './__tests__/files/testCache';
+const fixturesCwd = './__tests__/files/fixtures';
+const resultsCwd = './__tests__/files/results';
 
-test.beforeEach.cb((t) => {
+beforeEach((done) => {
   reset();
 
   rcs.process.css('**/style*.css', {
@@ -21,16 +20,16 @@ test.beforeEach.cb((t) => {
     rcs.generateMapping(testCwd, () => {
       reset();
 
-      t.end();
+      done();
     });
   });
 });
 
-test.afterEach(() => {
+afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test.cb('should load from an object', (t) => {
+test('should load from an object', (done) => {
   const cssMapping = json.readToObjSync(path.join(testCwd, '/renaming_map.json'), 'utf8');
 
   rcs.loadMapping(cssMapping);
@@ -42,17 +41,15 @@ test.cb('should load from an object', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/html/index.html'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
-    t.falsy(err);
-    t.is(
-      minify(newFile, { collapseWhitespace: true }),
-      minify(expectedFile, { collapseWhitespace: true }),
-    );
+    expect(err).toBeFalsy();
+    expect(minify(newFile, { collapseWhitespace: true }))
+      .toBe(minify(expectedFile, { collapseWhitespace: true }));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should load from a filestring', (t) => {
+test('should load from a filestring', (done) => {
   rcs.loadMapping(path.join(testCwd, '/renaming_map.json'));
 
   rcs.process.html('**/*.html', {
@@ -62,17 +59,15 @@ test.cb('should load from a filestring', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/html/index.html'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
-    t.falsy(err);
-    t.is(
-      minify(newFile, { collapseWhitespace: true }),
-      minify(expectedFile, { collapseWhitespace: true }),
-    );
+    expect(err).toBeFalsy();
+    expect(minify(newFile, { collapseWhitespace: true }))
+      .toBe(minify(expectedFile, { collapseWhitespace: true }));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should load nothing as it does not exist', (t) => {
+test('should load nothing as it does not exist', (done) => {
   rcs.loadMapping(path.join(testCwd, '/doesnotexist.json'));
 
   rcs.process.html('**/*.html', {
@@ -82,17 +77,15 @@ test.cb('should load nothing as it does not exist', (t) => {
     const newFile = fs.readFileSync(path.join(testCwd, '/html/index.html'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
-    t.falsy(err);
-    t.not(
-      minify(newFile, { collapseWhitespace: true }),
-      minify(expectedFile, { collapseWhitespace: true }),
-    );
+    expect(err).toBeFalsy();
+    expect(minify(newFile, { collapseWhitespace: true }))
+      .not.toBe(minify(expectedFile, { collapseWhitespace: true }));
 
-    t.end();
+    done();
   });
 });
 
-test.cb('should load from a filestring', (t) => {
+test('should load from a filestring', (done) => {
   rcs.process.css('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -109,13 +102,11 @@ test.cb('should load from a filestring', (t) => {
         const newFile = fs.readFileSync(path.join(testCwd, '/html/index.html'), 'utf8');
         const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
 
-        t.falsy(err);
-        t.is(
-          minify(newFile, { collapseWhitespace: true }),
-          minify(expectedFile, { collapseWhitespace: true }),
-        );
+        expect(err).toBeFalsy();
+        expect(minify(newFile, { collapseWhitespace: true }))
+          .toBe(minify(expectedFile, { collapseWhitespace: true }));
 
-        t.end();
+        done();
       });
     });
   });
