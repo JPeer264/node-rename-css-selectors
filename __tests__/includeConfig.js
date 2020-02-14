@@ -1,4 +1,3 @@
-import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
 import rcs from 'rcs-core';
@@ -8,24 +7,24 @@ import includeConfig from '../lib/config/includeConfig';
 
 const testFiles = path.join(process.cwd(), '/test/files');
 
-test.beforeEach(() => {
+beforeEach(() => {
   reset();
 });
 
-test.cb('should set the config with package.json', (t) => {
+test('should set the config with package.json', (done) => {
   // include config
   includeConfig();
 
   // include new settings
   rcs.selectorsLibrary.set(['.js', '.any-value']);
 
-  t.is(rcs.selectorsLibrary.get('js'), 'js');
-  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
+  expect(rcs.selectorsLibrary.get('js')).toBe('js');
+  expect(rcs.selectorsLibrary.get('any-value')).toBe('a');
 
-  t.end();
+  done();
 });
 
-test.cb('should set the config with .rcsrc', (t) => {
+test('should set the config with .rcsrc', (done) => {
   const file = '.rcsrc';
 
   fs.writeFileSync(file, `{
@@ -43,23 +42,23 @@ test.cb('should set the config with .rcsrc', (t) => {
   // include new settings
   rcs.selectorsLibrary.set(['.flexbox', '.any-value']);
 
-  t.is(rcs.selectorsLibrary.get('flexbox'), 'flexbox');
-  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
+  expect(rcs.selectorsLibrary.get('flexbox')).toBe('flexbox');
+  expect(rcs.selectorsLibrary.get('any-value')).toBe('a');
 
   fs.removeSync(file);
 
-  t.end();
+  done();
 });
 
-test.cb('should set the config with package.json', (t) => {
+test('should set the config with config.json', (done) => {
   // include config
   includeConfig(path.join(testFiles, '/config.json'));
 
   // include new settings
   rcs.selectorsLibrary.set(['.own-file', '.any-value']);
 
-  t.is(rcs.selectorsLibrary.get('own-file'), 'own-file');
-  t.is(rcs.selectorsLibrary.get('any-value'), 'a');
+  expect(rcs.selectorsLibrary.get('own-file')).toBe('own-file');
+  expect(rcs.selectorsLibrary.get('any-value')).toBe('a');
 
-  t.end();
+  done();
 });
