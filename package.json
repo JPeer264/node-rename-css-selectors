@@ -17,16 +17,6 @@
       "no-js"
     ]
   },
-  "ava": {
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit",
-    "files": [
-      "test/**/*.js",
-      "!test/files/**/*.js"
-    ]
-  },
   "keywords": [
     "css",
     "minify",
