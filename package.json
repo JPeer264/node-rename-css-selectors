@@ -4,12 +4,12 @@
   "description": "Rename css classes and id's in files",
   "main": "dest",
   "scripts": {
-    "test": "nyc ava -s",
+    "test": "jest --coverage",
     "build": "tsc && babel dest -d dest",
     "lint": "eslint lib test",
     "fix": "npm run lint -- --fix",
     "prepublish": "npm run build",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "rcs": {
     "exclude": [
@@ -55,6 +55,7 @@
     "rcs-core": "^3.*"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.2",
     "@types/node": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
@@ -68,8 +69,10 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
     "html-minifier": "^3.5.20",
+    "jest": "^25.1.0",
     "nyc": "^12.0.2",
     "rcs-core": "^3.0.1",
+    "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
   }
 }
