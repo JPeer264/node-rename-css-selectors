@@ -1,23 +1,22 @@
-import test from 'ava';
 import path from 'path';
 import fs from 'fs-extra';
 
 import rcs from '../lib';
 import reset from './helpers/reset';
 
-const testCwd = 'test/files/testCache';
-const fixturesCwd = 'test/files/fixtures';
-const resultsCwd = 'test/files/results';
+const testCwd = '__tests__/files/testCache';
+const fixturesCwd = '__tests__/files/fixtures';
+const resultsCwd = '__tests__/files/results';
 
-test.beforeEach(() => {
+beforeEach(() => {
   reset();
 });
 
-test.afterEach(() => {
+afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test('should process css files synchornously', (t) => {
+test('should process css files synchornously', () => {
   rcs.process.cssSync('**/style*.css', {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -30,12 +29,12 @@ test('should process css files synchornously', (t) => {
   const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
   const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
 
-  t.is(newFile, expectedFile);
-  t.is(newFile2, expectedFile2);
-  t.is(newFile3, expectedFile3);
+  expect(newFile).toBe(expectedFile);
+  expect(newFile2).toBe(expectedFile2);
+  expect(newFile3).toBe(expectedFile3);
 });
 
-test('should process css files as arrays synchornously', (t) => {
+test('should process css files as arrays synchornously', () => {
   rcs.process.cssSync(['**/style.css', '**/style2.css'], {
     newPath: testCwd,
     cwd: fixturesCwd,
@@ -48,7 +47,7 @@ test('should process css files as arrays synchornously', (t) => {
   const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
   const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
 
-  t.is(newFile, expectedFile);
-  t.is(newFile2, expectedFile2);
-  t.is(newFile3, expectedFile3);
+  expect(newFile).toBe(expectedFile);
+  expect(newFile2).toBe(expectedFile2);
+  expect(newFile3).toBe(expectedFile3);
 });
