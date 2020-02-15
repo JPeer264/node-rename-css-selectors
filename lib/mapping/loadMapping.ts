@@ -1,8 +1,8 @@
 import rcs from 'rcs-core';
 import json from 'json-extra';
 
-const loadMapping = (pathString, opts = {}) => {
-  let selectors = pathString;
+const loadMapping = (pathString: string | { [s: string]: string }, opts = {}): void => {
+  let selectors: { [s: string]: string };
 
   const options = {
     origValues: true,
@@ -11,10 +11,12 @@ const loadMapping = (pathString, opts = {}) => {
 
   if (typeof pathString === 'string') {
     selectors = json.readToObjSync(pathString, 'utf8');
+  } else {
+    selectors = pathString;
   }
 
   if (!options.origValues) {
-    const tempSelectors = {};
+    const tempSelectors: { [s: string]: string } = {};
 
     Object.keys(selectors).forEach((key) => {
       const value = selectors[key];

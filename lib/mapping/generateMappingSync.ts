@@ -3,8 +3,9 @@ import path from 'path';
 import json from 'json-extra';
 
 import saveSync from '../helper/saveSync';
+import { GenerateMappingOptions } from './generateMapping';
 
-const generateMappingSync = (pathString, opts = {}) => {
+const generateMappingSync = (pathString: string, opts: GenerateMappingOptions = {}): void => {
   let fileName = 'renaming_map';
   let fileNameExt = '.json';
   let mappingName = 'CSS_NAME_MAPPING';
@@ -37,7 +38,7 @@ const generateMappingSync = (pathString, opts = {}) => {
   const cssMappingArray = rcs.selectorsLibrary.getClassSelector().getAll({
     getRenamedValues: !options.origValues,
     addSelectorType: options.isSelectors,
-  });
+  } as any); // todo jpeer: remove any as soon as types are fixed in rcs-core
 
   const cssMappingJsonString = json.check(cssMappingArray) ? cssMappingArray : json.stringify(cssMappingArray, null, '\t');
   let writeData = cssMappingJsonString;

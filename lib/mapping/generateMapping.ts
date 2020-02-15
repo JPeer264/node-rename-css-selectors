@@ -6,12 +6,29 @@ import json from 'json-extra';
 
 import save from '../helper/save';
 
-const generateMapping = (pathString, opts, cb) => {
+type Callback = (
+  err: null | { message: string } | NodeJS.ErrnoException, successMessage?: string
+) => void;
+
+export interface GenerateMappingOptions {
+  cssMappingMin?: string | boolean;
+  cssMapping?: string | boolean;
+  origValues?: boolean;
+  isSelectors?: boolean;
+  json?: boolean;
+  overwrite?: boolean;
+}
+
+const generateMapping = (
+  pathString: string,
+  opts: GenerateMappingOptions,
+  cb: Callback,
+): void => {
   let fileName = 'renaming_map';
   let fileNameExt = '.json';
   let mappingName = 'CSS_NAME_MAPPING';
 
-  const optionsDefault = {
+  const optionsDefault: GenerateMappingOptions = {
     cssMapping: true,
     cssMappingMin: false,
     json: true,
@@ -25,7 +42,7 @@ const generateMapping = (pathString, opts, cb) => {
 
   // set cb if options are not set
   if (typeof callback !== 'function') {
-    callback = options;
+    callback = options as () => void;
     options = {};
   }
 
@@ -49,7 +66,7 @@ const generateMapping = (pathString, opts, cb) => {
   const cssMappingArray = rcs.selectorsLibrary.getClassSelector().getAll({
     getRenamedValues: !options.origValues,
     addSelectorType: options.isSelectors,
-  });
+  } as any); // todo jpeer: remove any as soon as types are fixed in rcs-core
 
   const cssMappingJsonString = json.check(cssMappingArray) ? cssMappingArray : json.stringify(cssMappingArray, null, '\t');
   let writeData = cssMappingJsonString;
@@ -61,7 +78,7 @@ const generateMapping = (pathString, opts, cb) => {
     fileNameExt = '.js';
   }
 
-  save(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite }, (err, data) => {
+  save(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite }, (err: any, data: string) => {
     if (err) {
       callback(err);
     }
