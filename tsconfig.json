@@ -16,5 +16,8 @@
   },
   "include": [
     "lib"
+  ],
+  "files": [
+    "./global.d.ts"
   ]
 }
