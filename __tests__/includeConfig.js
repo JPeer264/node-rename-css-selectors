@@ -5,7 +5,7 @@ import rcs from 'rcs-core';
 import reset from './helpers/reset';
 import includeConfig from '../lib/config/includeConfig';
 
-const testFiles = path.join(process.cwd(), '/test/files');
+const testFiles = path.join(process.cwd(), '/__tests__/files');
 
 beforeEach(() => {
   reset();
