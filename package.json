@@ -4,7 +4,7 @@
   "description": "Rename css classes and id's in files",
   "main": "dest",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --runInBand",
     "build": "tsc && babel dest -d dest",
     "lint": "eslint lib test",
     "fix": "npm run lint -- --fix",

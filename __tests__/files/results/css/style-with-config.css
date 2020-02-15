@@ -22,17 +22,17 @@
     content: 'block__element--modifier';
 }
 
-#f {
+#a {
     content: 'id';
 }
 
-.g[src] {
+.f[src] {
     content: 'attribute';
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 
 @media screen and (min-width: .40em) {
-    #f {
+    #a {
         height: .20px;
         width: .20em;
     }
@@ -44,7 +44,7 @@
 @media screen and (min-width: 40em)
 
 {
-    #f
+    #a
     {
         height: .20px;
         width: .20em;
@@ -55,20 +55,20 @@ h1 {
     color: red;
 }
 
-.h {
+.g {
     content: 'reveal';
     color: #eee;
     font-size: .5rem;
 }
 
-.js.h {
+.js.g {
     content: 'js.reveal';
 }
 
-.no-js.h {
+.no-js.g {
     content: 'js.reveal';
 }
 
-.i {
+.h {
     content: 'js-reveal';
 }
