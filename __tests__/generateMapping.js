@@ -117,15 +117,9 @@ test('should overwrite mapping files', (done) => {
   });
 });
 
-test('should not overwrite mapping files', (done) => {
-  generateMapping(testCwd, (err) => {
-    generateMapping(testCwd, (err2) => {
-      expect(err).toBeFalsy();
-      expect(err2).toBeTruthy();
-
-      done();
-    });
-  });
+test('should not overwrite mapping files', async () => {
+  await expect(generateMapping(testCwd)).resolves.toBeTruthy();
+  await expect(generateMapping(testCwd)).rejects.toBeTruthy();
 });
 
 test('should create the custom names minified mapping file', (done) => {
