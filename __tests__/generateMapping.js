@@ -48,37 +48,6 @@ test('should create the minified mapping file', (done) => {
   });
 });
 
-test('should create the extended normal mapping file', (done) => {
-  generateMapping(testCwd, {
-    extended: true,
-  }, (err) => {
-    const cssMapping = json.readToObjSync(path.join(testCwd, '/renaming_map.json'), 'utf8');
-
-    expect(err).toBeFalsy();
-    expect(cssMapping['.jp-block'].type).toBeTruthy();
-    expect(cssMapping['.jp-block'].typeChar).toBeTruthy();
-    expect(cssMapping['.jp-block'].type).toBe('class');
-
-    done();
-  });
-});
-
-test('should create the minified mapping file', (done) => {
-  generateMapping(testCwd, {
-    cssMapping: false,
-    cssMappingMin: true,
-    extended: true,
-  }, (err) => {
-    const cssMappingMin = json.readToObjSync(path.join(testCwd, '/renaming_map_min.json'), 'utf8');
-
-    expect(err).toBeFalsy();
-    expect(cssMappingMin['.a'].typeChar).toBeTruthy();
-    expect(cssMappingMin['.a'].type).toBe('class');
-
-    done();
-  });
-});
-
 test('should create the minified mapping file with a custom name', (done) => {
   generateMapping(testCwd, {
     cssMappingMin: 'custom-name',
