@@ -1,3 +1,5 @@
 coverage/
-test/
+__tests__/
 .travis.yml
+lib/
+docs
