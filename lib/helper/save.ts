@@ -2,10 +2,6 @@ import { fromCallback } from 'universalify';
 import fs from 'fs-extra';
 import path from 'path';
 
-type Callback = (
-  err: null | { message: string } | NodeJS.ErrnoException, successMessage?: string
-) => void;
-
 interface SaveOptions {
   overwrite?: boolean;
 }

@@ -1,7 +1,8 @@
 import rcsProcessSync from '../processSync';
 
-const typeChooserSync = (processType) => (
-  (pathString, opts) => {
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const typeChooserSync = (processType: 'css' | 'js' | 'html' | 'pug' | 'any' | 'auto') => (
+  (pathString: string, opts: any) => {
     const options = opts || {};
     // set the type for process
     options.type = processType;

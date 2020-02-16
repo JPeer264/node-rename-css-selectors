@@ -6,10 +6,6 @@ import json from 'json-extra';
 
 import save from '../helper/save';
 
-type Callback = (
-  err: null | { message: string } | NodeJS.ErrnoException, successMessage?: string
-) => void;
-
 export interface GenerateMappingOptions {
   cssMappingMin?: string | boolean;
   cssMapping?: string | boolean;

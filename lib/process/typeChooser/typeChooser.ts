@@ -1,7 +1,8 @@
 import { fromCallback } from 'universalify';
 import rcsProcess from '../process';
 
-const typeChooser = (processType) => (
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const typeChooser = (processType: 'css' | 'js' | 'html' | 'pug' | 'any' | 'auto') => (
   fromCallback((pathString, opts, cb) => {
     let callback = cb;
     let options = opts;
