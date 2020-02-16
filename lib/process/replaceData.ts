@@ -2,8 +2,9 @@ import rcs from 'rcs-core';
 import path from 'path';
 
 import defaults from './defaults';
+import { Options } from './process';
 
-const replaceData = (filePath, fileData, options) => {
+const replaceData = (filePath: string, fileData: string, options: Options): string => {
   let data;
 
   if (
@@ -13,7 +14,7 @@ const replaceData = (filePath, fileData, options) => {
       && defaults.fileExt.js.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.js(fileData, options.parserOptions);
+    data = rcs.replace.js(fileData, options.espreeOptions);
   } else if (
     options.type === 'css'
     || (
@@ -21,7 +22,7 @@ const replaceData = (filePath, fileData, options) => {
       && defaults.fileExt.css.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.css(fileData);
+    data = rcs.replace.css(fileData, options);
   } else if (
     options.type === 'html'
     || (
@@ -29,7 +30,7 @@ const replaceData = (filePath, fileData, options) => {
       && defaults.fileExt.html.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.html(fileData);
+    data = rcs.replace.html(fileData, options);
   } else if (
     options.type === 'pug'
     || (
@@ -37,9 +38,9 @@ const replaceData = (filePath, fileData, options) => {
       && defaults.fileExt.pug.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.pug(fileData);
+    data = rcs.replace.pug(fileData, options);
   } else {
-    data = rcs.replace.any(fileData);
+    data = rcs.replace.any(fileData, options);
   }
 
   return data;

@@ -27,7 +27,7 @@ interface BaseOptions {
   overwrite?: boolean;
 }
 
-type Options =
+export type Options =
   | BaseOptions & ReplacePugOptions & { type: 'pug' }
   | BaseOptions & ReplaceStringOptions & { type: 'any' }
   | BaseOptions & ReplaceJsOptions & { type: 'js' }
