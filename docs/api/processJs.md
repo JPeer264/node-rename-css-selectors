@@ -13,7 +13,6 @@ Parameters:
 
 Options:
 
-- *all options of [rcs.process](process.md)*
 - *plus options [rcsCore.replace.js](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/replace.md#js)*
 
 Example:
