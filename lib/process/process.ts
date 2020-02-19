@@ -21,19 +21,36 @@ import defaults from './defaults';
 
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
-interface BaseOptions {
+export interface BaseOptions {
   cwd?: string;
   newPath?: string;
   overwrite?: boolean;
 }
 
+export interface AllOptions {
+  pug: BaseOptions & ReplacePugOptions;
+  any: BaseOptions & ReplaceStringOptions;
+  js: BaseOptions & ReplaceJsOptions;
+  html: BaseOptions & FillLibrariesOptions & ReplaceHtmlOptions;
+  css: BaseOptions & FillLibrariesOptions & ReplaceCssOptions;
+  auto: (
+    & BaseOptions
+    & FillLibrariesOptions
+    & ReplaceCssOptions
+    & ReplacePugOptions
+    & ReplaceHtmlOptions
+    & ReplaceStringOptions
+    & ReplaceJsOptions
+  );
+}
+
 export type Options =
-  | BaseOptions & ReplacePugOptions & { type: 'pug' }
-  | BaseOptions & ReplaceStringOptions & { type: 'any' }
-  | BaseOptions & ReplaceJsOptions & { type: 'js' }
-  | BaseOptions & FillLibrariesOptions & ReplaceHtmlOptions & { type: 'html' }
-  | BaseOptions & FillLibrariesOptions & ReplaceCssOptions & { type: 'css' }
-  | BaseOptions & FillLibrariesOptions & ReplaceCssOptions & ReplacePugOptions & ReplaceHtmlOptions & ReplaceStringOptions & ReplaceJsOptions & { type: 'auto' }
+  | AllOptions['pug'] & { type: 'pug' }
+  | AllOptions['any'] & { type: 'any' }
+  | AllOptions['js'] & { type: 'js' }
+  | AllOptions['html'] & { type: 'html' }
+  | AllOptions['css'] & { type: 'css' }
+  | AllOptions['auto'] & { type: 'auto' }
 
 const rcsProcess = (pathString: string, opts: Options | Callback, cb?: Callback): void => {
   let globString = pathString;

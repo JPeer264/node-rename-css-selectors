@@ -1,9 +1,14 @@
 import { fromCallback } from 'universalify';
-import rcsProcess from '../process';
+import rcsProcess, { AllOptions } from '../process';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const typeChooser = (processType: 'css' | 'js' | 'html' | 'pug' | 'any' | 'auto') => (
-  fromCallback((pathString, opts, cb) => {
+function typeChooser(processType: 'pug'): (pathString: string, opts: AllOptions['html']) => Promise<void>;
+function typeChooser(processType: 'any'): (pathString: string, opts: AllOptions['any']) => Promise<void>;
+function typeChooser(processType: 'js'): (pathString: string, opts: AllOptions['js']) => Promise<void>;
+function typeChooser(processType: 'html'): (pathString: string, opts: AllOptions['html']) => Promise<void>;
+function typeChooser(processType: 'css'): (pathString: string, opts: AllOptions['css']) => Promise<void>;
+function typeChooser(processType: 'auto'): (pathString: string, opts: AllOptions['auto']) => Promise<void>;
+function typeChooser(processType: any): any {
+  return fromCallback((pathString, opts, cb) => {
     let callback = cb;
     let options = opts;
 
@@ -16,7 +21,7 @@ const typeChooser = (processType: 'css' | 'js' | 'html' | 'pug' | 'any' | 'auto'
     options.type = processType;
 
     return rcsProcess(pathString, options, callback);
-  })
-); // /typeChooser
+  });
+} // /typeChooser
 
 export default typeChooser;

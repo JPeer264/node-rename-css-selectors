@@ -1,14 +1,20 @@
 import rcsProcessSync from '../processSync';
+import { AllOptions } from '../process';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const typeChooserSync = (processType: 'css' | 'js' | 'html' | 'pug' | 'any' | 'auto') => (
-  (pathString: string, opts: any) => {
+function typeChooserSync(processType: 'pug'): (pathString: string, opts: AllOptions['html']) => void;
+function typeChooserSync(processType: 'any'): (pathString: string, opts: AllOptions['any']) => void;
+function typeChooserSync(processType: 'js'): (pathString: string, opts: AllOptions['js']) => void;
+function typeChooserSync(processType: 'html'): (pathString: string, opts: AllOptions['html']) => void;
+function typeChooserSync(processType: 'css'): (pathString: string, opts: AllOptions['css']) => void;
+function typeChooserSync(processType: 'auto'): (pathString: string, opts: AllOptions['auto']) => void;
+function typeChooserSync(processType: any): any {
+  return (pathString: string, opts: any) => {
     const options = opts || {};
     // set the type for process
-    options.type = processType;
+    (options as any).type = processType;
 
-    return rcsProcessSync(pathString, options);
-  }
-); // /typeChooserSync
+    rcsProcessSync(pathString, options as any);
+  };
+} // /typeChooserSync
 
 export default typeChooserSync;
