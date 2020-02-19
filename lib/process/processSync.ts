@@ -8,14 +8,15 @@ import assert from 'assert';
 import saveSync from '../helper/saveSync';
 import replaceData from './replaceData';
 import defaults from './defaults';
+import { Options } from './process';
 
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
 /**
  * The synchronous method for process
  */
-const processSync = (pathString, opts) => {
-  let globString = pathString;
+const processSync = (pathString: string | string[], opts: Options): void => {
+  let globString: string;
   const options = merge({}, optionsDefault, opts);
 
   assert(
@@ -23,8 +24,10 @@ const processSync = (pathString, opts) => {
     `options.type must be one of the following: ${availableTypes}`,
   );
 
-  if (Object.prototype.toString.call(pathString) === '[object Array]') {
+  if (Array.isArray(pathString)) {
     globString = `{${pathString.join(',')}}`;
+  } else {
+    globString = pathString;
   }
 
   const globArray = glob.sync(globString, { cwd: options.cwd });

@@ -2,7 +2,7 @@ import rcs from 'rcs-core';
 import path from 'path';
 import json from 'json-extra';
 
-const include = (pathString = path.join(process.cwd(), '.rcsrc')) => {
+const include = (pathString = path.join(process.cwd(), '.rcsrc')): void => {
   let configObject;
 
   configObject = json.readToObjSync(pathString);

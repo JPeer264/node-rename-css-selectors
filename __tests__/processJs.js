@@ -53,7 +53,7 @@ test('should not process jsx files', (done) => {
   rcs.process.js('js/react.js', {
     newPath: testCwd,
     cwd: fixturesCwd,
-    parserOptions: {
+    espreeOptions: {
       ecmaFeatures: {
         jsx: false,
       },

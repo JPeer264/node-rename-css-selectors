@@ -1,35 +1,24 @@
-import { fromCallback } from 'universalify';
-import merge from 'lodash.merge';
 import rcs from 'rcs-core';
 import path from 'path';
 import json from 'json-extra';
 
-import save from '../helper/save';
+import saveSync from '../helper/saveSync';
+import { GenerateMappingOptions } from './generateMapping';
 
-const generateMapping = (pathString, opts, cb) => {
+const generateMappingSync = (pathString: string, opts: GenerateMappingOptions = {}): void => {
   let fileName = 'renaming_map';
   let fileNameExt = '.json';
   let mappingName = 'CSS_NAME_MAPPING';
 
-  const optionsDefault = {
+  const options = {
     cssMapping: true,
     cssMappingMin: false,
     json: true,
     origValues: true,
     isSelectors: true,
     overwrite: false,
+    ...opts,
   };
-
-  let options = opts;
-  let callback = cb;
-
-  // set cb if options are not set
-  if (typeof callback !== 'function') {
-    callback = options;
-    options = {};
-  }
-
-  options = merge({}, optionsDefault, options);
 
   if (options.cssMappingMin) {
     options.origValues = false;
@@ -49,7 +38,7 @@ const generateMapping = (pathString, opts, cb) => {
   const cssMappingArray = rcs.selectorsLibrary.getClassSelector().getAll({
     getRenamedValues: !options.origValues,
     addSelectorType: options.isSelectors,
-  });
+  } as any); // todo jpeer: remove any as soon as types are fixed in rcs-core
 
   const cssMappingJsonString = json.check(cssMappingArray) ? cssMappingArray : json.stringify(cssMappingArray, null, '\t');
   let writeData = cssMappingJsonString;
@@ -61,13 +50,7 @@ const generateMapping = (pathString, opts, cb) => {
     fileNameExt = '.js';
   }
 
-  save(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite }, (err, data) => {
-    if (err) {
-      callback(err);
-    }
+  saveSync(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite });
+}; // /generateMappingSync
 
-    callback(null, data);
-  });
-}; // /generateMapping
-
-export default fromCallback(generateMapping);
+export default generateMappingSync;

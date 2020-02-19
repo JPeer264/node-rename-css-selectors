@@ -7,24 +7,63 @@ import glob from 'glob';
 import async from 'async';
 import assert from 'assert';
 
+import { ReplaceStringOptions } from 'rcs-core/dest/replace/string';
+import { ReplaceHtmlOptions } from 'rcs-core/dest/replace/html';
+import { ReplacePugOptions } from 'rcs-core/dest/replace/pug';
+import { ReplaceCssOptions } from 'rcs-core/dest/replace/css';
+import { ReplaceJsOptions } from 'rcs-core/dest/replace/js';
+import { FillLibrariesOptions } from 'rcs-core/dest/fillLibraries';
+
 import save from '../helper/save';
 import replaceData from './replaceData';
 import defaults from './defaults';
 
+
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
-const rcsProcess = (pathString, opts, cb) => {
+export interface BaseOptions {
+  cwd?: string;
+  newPath?: string;
+  overwrite?: boolean;
+}
+
+export interface AllOptions {
+  pug: BaseOptions & ReplacePugOptions;
+  any: BaseOptions & ReplaceStringOptions;
+  js: BaseOptions & ReplaceJsOptions;
+  html: BaseOptions & FillLibrariesOptions & ReplaceHtmlOptions;
+  css: BaseOptions & FillLibrariesOptions & ReplaceCssOptions;
+  auto: (
+    & BaseOptions
+    & FillLibrariesOptions
+    & ReplaceCssOptions
+    & ReplacePugOptions
+    & ReplaceHtmlOptions
+    & ReplaceStringOptions
+    & ReplaceJsOptions
+  );
+}
+
+export type Options =
+  | AllOptions['pug'] & { type: 'pug' }
+  | AllOptions['any'] & { type: 'any' }
+  | AllOptions['js'] & { type: 'js' }
+  | AllOptions['html'] & { type: 'html' }
+  | AllOptions['css'] & { type: 'css' }
+  | AllOptions['auto'] & { type: 'auto' }
+
+const rcsProcess = (pathString: string, opts: Options | Callback, cb?: Callback): void => {
   let globString = pathString;
-  let options = opts;
-  let callback = cb;
+  let tempOptions = opts;
+  let callback = cb as Callback;
 
   // set callback if options are not set
   if (typeof callback !== 'function') {
-    callback = options;
-    options = {};
+    callback = tempOptions as Callback;
+    tempOptions = { type: 'any' };
   }
 
-  options = merge({}, optionsDefault, options);
+  const options = merge({}, optionsDefault, tempOptions) as Options;
 
   assert(
     availableTypes.includes(options.type),
@@ -37,9 +76,9 @@ const rcsProcess = (pathString, opts, cb) => {
       : pathString[0];
   }
 
-  glob(globString, {
-    cwd: options.cwd,
-  }, (errGlob, filesArray) => {
+  const cwd = options.cwd || process.cwd();
+
+  glob(globString, { cwd }, (errGlob, filesArray) => {
     if (errGlob) {
       return callback(errGlob);
     }
@@ -70,9 +109,14 @@ const rcsProcess = (pathString, opts, cb) => {
         return asyncCb();
       }
 
-      return fs.readFile(path.join(options.cwd, filePath), (errReadFile, bufferData) => {
+      return fs.readFile(path.join(cwd, filePath), (errReadFile, bufferData) => {
         if (errReadFile) {
           return asyncCb(errReadFile);
+        }
+
+        // add here again so typescript gets the correct option types
+        if (options.type !== 'auto' && options.type !== 'css' && options.type !== 'html') {
+          return undefined;
         }
 
         const isHtml = fileExt.html.includes(path.extname(filePath));
@@ -102,7 +146,7 @@ const rcsProcess = (pathString, opts, cb) => {
       // all selectors are collected
       // ⚡️ speed it up with async.each ⚡️
       return async.each(filesArray, (filePath, asyncEachCb) => {
-        fs.readFile(path.join(options.cwd, filePath), 'utf8', (err, bufferData) => {
+        fs.readFile(path.join(cwd, filePath), 'utf8', (err, bufferData) => {
           let data;
           let shouldOverwrite = options.overwrite;
 
@@ -116,13 +160,13 @@ const rcsProcess = (pathString, opts, cb) => {
             return asyncEachCb(e);
           }
 
-          const joinedPath = path.join(options.newPath, filePath);
+          const joinedPath = path.join(options.newPath || cwd, filePath);
 
           if (!options.overwrite) {
-            shouldOverwrite = joinedPath !== path.join(options.cwd, filePath);
+            shouldOverwrite = joinedPath !== path.join(cwd, filePath);
           }
 
-          return save(joinedPath, data, { overwrite: shouldOverwrite }, (errSave) => {
+          return save(joinedPath, data, { overwrite: shouldOverwrite }, (errSave: any) => {
             if (errSave) {
               return asyncEachCb(errSave);
             }

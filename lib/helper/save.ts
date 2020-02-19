@@ -2,9 +2,19 @@ import { fromCallback } from 'universalify';
 import fs from 'fs-extra';
 import path from 'path';
 
-const save = (destinationPath, data, opts, cb) => {
+interface SaveOptions {
+  overwrite?: boolean;
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const save = (
+  destinationPath: string,
+  data: string,
+  opts: SaveOptions | Callback,
+  cb?: Callback,
+) => {
   // @todo check if the filepath has an .ext
-  let callback = cb;
+  let callback = cb as Callback;
   let options = opts;
 
   // set cb if options are not set
