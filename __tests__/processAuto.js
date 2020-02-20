@@ -17,26 +17,23 @@ afterEach(() => {
   fs.removeSync(testCwd);
 });
 
-test('should process css files', (done) => {
-  rcs.process.auto('**/style*.css', {
+test('should process css files', async () => {
+  await rcs.process.auto('**/style*.css', {
     collectSelectors: true,
     newPath: testCwd,
     cwd: fixturesCwd,
-  }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
-    const newFile2 = fs.readFileSync(path.join(testCwd, '/css/style2.css'), 'utf8');
-    const newFile3 = fs.readFileSync(path.join(testCwd, '/css/subdirectory/style.css'), 'utf8');
-    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
-    const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
-    const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
-
-    expect(err).toBeFalsy();
-    expect(newFile).toBe(expectedFile);
-    expect(newFile2).toBe(expectedFile2);
-    expect(newFile3).toBe(expectedFile3);
-
-    done();
   });
+
+  const newFile = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
+  const newFile2 = fs.readFileSync(path.join(testCwd, '/css/style2.css'), 'utf8');
+  const newFile3 = fs.readFileSync(path.join(testCwd, '/css/subdirectory/style.css'), 'utf8');
+  const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
+  const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
+  const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
+
+  expect(newFile).toBe(expectedFile);
+  expect(newFile2).toBe(expectedFile2);
+  expect(newFile3).toBe(expectedFile3);
 });
 
 test('processing | should process all files automatically', (done) => {
@@ -99,7 +96,7 @@ test('should not overwrite original files', (done) => {
 test('should fail', (done) => {
   rcs.process.auto('path/**/with/nothing/in/it', (err) => {
     expect(err).toBeTruthy();
-    expect(err.error).toBe('ENOENT');
+    expect(err.message).toBe('No files found');
 
     done();
   });
