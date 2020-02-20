@@ -9,6 +9,8 @@ This module renames all CSS selectors in the given files. It will collect all se
 
 You can also use a config file with the combination of [generateMapping](#generateMapping) and [loadMapping](#loadMapping), if you already had other projects with the same classes. So all your projects have the same minified selector names - always.
 
+This is a plugin of [rcs-core](https://github.com/JPeer264/node-rcs-core)
+
 ## Contents
 
 - [Installation](#installation)
