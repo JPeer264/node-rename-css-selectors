@@ -1,3 +1,4 @@
+import tmp from 'tmp';
 import path from 'path';
 import fs from 'fs-extra';
 import { minify } from 'html-minifier';
@@ -5,28 +6,31 @@ import { minify } from 'html-minifier';
 import rcs from '../lib';
 import reset from './helpers/reset';
 
-const testCwd = '__tests__/files/testCache';
 const fixturesCwd = '__tests__/files/fixtures';
 const resultsCwd = '__tests__/files/results';
 
+let testCwd;
+
 beforeEach(() => {
+  testCwd = tmp.dirSync();
+
   reset();
 });
 
 afterEach(() => {
-  fs.removeSync(testCwd);
+  testCwd.removeCallback();
 });
 
 test('should process css files', async () => {
   await rcs.process.auto('**/style*.css', {
     collectSelectors: true,
-    newPath: testCwd,
+    newPath: testCwd.name,
     cwd: fixturesCwd,
   });
 
-  const newFile = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
-  const newFile2 = fs.readFileSync(path.join(testCwd, '/css/style2.css'), 'utf8');
-  const newFile3 = fs.readFileSync(path.join(testCwd, '/css/subdirectory/style.css'), 'utf8');
+  const newFile = fs.readFileSync(path.join(testCwd.name, '/css/style.css'), 'utf8');
+  const newFile2 = fs.readFileSync(path.join(testCwd.name, '/css/style2.css'), 'utf8');
+  const newFile3 = fs.readFileSync(path.join(testCwd.name, '/css/subdirectory/style.css'), 'utf8');
   const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
   const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
   const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
@@ -38,12 +42,12 @@ test('should process css files', async () => {
 
 test('processing | should process all files automatically', (done) => {
   rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
-    newPath: testCwd,
+    newPath: testCwd.name,
     cwd: fixturesCwd,
   }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/js/main.js'), 'utf8');
-    const newFile2 = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
-    const newFile3 = fs.readFileSync(path.join(testCwd, '/html/index.html'), 'utf8');
+    const newFile = fs.readFileSync(path.join(testCwd.name, '/js/main.js'), 'utf8');
+    const newFile2 = fs.readFileSync(path.join(testCwd.name, '/css/style.css'), 'utf8');
+    const newFile3 = fs.readFileSync(path.join(testCwd.name, '/html/index.html'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/main.js'), 'utf8');
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
     const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/html/index.html'), 'utf8');
@@ -61,12 +65,12 @@ test('processing | should process all files automatically', (done) => {
 test('should process css files as arrays', (done) => {
   rcs.process.auto(['**/style.css', '**/style2.css'], {
     collectSelectors: true,
-    newPath: testCwd,
+    newPath: testCwd.name,
     cwd: fixturesCwd,
   }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
-    const newFile2 = fs.readFileSync(path.join(testCwd, '/css/style2.css'), 'utf8');
-    const newFile3 = fs.readFileSync(path.join(testCwd, '/css/subdirectory/style.css'), 'utf8');
+    const newFile = fs.readFileSync(path.join(testCwd.name, '/css/style.css'), 'utf8');
+    const newFile2 = fs.readFileSync(path.join(testCwd.name, '/css/style2.css'), 'utf8');
+    const newFile3 = fs.readFileSync(path.join(testCwd.name, '/css/subdirectory/style.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style2.css'), 'utf8');
     const expectedFile3 = fs.readFileSync(path.join(resultsCwd, '/css/subdirectory/style.css'), 'utf8');
@@ -104,10 +108,10 @@ test('should fail', (done) => {
 
 test('should process auto file with css variables', (done) => {
   rcs.process.auto('css/css-variables.css', {
-    newPath: testCwd,
+    newPath: testCwd.name,
     cwd: fixturesCwd,
   }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
+    const newFile = fs.readFileSync(path.join(testCwd.name, '/css/css-variables.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables.css'), 'utf8');
 
     expect(err).toBeFalsy();
@@ -119,11 +123,11 @@ test('should process auto file with css variables', (done) => {
 
 test('should not process auto file with css variables', (done) => {
   rcs.process.auto('css/css-variables.css', {
-    newPath: testCwd,
+    newPath: testCwd.name,
     cwd: fixturesCwd,
     ignoreCssVariables: true,
   }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/css/css-variables.css'), 'utf8');
+    const newFile = fs.readFileSync(path.join(testCwd.name, '/css/css-variables.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/css/css-variables-ignore.css'), 'utf8');
 
     expect(err).toBeFalsy();
@@ -135,11 +139,11 @@ test('should not process auto file with css variables', (done) => {
 
 test('should fillLibraries from html and css | issue #38', (done) => {
   rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
-    newPath: testCwd,
+    newPath: testCwd.name,
     cwd: fixturesCwd,
   }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd, '/html/index-with-style.html'), 'utf8');
-    const newFile2 = fs.readFileSync(path.join(testCwd, '/css/style.css'), 'utf8');
+    const newFile = fs.readFileSync(path.join(testCwd.name, '/html/index-with-style.html'), 'utf8');
+    const newFile2 = fs.readFileSync(path.join(testCwd.name, '/css/style.css'), 'utf8');
     const expectedFile = fs.readFileSync(path.join(resultsCwd, '/html/index-with-style.html'), 'utf8');
     const expectedFile2 = fs.readFileSync(path.join(resultsCwd, '/css/style.css'), 'utf8');
 
