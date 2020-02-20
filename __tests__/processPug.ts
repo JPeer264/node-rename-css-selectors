@@ -22,17 +22,14 @@ afterEach(() => {
   testCwd.removeCallback();
 });
 
-test('should process pug files', (done) => {
-  rcs.process.pug('pug/index.pug', {
+test('should process pug files', async () => {
+  await rcs.process.pug('pug/index.pug', {
     newPath: testCwd.name,
     cwd: fixturesCwd,
-  }, (err) => {
-    const newFile = fs.readFileSync(path.join(testCwd.name, '/pug/index.pug'), 'utf8');
-    const expectedFile = fs.readFileSync(path.join(resultsCwd, '/pug/index.pug'), 'utf8');
-
-    expect(err).toBeFalsy();
-    expect(newFile.trim()).toBe(expectedFile.trim());
-
-    done();
   });
+
+  const newFile = fs.readFileSync(path.join(testCwd.name, '/pug/index.pug'), 'utf8');
+  const expectedFile = fs.readFileSync(path.join(resultsCwd, '/pug/index.pug'), 'utf8');
+
+  expect(newFile.trim()).toBe(expectedFile.trim());
 });

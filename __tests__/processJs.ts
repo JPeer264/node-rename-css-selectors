@@ -1,7 +1,7 @@
 import tmp from 'tmp';
+import path from 'path';
 import fs from 'fs-extra';
 import rcsCore from 'rcs-core';
-import path from 'path';
 
 import rcs from '../lib';
 import reset from './helpers/reset';
@@ -22,8 +22,8 @@ afterEach(() => {
   testCwd.removeCallback();
 });
 
-test('should process js files', () => {
-  rcs.process.jsSync('js/main.js', {
+test('should process js files', async () => {
+  await rcs.process.js('js/main.js', {
     newPath: testCwd.name,
     cwd: fixturesCwd,
   });
@@ -34,11 +34,10 @@ test('should process js files', () => {
   expect(newFile).toBe(expectedFile);
 });
 
-test('should process jsx files', () => {
-  rcs.process.jsSync('js/react.js', {
+test('should process jsx files', async () => {
+  await rcs.process.js('js/react.js', {
     newPath: testCwd.name,
     cwd: fixturesCwd,
-    jsx: true,
   });
 
   const newFile = fs.readFileSync(path.join(testCwd.name, '/js/react.js'), 'utf8');
@@ -47,35 +46,41 @@ test('should process jsx files', () => {
   expect(newFile).toBe(expectedFile);
 });
 
-test('should not process jsx files', () => {
-  rcs.process.jsSync('js/react.js', {
-    newPath: testCwd.name,
-    cwd: fixturesCwd,
-  });
-
-  const newFile = fs.readFileSync(path.join(testCwd.name, '/js/react.js'), 'utf8');
-  const expectedFile = fs.readFileSync(path.join(testCwd.name, '/js/react.js'), 'utf8');
-
-  expect(newFile).toBe(expectedFile);
+test('should not process jsx files', async () => {
+  await expect((
+    rcs.process.js('js/react.js', {
+      newPath: testCwd.name,
+      cwd: fixturesCwd,
+      espreeOptions: {
+        ecmaFeatures: {
+          jsx: false,
+        },
+      },
+    })
+  )).rejects.toBeTruthy();
 });
 
-test('should process complex files', () => {
-  rcs.process.jsSync('js/complex.js', {
+test('should process complex files', async () => {
+  await rcs.process.js('js/complex.js', {
     newPath: testCwd.name,
     cwd: fixturesCwd,
   });
 
   const newFile = fs.readFileSync(path.join(testCwd.name, '/js/complex.js'), 'utf8');
-  const expectedFile = fs.readFileSync(path.join(testCwd.name, '/js/complex.js'), 'utf8');
+  const expectedFile = fs.readFileSync(path.join(resultsCwd, '/js/complex.js'), 'utf8');
 
   expect(newFile).toBe(expectedFile);
 });
 
-test('should not process multiple files', () => {
-  rcs.process.jsSync('js/*.js', {
+test('should not process multiple files', async () => {
+  await rcs.process.js('js/*.js', {
     newPath: testCwd.name,
     cwd: fixturesCwd,
-    jsx: true,
+    espreeOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
   });
 
   const newFile = fs.readFileSync(path.join(testCwd.name, '/js/complex.js'), 'utf8');
