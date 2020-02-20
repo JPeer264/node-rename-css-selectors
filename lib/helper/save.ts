@@ -24,6 +24,7 @@ const save = (
   }
 
   if (!options.overwrite && fs.existsSync(destinationPath)) {
+    // todo jpeer: throw error
     return callback({
       message: 'File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.',
     });

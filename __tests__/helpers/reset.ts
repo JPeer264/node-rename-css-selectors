@@ -1,6 +1,6 @@
 import rcsCore from 'rcs-core';
 
-const reset = () => {
+const reset = (): void => {
   rcsCore.keyframesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcsCore.cssVariablesLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
   rcsCore.selectorsLibrary.setAlphabet('#abcdefghijklmnopqrstuvwxyz');

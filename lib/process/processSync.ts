@@ -15,13 +15,13 @@ const { fileExt, availableTypes, optionsDefault } = defaults;
 /**
  * The synchronous method for process
  */
-function processSync(type: 'auto', pathString: string | string[], opts: AllOptions['auto']): void;
-function processSync(type: 'css', pathString: string | string[], opts: AllOptions['css']): void;
-function processSync(type: 'js', pathString: string | string[], opts: AllOptions['js']): void;
-function processSync(type: 'html', pathString: string | string[], opts: AllOptions['html']): void;
-function processSync(type: 'pug', pathString: string | string[], opts: AllOptions['pug']): void;
-function processSync(type: 'any', pathString: string | string[], opts: AllOptions['any']): void;
-function processSync(type: any, pathString: string | string[], opts: any): void {
+function processSync(type: 'auto', pathString: string | string[], opts?: AllOptions['auto']): void;
+function processSync(type: 'css', pathString: string | string[], opts?: AllOptions['css']): void;
+function processSync(type: 'js', pathString: string | string[], opts?: AllOptions['js']): void;
+function processSync(type: 'html', pathString: string | string[], opts?: AllOptions['html']): void;
+function processSync(type: 'pug', pathString: string | string[], opts?: AllOptions['pug']): void;
+function processSync(type: 'any', pathString: string | string[], opts?: AllOptions['any']): void;
+function processSync(type: any, pathString: string | string[], opts: any = {}): void {
   let globString: string;
   const options = merge({}, optionsDefault, opts);
 
@@ -78,6 +78,6 @@ function processSync(type: any, pathString: string | string[], opts: any): void 
 
     saveSync(joinedPath, data, { overwrite: shouldOverwrite });
   });
-}; // /processSync
+} // /processSync
 
 export default processSync;

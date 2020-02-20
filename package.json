@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc && babel dest -d dest",
-    "lint": "eslint lib __tests__",
+    "lint": "eslint lib/**/*.ts __tests__/**/*.ts",
     "fix": "npm run lint -- --fix",
     "prepublish": "npm run build",
     "coveralls": "cat ./coverage/lcov.info | coveralls"

@@ -42,16 +42,16 @@ export interface AllOptions {
   );
 }
 
-async function rcsProcess(type: 'auto', pathString: string, opts: AllOptions['auto']): Promise<void>;
-async function rcsProcess(type: 'css', pathString: string, opts: AllOptions['css']): Promise<void>;
-async function rcsProcess(type: 'js', pathString: string, opts: AllOptions['js']): Promise<void>;
-async function rcsProcess(type: 'html', pathString: string, opts: AllOptions['html']): Promise<void>;
-async function rcsProcess(type: 'pug', pathString: string, opts: AllOptions['pug']): Promise<void>;
-async function rcsProcess(type: 'any', pathString: string, opts: AllOptions['any']): Promise<void>;
-async function rcsProcess(type: any, pathString: string, opts: any): Promise<void> {
+async function rcsProcess(type: 'auto', pathString: string | string[], opts?: AllOptions['auto']): Promise<void>;
+async function rcsProcess(type: 'css', pathString: string | string[], opts?: AllOptions['css']): Promise<void>;
+async function rcsProcess(type: 'js', pathString: string | string[], opts?: AllOptions['js']): Promise<void>;
+async function rcsProcess(type: 'html', pathString: string | string[], opts?: AllOptions['html']): Promise<void>;
+async function rcsProcess(type: 'pug', pathString: string | string[], opts?: AllOptions['pug']): Promise<void>;
+async function rcsProcess(type: 'any', pathString: string | string[], opts?: AllOptions['any']): Promise<void>;
+async function rcsProcess(type: any, pathString: string | string[], opts: any = {}): Promise<void> {
   const options = { ...optionsDefault, ...opts };
 
-  let globString = pathString;
+  let globString: string;
 
   assert(
     availableTypes.includes(type),
@@ -62,6 +62,8 @@ async function rcsProcess(type: any, pathString: string, opts: any): Promise<voi
     globString = pathString.length > 1
       ? `{${pathString.join(',')}}`
       : pathString[0];
+  } else {
+    globString = pathString;
   }
 
   const cwd = options.cwd || process.cwd();
