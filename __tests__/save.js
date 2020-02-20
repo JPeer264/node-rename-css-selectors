@@ -5,6 +5,7 @@ import path from 'path';
 import save from '../lib/helper/save';
 
 let testCwd;
+const testFiles = '__tests__/files';
 
 beforeEach(() => {
   testCwd = tmp.dirSync();
@@ -28,11 +29,14 @@ test('should create a file within a non existing dir', (done) => {
   });
 });
 
-test('should not overwrite the same file', (done) => {
-  const filePath = path.join(testCwd.name, '/../config.json');
+test('should not overwrite the same file', async (done) => {
+  const filePath = path.join(testFiles, '/config.json');
+  const filePathTest = path.join(testCwd.name, '/config.json');
   const oldFile = fs.readFileSync(filePath, 'utf8');
 
-  save(filePath, 'test content', (err) => {
+  await save(filePathTest, 'test content');
+
+  save(filePathTest, 'test content', (err) => {
     expect(err.message).toBe('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
     expect(fs.readFileSync(filePath, 'utf8')).toBe(oldFile);
 
