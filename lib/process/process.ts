@@ -68,17 +68,13 @@ const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError |
   }
 
   const cwd = options.cwd || process.cwd();
-  const [errGlob, filesArray]: [Error | null, string[]] = await new Promise((res) => (
+  const filesArray: string[] = await new Promise((res, rej) => (
     glob(globString, { cwd }, (error, allFiles) => (
       error
-        ? res([error, []])
-        : res([null, allFiles])
+        ? rej(error)
+        : res(allFiles)
     ))
   ));
-
-  if (errGlob) {
-    throw errGlob;
-  }
 
   // fail if nothing is found
   if (filesArray.length <= 0) {
