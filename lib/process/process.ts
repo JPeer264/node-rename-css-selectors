@@ -51,7 +51,7 @@ async function rcsProcess(type: 'any', pathString: string | string[], opts?: All
 async function rcsProcess(type: any, pathString: string | string[], opts: any = {}): Promise<void> {
   const options = { ...optionsDefault, ...opts };
 
-  let globString = pathString;
+  let globString: string;
 
   assert(
     availableTypes.includes(type),
@@ -62,6 +62,8 @@ async function rcsProcess(type: any, pathString: string | string[], opts: any = 
     globString = pathString.length > 1
       ? `{${pathString.join(',')}}`
       : pathString[0];
+  } else {
+    globString = pathString;
   }
 
   const cwd = options.cwd || process.cwd();
