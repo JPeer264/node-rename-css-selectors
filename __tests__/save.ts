@@ -29,17 +29,15 @@ test('should create a file within a non existing dir', (done) => {
   });
 });
 
-test('should not overwrite the same file', async (done) => {
+test('should not overwrite the same file', async () => {
   const filePath = path.join(testFiles, '/config.json');
   const filePathTest = path.join(testCwd.name, '/config.json');
   const oldFile = fs.readFileSync(filePath, 'utf8');
 
   await save(filePathTest, 'test content');
 
-  save(filePathTest, 'test content', (err) => {
-    expect(err.message).toBe('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
-    expect(fs.readFileSync(filePath, 'utf8')).toBe(oldFile);
-
-    done();
-  });
+  await expect(save(filePathTest, 'test content'))
+    .rejects
+    .toEqual(new Error('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.'));
+  expect(fs.readFileSync(filePath, 'utf8')).toBe(oldFile);
 });

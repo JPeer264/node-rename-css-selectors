@@ -91,7 +91,7 @@ test('should overwrite mapping files', (done) => {
 });
 
 test('should not overwrite mapping files', async () => {
-  await expect(generateMapping(testCwd.name)).resolves.toBeTruthy();
+  await expect(generateMapping(testCwd.name)).resolves.toBe(undefined);
   await expect(generateMapping(testCwd.name)).rejects.toBeTruthy();
 });
 

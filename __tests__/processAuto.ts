@@ -82,9 +82,7 @@ test('should not overwrite original files', async () => {
       newPath: fixturesCwd,
       cwd: fixturesCwd,
     })
-  )).rejects.toEqual({
-    message: 'File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.',
-  });
+  )).rejects.toEqual(new Error('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.'));
 });
 
 test('should fail', async () => {

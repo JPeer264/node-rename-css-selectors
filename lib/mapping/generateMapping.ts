@@ -14,11 +14,10 @@ export interface GenerateMappingOptions {
   overwrite?: boolean;
 }
 
-const generateMapping = (
+const generateMapping = async (
   pathString: string,
   opts: GenerateMappingOptions,
-  cb: Callback,
-): void => {
+): Promise<void> => {
   let fileName = 'renaming_map';
   let fileNameExt = '.json';
   let mappingName = 'CSS_NAME_MAPPING';
@@ -32,13 +31,6 @@ const generateMapping = (
     overwrite: false,
     ...opts,
   };
-
-  let callback = cb;
-
-  // set cb if options are not set
-  if (typeof callback !== 'function') {
-    callback = options as () => void;
-  }
 
   if (options.cssMappingMin) {
     options.origValues = false;
@@ -70,13 +62,7 @@ const generateMapping = (
     fileNameExt = '.js';
   }
 
-  save(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite }, (err: any, data: string) => {
-    if (err) {
-      callback(err);
-    }
-
-    callback(null, data);
-  });
+  await save(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite });
 }; // /generateMapping
 
 export default fromPromise(generateMapping);
