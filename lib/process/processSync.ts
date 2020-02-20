@@ -1,4 +1,3 @@
-import merge from 'lodash.merge';
 import fs from 'fs';
 import rcs from 'rcs-core';
 import path from 'path';
@@ -23,7 +22,7 @@ function processSync(type: 'pug', pathString: string | string[], opts?: AllOptio
 function processSync(type: 'any', pathString: string | string[], opts?: AllOptions['any']): void;
 function processSync(type: any, pathString: string | string[], opts: any = {}): void {
   let globString: string;
-  const options = merge({}, optionsDefault, opts);
+  const options = { ...optionsDefault, ...opts };
 
   assert(
     availableTypes.includes(type),

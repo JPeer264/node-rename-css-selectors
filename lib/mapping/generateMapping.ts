@@ -1,5 +1,4 @@
-import { fromCallback } from 'universalify';
-import merge from 'lodash.merge';
+import { fromPromise } from 'universalify';
 import rcs from 'rcs-core';
 import path from 'path';
 import json from 'json-extra';
@@ -24,25 +23,22 @@ const generateMapping = (
   let fileNameExt = '.json';
   let mappingName = 'CSS_NAME_MAPPING';
 
-  const optionsDefault: GenerateMappingOptions = {
+  const options: GenerateMappingOptions = {
     cssMapping: true,
     cssMappingMin: false,
     json: true,
     origValues: true,
     isSelectors: true,
     overwrite: false,
+    ...opts,
   };
 
-  let options = opts;
   let callback = cb;
 
   // set cb if options are not set
   if (typeof callback !== 'function') {
     callback = options as () => void;
-    options = {};
   }
-
-  options = merge({}, optionsDefault, options);
 
   if (options.cssMappingMin) {
     options.origValues = false;
@@ -83,4 +79,4 @@ const generateMapping = (
   });
 }; // /generateMapping
 
-export default fromCallback(generateMapping);
+export default fromPromise(generateMapping);

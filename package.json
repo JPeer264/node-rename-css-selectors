@@ -50,7 +50,6 @@
     "fs-extra": "^8.1.0",
     "glob": "^7.1.6",
     "json-extra": "^0.5.0",
-    "lodash.merge": "^4.6.2",
     "universalify": "^0.1.2"
   },
   "peerDependencies": {
