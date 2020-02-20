@@ -17,7 +17,6 @@ import save from '../helper/save';
 import replaceData from './replaceData';
 import defaults from './defaults';
 
-
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
 export interface BaseOptions {
@@ -43,22 +42,20 @@ export interface AllOptions {
   );
 }
 
-export type Options =
-  | AllOptions['pug'] & { type: 'pug' }
-  | AllOptions['any'] & { type: 'any' }
-  | AllOptions['js'] & { type: 'js' }
-  | AllOptions['html'] & { type: 'html' }
-  | AllOptions['css'] & { type: 'css' }
-  | AllOptions['auto'] & { type: 'auto' }
-
-const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError | void> => {
+async function rcsProcess(type: 'auto', pathString: string, opts: AllOptions['auto']): Promise<void>;
+async function rcsProcess(type: 'css', pathString: string, opts: AllOptions['css']): Promise<void>;
+async function rcsProcess(type: 'js', pathString: string, opts: AllOptions['js']): Promise<void>;
+async function rcsProcess(type: 'html', pathString: string, opts: AllOptions['html']): Promise<void>;
+async function rcsProcess(type: 'pug', pathString: string, opts: AllOptions['pug']): Promise<void>;
+async function rcsProcess(type: 'any', pathString: string, opts: AllOptions['any']): Promise<void>;
+async function rcsProcess(type: any, pathString: string, opts: any): Promise<void> {
   const options = { ...optionsDefault, ...opts };
 
   let globString = pathString;
 
   assert(
-    availableTypes.includes(options.type),
-    `options.type must be one of the following: ${availableTypes}`,
+    availableTypes.includes(type),
+    `type must be one of the following: ${availableTypes}`,
   );
 
   if (Array.isArray(pathString)) {
@@ -87,7 +84,7 @@ const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError |
     || fileExt.html.includes(path.extname(file))
   ));
 
-  const fillLibraryFiles = options.type === 'auto'
+  const fillLibraryFiles = type === 'auto'
     ? cssHtmlFiles
     : filesArray;
 
@@ -96,7 +93,7 @@ const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError |
   await new Promise((res, rej) => (
     eachSeries(fillLibraryFiles, (filePath, asyncCb) => {
       // skip if it is not meant to fill the library
-      if (options.type !== 'auto' && options.type !== 'css' && options.type !== 'html') {
+      if (type !== 'auto' && type !== 'css' && type !== 'html') {
         return asyncCb();
       }
 
@@ -106,7 +103,7 @@ const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError |
         }
 
         // add here again so typescript gets the correct option types
-        if (options.type !== 'auto' && options.type !== 'css' && options.type !== 'html') {
+        if (type !== 'auto' && type !== 'css' && type !== 'html') {
           return undefined;
         }
 
@@ -147,7 +144,7 @@ const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError |
         }
 
         try {
-          data = replaceData(filePath, bufferData, options);
+          data = replaceData(type, filePath, bufferData, options);
         } catch (e) {
           return asyncEachCb(e);
         }
@@ -170,6 +167,6 @@ const rcsProcess = async (pathString: string, opts: Options): Promise<RCSError |
       errProcess ? rej(errProcess) : res()
     ))
   ));
-}; // /process
+} // /process
 
 export default fromPromise(rcsProcess);

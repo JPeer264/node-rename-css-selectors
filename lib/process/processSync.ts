@@ -8,20 +8,26 @@ import assert from 'assert';
 import saveSync from '../helper/saveSync';
 import replaceData from './replaceData';
 import defaults from './defaults';
-import { Options } from './process';
+import { AllOptions } from './process';
 
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
 /**
  * The synchronous method for process
  */
-const processSync = (pathString: string | string[], opts: Options): void => {
+function processSync(type: 'auto', pathString: string | string[], opts: AllOptions['auto']): void;
+function processSync(type: 'css', pathString: string | string[], opts: AllOptions['css']): void;
+function processSync(type: 'js', pathString: string | string[], opts: AllOptions['js']): void;
+function processSync(type: 'html', pathString: string | string[], opts: AllOptions['html']): void;
+function processSync(type: 'pug', pathString: string | string[], opts: AllOptions['pug']): void;
+function processSync(type: 'any', pathString: string | string[], opts: AllOptions['any']): void;
+function processSync(type: any, pathString: string | string[], opts: any): void {
   let globString: string;
   const options = merge({}, optionsDefault, opts);
 
   assert(
-    availableTypes.includes(options.type),
-    `options.type must be one of the following: ${availableTypes}`,
+    availableTypes.includes(type),
+    `type must be one of the following: ${availableTypes}`,
   );
 
   if (Array.isArray(pathString)) {
@@ -35,11 +41,11 @@ const processSync = (pathString: string | string[], opts: Options): void => {
     fileExt.css.includes(path.extname(file))
     || fileExt.html.includes(path.extname(file))
   ));
-  const fillLibraryFiles = options.type === 'auto'
+  const fillLibraryFiles = type === 'auto'
     ? cssHtmlFiles
     : globArray;
 
-  if (options.type === 'auto' || options.type === 'css' || options.type === 'html') {
+  if (type === 'auto' || type === 'css' || type === 'html') {
     fillLibraryFiles.forEach((filePath) => {
       const fileData = fs.readFileSync(path.join(options.cwd, filePath), 'utf8');
       const isHtml = fileExt.html.includes(path.extname(filePath));
@@ -68,7 +74,7 @@ const processSync = (pathString: string | string[], opts: Options): void => {
     }
 
     const fileData = fs.readFileSync(path.join(options.cwd, filePath), 'utf8');
-    const data = replaceData(filePath, fileData, options);
+    const data = replaceData(type, filePath, fileData, options);
 
     saveSync(joinedPath, data, { overwrite: shouldOverwrite });
   });

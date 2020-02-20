@@ -8,13 +8,7 @@ function typeChooserSync(processType: 'html'): (pathString: string, opts: AllOpt
 function typeChooserSync(processType: 'css'): (pathString: string, opts: AllOptions['css']) => void;
 function typeChooserSync(processType: 'auto'): (pathString: string, opts: AllOptions['auto']) => void;
 function typeChooserSync(processType: any): any {
-  return (pathString: string, opts: any) => {
-    const options = opts || {};
-    // set the type for process
-    (options as any).type = processType;
-
-    rcsProcessSync(pathString, options as any);
-  };
+  return (pathString: any, opts: any) => rcsProcessSync(processType, pathString, opts);
 } // /typeChooserSync
 
 export default typeChooserSync;

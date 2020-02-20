@@ -1,40 +1,46 @@
 import rcs from 'rcs-core';
 import path from 'path';
 
+import { AllOptions } from './process';
 import defaults from './defaults';
-import { Options } from './process';
 
-const replaceData = (filePath: string, fileData: string, options: Options): string => {
+function replaceData(type: 'auto', filePath: string, fileData: string, options: AllOptions['auto']): string;
+function replaceData(type: 'css', filePath: string, fileData: string, options: AllOptions['css']): string;
+function replaceData(type: 'js', filePath: string, fileData: string, options: AllOptions['js']): string;
+function replaceData(type: 'html', filePath: string, fileData: string, options: AllOptions['html']): string;
+function replaceData(type: 'pug', filePath: string, fileData: string, options: AllOptions['pug']): string;
+function replaceData(type: 'any', filePath: string, fileData: string, options: AllOptions['any']): string;
+function replaceData(type: any, filePath: string, fileData: string, options: any): string {
   let data;
 
   if (
-    options.type === 'js'
+    type === 'js'
     || (
-      options.type === 'auto'
+      type === 'auto'
       && defaults.fileExt.js.includes(path.extname(filePath))
     )
   ) {
     data = rcs.replace.js(fileData, options.espreeOptions);
   } else if (
-    options.type === 'css'
+    type === 'css'
     || (
-      options.type === 'auto'
+      type === 'auto'
       && defaults.fileExt.css.includes(path.extname(filePath))
     )
   ) {
     data = rcs.replace.css(fileData, options);
   } else if (
-    options.type === 'html'
+    type === 'html'
     || (
-      options.type === 'auto'
+      type === 'auto'
       && defaults.fileExt.html.includes(path.extname(filePath))
     )
   ) {
     data = rcs.replace.html(fileData, options);
   } else if (
-    options.type === 'pug'
+    type === 'pug'
     || (
-      options.type === 'auto'
+      type === 'auto'
       && defaults.fileExt.pug.includes(path.extname(filePath))
     )
   ) {
@@ -44,6 +50,6 @@ const replaceData = (filePath: string, fileData: string, options: Options): stri
   }
 
   return data;
-};
+}
 
 export default replaceData;
