@@ -1,16 +1,23 @@
+import tmp from 'tmp';
 import fs from 'fs-extra';
 import path from 'path';
 
 import saveSync from '../lib/helper/saveSync';
 
-const testCwd = '__tests__/files/testCache';
+let testCwd;
+const testFiles = '__tests__/files';
 
-afterEach(() => {
-  fs.removeSync(testCwd);
+beforeEach(() => {
+  testCwd = tmp.dirSync();
 });
 
+afterEach(() => {
+  testCwd.removeCallback();
+});
+
+
 test('saveSync | should save', () => {
-  const filePath = path.join(testCwd, '/config.txt');
+  const filePath = path.join(testCwd.name, '/config.txt');
 
   saveSync(filePath, 'test content');
 
@@ -18,12 +25,15 @@ test('saveSync | should save', () => {
 });
 
 test('saveSync | should not overwrite the same file', () => {
-  const filePath = path.join(testCwd, '/../config.json');
+  const filePath = path.join(testFiles, '/config.json');
+  const filePathTest = path.join(testCwd.name, '/config.json');
   const oldFile = fs.readFileSync(filePath, 'utf8');
   let failed = false;
 
+  saveSync(filePathTest, 'test content');
+
   try {
-    saveSync(filePath, 'test content');
+    saveSync(filePathTest, 'test content');
 
     // if no error is thrown before it should fail here
     failed = true;

@@ -1,16 +1,22 @@
+import tmp from 'tmp';
 import fs from 'fs-extra';
 import path from 'path';
 
 import save from '../lib/helper/save';
 
-const testCwd = '__tests__/files/testCache';
+let testCwd;
 
-afterEach(() => {
-  fs.removeSync(testCwd);
+beforeEach(() => {
+  testCwd = tmp.dirSync();
 });
 
+afterEach(() => {
+  testCwd.removeCallback();
+});
+
+
 test('should create a file within a non existing dir', (done) => {
-  const filePath = path.join(testCwd, '/a/non/existing/path/test.txt');
+  const filePath = path.join(testCwd.name, '/a/non/existing/path/test.txt');
 
   save(filePath, 'test content', (err) => {
     expect(err).not.toBe(undefined);
@@ -23,7 +29,7 @@ test('should create a file within a non existing dir', (done) => {
 });
 
 test('should not overwrite the same file', (done) => {
-  const filePath = path.join(testCwd, '/../config.json');
+  const filePath = path.join(testCwd.name, '/../config.json');
   const oldFile = fs.readFileSync(filePath, 'utf8');
 
   save(filePath, 'test content', (err) => {
