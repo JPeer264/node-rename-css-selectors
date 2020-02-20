@@ -10,16 +10,14 @@ import rcs from '../lib';
 let testCwd;
 const fixturesCwd = path.join(process.cwd(), '/__tests__/files/fixtures');
 
-beforeEach((done) => {
+beforeEach(async () => {
   testCwd = tmp.dirSync();
 
   reset();
 
-  rcs.process.css('**/style*.css', {
+  await rcs.process.css('**/style*.css', {
     newPath: testCwd.name,
     cwd: fixturesCwd,
-  }, () => {
-    done();
   });
 });
 
