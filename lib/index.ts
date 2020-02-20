@@ -10,7 +10,7 @@ import loadMapping from './mapping/loadMapping';
 // config
 import includeConfig from './config/includeConfig';
 
-module.exports = {
+export default {
   process: {
     cssSync: typeChooserSync('css'),
     css: typeChooser('css'),
