@@ -3,7 +3,7 @@ export default {
   fileExt: {
     js: ['.js', '.jsx'],
     css: ['.css', '.scss', '.sass', '.less'],
-    html: ['.html', '.htm'],
+    html: ['.html', '.htm', '.handlebars', '.hbs'],
     pug: ['.pug'],
   },
   optionsDefault: {
