@@ -16,6 +16,7 @@ This is a plugin of [rcs-core](https://github.com/JPeer264/node-rcs-core)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Methods](#methods)
+- [Caveats](#caveats)
 - [LICENSE](#license)
 
 ## Installation
@@ -101,6 +102,11 @@ try {
 - [rcs.generateMapping](docs/api/generateMapping.md)
 - [rcs.loadMapping](docs/api/loadMapping.md)
 - [rcs.config](docs/api/config.md)
+
+## Caveats
+
+Correctly using `rename-css-selectors` on large project means few rules should be followed.
+[This document](docs/caveats.md) explains most of them.
 
 # LICENSE
 
