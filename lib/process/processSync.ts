@@ -78,6 +78,8 @@ function processSync(type: any, pathString: string | string[], opts: any = {}): 
 
     saveSync(joinedPath, data, { overwrite: shouldOverwrite });
   });
+
+  rcs.warnings.warn();
 } // /processSync
 
 export default processSync;

@@ -166,9 +166,15 @@ async function rcsProcess(type: any, pathString: string | string[], opts: any = 
           return asyncEachCb(null);
         });
       });
-    }, (errProcess) => (
-      errProcess ? rej(errProcess) : res()
-    ))
+    }, (errProcess) => {
+      rcs.warnings.warn();
+
+      if (errProcess) {
+        rej(errProcess);
+      } else {
+        res();
+      }
+    })
   ));
 } // /process
 
