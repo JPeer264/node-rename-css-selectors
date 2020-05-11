@@ -8,6 +8,7 @@ import saveSync from '../helper/saveSync';
 import replaceData from './replaceData';
 import defaults from './defaults';
 import { AllOptions } from './process';
+import Config from '../Config';
 
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
@@ -35,7 +36,7 @@ function processSync(type: any, pathString: string | string[], opts: any = {}): 
     globString = pathString;
   }
 
-  const globArray = glob.sync(globString, { cwd: options.cwd });
+  const globArray = glob.sync(globString, { cwd: options.cwd, ignore: Config.getInstance().ignorePatterns });
   const cssHtmlFiles = globArray.filter((file) => (
     fileExt.css.includes(path.extname(file))
     || fileExt.html.includes(path.extname(file))

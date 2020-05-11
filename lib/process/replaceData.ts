@@ -1,3 +1,4 @@
+import merge from 'lodash.merge';
 import rcs from 'rcs-core';
 import path from 'path';
 
@@ -20,7 +21,7 @@ function replaceData(type: any, filePath: string, fileData: string, options: any
       && defaults.fileExt.js.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.js(fileData, options.espreeOptions);
+    data = rcs.replace.js(fileData, { ...options.espreeOptions, sourceFile: filePath });
   } else if (
     type === 'css'
     || (
@@ -28,7 +29,7 @@ function replaceData(type: any, filePath: string, fileData: string, options: any
       && defaults.fileExt.css.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.css(fileData, options);
+    data = rcs.replace.css(fileData, { ...options, sourceFile: filePath });
   } else if (
     type === 'html'
     || (
@@ -36,7 +37,7 @@ function replaceData(type: any, filePath: string, fileData: string, options: any
       && defaults.fileExt.html.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.html(fileData, options);
+    data = rcs.replace.html(fileData, { ...options, sourceFile: filePath });
   } else if (
     type === 'pug'
     || (
@@ -44,9 +45,9 @@ function replaceData(type: any, filePath: string, fileData: string, options: any
       && defaults.fileExt.pug.includes(path.extname(filePath))
     )
   ) {
-    data = rcs.replace.pug(fileData, options);
+    data = rcs.replace.pug(fileData, { ...options, sourceFile: filePath });
   } else {
-    data = rcs.replace.any(fileData, options);
+    data = rcs.replace.any(fileData, { ...options, sourceFile: filePath });
   }
 
   return data;

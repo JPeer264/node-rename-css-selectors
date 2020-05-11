@@ -16,6 +16,7 @@ import { FillLibrariesOptions } from 'rcs-core/dest/fillLibraries';
 import save from '../helper/save';
 import replaceData from './replaceData';
 import defaults from './defaults';
+import Config from '../Config';
 
 const { fileExt, availableTypes, optionsDefault } = defaults;
 
@@ -68,7 +69,7 @@ async function rcsProcess(type: any, pathString: string | string[], opts: any = 
 
   const cwd = options.cwd || process.cwd();
   const filesArray: string[] = await new Promise((res, rej) => (
-    glob(globString, { cwd }, (error, allFiles) => (
+    glob(globString, { cwd, ignore: Config.getInstance().ignorePatterns }, (error, allFiles) => (
       error
         ? rej(error)
         : res(allFiles)

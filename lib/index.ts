@@ -8,7 +8,7 @@ import generateMapping from './mapping/generateMapping';
 import loadMapping from './mapping/loadMapping';
 
 // config
-import includeConfig from './config/includeConfig';
+import Config from './Config';
 
 export default {
   process: {
@@ -28,5 +28,5 @@ export default {
   generateMappingSync,
   generateMapping,
   loadMapping,
-  includeConfig,
+  Config,
 };

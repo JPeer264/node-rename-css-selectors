@@ -40,7 +40,7 @@ Async:
 const rcs = require('rename-css-selectors')
 
 // if you want to include the .rcsrc config
-rcs.includeConfig();
+rcs.config.load();
 
 // if you have some generated mappings - load them!
 // you can also specify the string although it does not exist yet.
@@ -100,7 +100,7 @@ try {
 - [rcs.process.any](docs/api/processAny.md)
 - [rcs.generateMapping](docs/api/generateMapping.md)
 - [rcs.loadMapping](docs/api/loadMapping.md)
-- [rcs.includeConfig](docs/api/includeConfig.md)
+- [rcs.config](docs/api/config.md)
 
 # LICENSE
 

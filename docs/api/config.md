@@ -1,6 +1,6 @@
-# includeConfig
+# Config
 
-**includeConfig([pathLocation])**
+**Config.getInstance().load([pathLocation])**
 
 > All available configs [here](#rcs-config)
 
@@ -14,7 +14,7 @@ Example:
 ```js
 const rcs = require('rename-css-selectors');
 
-rcs.includeConfig();
+rcs.Config.getInstance().load();
 ```
 
 ## RCS config
@@ -23,6 +23,7 @@ rcs.includeConfig();
 
 - [Example](#example)
 - [Exclude](#exclude-classes-and-ids)
+- [Ignore](#ignore-files)
 - [Include from other projects](#include-renamed-classes-from-other-project)
 
 ### Example
@@ -67,6 +68,22 @@ Let's exclude 4 classes and id's: `js`, `flexbox`, `canvas` and `svg`
         "flexbox",
         "canvas",
         "svg"
+    ]
+}
+```
+
+### Ignore files
+
+`ignore`
+
+If you need to ignore some file or some file pattern from processing, this is how to do it using minimatch pattern (glob)
+Please notice that filepathes are matched absolutely.
+
+```json
+{
+    "ignore": [
+      "relativeFile.js",
+      "**/*.min.js",
     ]
 }
 ```
