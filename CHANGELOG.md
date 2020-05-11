@@ -1,3 +1,11 @@
+4.0.0-rc.1 - May, 11 2020
+
+* a43e6a7 Feat: add caveats (JPeer264)
+* d320168 Feat: add support for warning the user about bad lib usage (JPeer264)
+* 21af8a5 Feat: ignore files with config file (JPeer264)
+* 7fe282c Chore: add funding.yml (Jan Peer Stöcklmair)
+* 4ceb812 Feat: add handlebars to html fileExt (JPeer264)
+
 4.0.0-rc.0 - February, 20 2020
 
 * 6fd491e Docs: add plugin notice (JPeer264)
