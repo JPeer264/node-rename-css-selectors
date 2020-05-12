@@ -36,7 +36,10 @@ function processSync(type: any, pathString: string | string[], opts: any = {}): 
     globString = pathString;
   }
 
-  const globArray = glob.sync(globString, { cwd: options.cwd, ignore: Config.getInstance().ignorePatterns });
+  const globArray = glob.sync(globString, {
+    cwd: options.cwd,
+    ignore: Config.getInstance().ignorePatterns,
+  });
   const cssHtmlFiles = globArray.filter((file) => (
     fileExt.css.includes(path.extname(file))
     || fileExt.html.includes(path.extname(file))

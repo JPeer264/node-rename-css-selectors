@@ -1,4 +1,3 @@
-import merge from 'lodash.merge';
 import rcs from 'rcs-core';
 import path from 'path';
 
