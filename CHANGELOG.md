@@ -1,3 +1,7 @@
+4.0.0-rc.2 - May, 12 2020
+
+* 265c6c8 Style: remove eslint errors (JPeer264)
+
 4.0.0-rc.1 - May, 11 2020
 
 * a43e6a7 Feat: add caveats (JPeer264)
