@@ -24,11 +24,11 @@ This is a plugin of [rcs-core](https://github.com/JPeer264/node-rcs-core)
 Install with [npm](https://docs.npmjs.com/cli/install) or [yarn](https://yarnpkg.com/en/docs/install)
 
 ```sh
-npm install --save rename-css-selectors
+npm i rename-css-selectors rcs-core
 ```
 or
 ```sh
-yarn add rename-css-selectors
+yarn add rename-css-selectors rcs-core
 ```
 
 ## Usage
