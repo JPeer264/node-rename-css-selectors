@@ -38,6 +38,8 @@ Async:
 > There are 3 different ways of writing async `rcs` code: callbacks, promises and async/await
 
 ```js
+// you can use every method of `rcs-core` on top
+const rcsCore = require('rcs-core');
 const rcs = require('rename-css-selectors')
 
 // if you want to include the .rcsrc config
@@ -46,6 +48,9 @@ rcs.config.load();
 // if you have some generated mappings - load them!
 // you can also specify the string although it does not exist yet.
 rcs.loadMapping('./renaming_map.json');
+
+// now with rcsCore you could e.g. ignore single variables (optional)
+rcsCore.baseLibrary.setExclude(/<%=[\s\S]+%>/);
 
 // callback
 rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options, (err) => {
