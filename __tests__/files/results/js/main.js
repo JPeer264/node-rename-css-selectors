@@ -3,7 +3,7 @@
 $(".a");
 
 // vanillaJS example
-document.getElementsByClassName(" b");
+document.getElementsByClassName("b");
 document.getElementById("c");
 
 const restSpread = {

@@ -79,7 +79,7 @@
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
-    "rcs-core": "^3.0.2",
+    "rcs-core": "^3.5.1",
     "tmp": "^0.1.0",
     "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
