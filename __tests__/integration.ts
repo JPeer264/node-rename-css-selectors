@@ -94,3 +94,27 @@ test('issue #21 | with seperated process functions', async () => {
   expect(minify(newHtml, { collapseWhitespace: true }))
     .toBe(minify(expectedHtml, { collapseWhitespace: true }));
 });
+
+test('issue #70 | line breaks', async () => {
+  const issueFixture = path.join(testFiles, 'issue70/fixtures');
+  const issueResults = path.join(testFiles, 'issue70/results');
+
+  await rcs.process.css('style.css', {
+    newPath: testCwd.name,
+    cwd: issueFixture,
+  });
+
+  await rcs.process.html('index.html', {
+    newPath: testCwd.name,
+    cwd: issueFixture,
+  });
+
+  const newCss = fs.readFileSync(path.join(testCwd.name, '/style.css'), 'utf8');
+  const newHtml = fs.readFileSync(path.join(testCwd.name, '/index.html'), 'utf8');
+  const expectedCss = fs.readFileSync(path.join(issueResults, '/style.css'), 'utf8');
+  const expectedHtml = fs.readFileSync(path.join(issueResults, '/index.html'), 'utf8');
+
+  expect(newCss).toBe(expectedCss);
+  expect(minify(newHtml, { collapseWhitespace: true }))
+    .toBe(minify(expectedHtml, { collapseWhitespace: true }));
+});
