@@ -1,3 +1,12 @@
+4.0.0-rc.3 - January, 07 2021
+
+* 9f74c0b Feat: use rcs-core mappings (JPeer264)
+* adf10d1 Test: add test case for issue 70 (closes #70) (JPeer264)
+* 8b68a2a Chore: update rcs-core in dev (JPeer264)
+* f1ddcef Docs: add rcs-core to install (JPeer264)
+* 3e14683 Docs: move caveats up (JPeer264)
+* 7f612f1 Docs: add rcsCore usage (closes #65) (JPeer264)
+
 4.0.0-rc.2 - May, 12 2020
 
 * 265c6c8 Style: remove eslint errors (JPeer264)
