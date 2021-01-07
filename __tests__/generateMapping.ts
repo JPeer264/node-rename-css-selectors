@@ -4,7 +4,6 @@ import fs from 'fs-extra';
 import json from 'json-extra';
 
 import reset from './helpers/reset';
-import generateMapping from '../lib/mapping/generateMapping';
 import rcs from '../lib';
 
 let testCwd;
@@ -26,48 +25,48 @@ afterEach(() => {
 });
 
 test('should create the normal mapping file', (done) => {
-  generateMapping(testCwd.name, (err) => {
+  rcs.mapping.generate(testCwd.name, (err) => {
     const cssMapping = json.readToObjSync(path.join(testCwd.name, '/renaming_map.json'), 'utf8');
 
     expect(err).toBeFalsy();
-    expect(cssMapping['.jp-block']).toBe('a');
-    expect(cssMapping['.jp-block__element']).toBe('b');
+    expect(cssMapping.selectors['.jp-block']).toBe('a');
+    expect(cssMapping.selectors['.jp-block__element']).toBe('b');
 
     done();
   });
 });
 
 test('should create the minified mapping file', (done) => {
-  generateMapping(testCwd.name, {
-    cssMapping: false,
-    cssMappingMin: true,
+  rcs.mapping.generate(testCwd.name, {
+    origValues: false,
   }, (err) => {
     const cssMappingMin = json.readToObjSync(path.join(testCwd.name, '/renaming_map_min.json'), 'utf8');
 
     expect(err).toBeFalsy();
-    expect(cssMappingMin['.a']).toBe('jp-block');
-    expect(cssMappingMin['.b']).toBe('jp-block__element');
+    expect(cssMappingMin.selectors['.a']).toBe('jp-block');
+    expect(cssMappingMin.selectors['.b']).toBe('jp-block__element');
 
     done();
   });
 });
 
 test('should create the minified mapping file with a custom name', (done) => {
-  generateMapping(testCwd.name, {
-    cssMappingMin: 'custom-name',
+  rcs.mapping.generate(testCwd.name, {
+    origValues: false,
+    fileName: 'custom-name',
   }, (err) => {
     const cssMappingMin = json.readToObjSync(path.join(testCwd.name, '/custom-name.json'), 'utf8');
 
     expect(err).toBeFalsy();
-    expect(cssMappingMin['.a']).toBe('jp-block');
-    expect(cssMappingMin['.b']).toBe('jp-block__element');
+    expect(cssMappingMin.selectors['.a']).toBe('jp-block');
+    expect(cssMappingMin.selectors['.b']).toBe('jp-block__element');
 
     done();
   });
 });
 
 test('should create the minified mapping js file', (done) => {
-  generateMapping(testCwd.name, {
+  rcs.mapping.generate(testCwd.name, {
     json: false,
   }, (err) => {
     const cssMapping = fs.readFileSync(path.join(testCwd.name, '/renaming_map.js'), 'utf8');
@@ -80,8 +79,8 @@ test('should create the minified mapping js file', (done) => {
 });
 
 test('should overwrite mapping files', (done) => {
-  generateMapping(testCwd.name, (err) => {
-    generateMapping(testCwd.name, { overwrite: true }, (err2) => {
+  rcs.mapping.generate(testCwd.name, (err) => {
+    rcs.mapping.generate(testCwd.name, { overwrite: true }, (err2) => {
       expect(err).toBeFalsy();
       expect(err2).toBeFalsy();
 
@@ -91,19 +90,19 @@ test('should overwrite mapping files', (done) => {
 });
 
 test('should not overwrite mapping files', async () => {
-  await expect(generateMapping(testCwd.name)).resolves.toBe(undefined);
-  await expect(generateMapping(testCwd.name)).rejects.toBeTruthy();
+  await expect(rcs.mapping.generate(testCwd.name)).resolves.toBe(undefined);
+  await expect(rcs.mapping.generate(testCwd.name)).rejects.toBeTruthy();
 });
 
 test('should create the custom names minified mapping file', (done) => {
-  generateMapping(testCwd.name, {
-    cssMapping: 'custom-name',
+  rcs.mapping.generate(testCwd.name, {
+    fileName: 'custom-name',
   }, (err) => {
     const cssMapping = json.readToObjSync(path.join(testCwd.name, '/custom-name.json'), 'utf8');
 
     expect(err).toBeFalsy();
-    expect(cssMapping['.jp-block']).toBe('a');
-    expect(cssMapping['.jp-block__element']).toBe('b');
+    expect(cssMapping.selectors['.jp-block']).toBe('a');
+    expect(cssMapping.selectors['.jp-block__element']).toBe('b');
 
     done();
   });

@@ -52,7 +52,7 @@
     "json-extra": "^0.5.0",
     "lodash.merge": "^4.6.2",
     "minimatch": "^3.0.4",
-    "universalify": "^0.1.2"
+    "universalify": "^2.0.0"
   },
   "peerDependencies": {
     "rcs-core": "^3.*"

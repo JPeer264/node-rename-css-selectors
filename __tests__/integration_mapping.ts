@@ -20,7 +20,7 @@ beforeEach(async () => {
     newPath: testCwd.name,
     cwd: fixturesCwd,
   });
-  await rcs.generateMapping(testCwd.name);
+  await rcs.mapping.generate(testCwd.name);
 
   reset();
 });
@@ -32,7 +32,7 @@ afterEach(() => {
 test('should load from an object', async () => {
   const cssMapping = json.readToObjSync(path.join(testCwd.name, '/renaming_map.json'), 'utf8');
 
-  rcs.loadMapping(cssMapping);
+  rcs.mapping.load(cssMapping);
 
   await rcs.process.html('**/*.html', {
     newPath: testCwd.name,
@@ -47,7 +47,7 @@ test('should load from an object', async () => {
 });
 
 test('should load from a filestring', async () => {
-  rcs.loadMapping(path.join(testCwd.name, '/renaming_map.json'));
+  await rcs.mapping.load(path.join(testCwd.name, '/renaming_map.json'));
 
   await rcs.process.html('**/*.html', {
     newPath: testCwd.name,
@@ -62,7 +62,7 @@ test('should load from a filestring', async () => {
 });
 
 test('should load nothing as it does not exist', async () => {
-  rcs.loadMapping(path.join(testCwd.name, '/doesnotexist.json'));
+  await rcs.mapping.load(path.join(testCwd.name, '/doesnotexist.json'));
 
   await rcs.process.html('**/*.html', {
     newPath: testCwd.name,
@@ -82,10 +82,11 @@ test('should load from a filestring', async () => {
     cwd: fixturesCwd,
   });
 
-  await rcs.generateMapping(testCwd.name, { cssMappingMin: true });
+  await rcs.mapping.generate(testCwd.name, { origValues: false });
 
   reset();
-  rcs.loadMapping(path.join(testCwd.name, '/renaming_map_min.json'), { origValues: false });
+
+  await rcs.mapping.load(path.join(testCwd.name, '/renaming_map_min.json'), { origValues: false });
 
   await rcs.process.html('**/*.html', {
     newPath: testCwd.name,

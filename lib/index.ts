@@ -3,7 +3,6 @@ import typeChooserSync from './process/typeChooser/typeChooserSync';
 import typeChooser from './process/typeChooser/typeChooser';
 
 // mapping
-import generateMappingSync from './mapping/generateMappingSync';
 import generateMapping from './mapping/generateMapping';
 import loadMapping from './mapping/loadMapping';
 
@@ -25,8 +24,9 @@ export default {
     autoSync: typeChooserSync('auto'),
     auto: typeChooser('auto'),
   },
-  generateMappingSync,
-  generateMapping,
-  loadMapping,
+  mapping: {
+    generate: generateMapping,
+    load: loadMapping,
+  },
   Config,
 };

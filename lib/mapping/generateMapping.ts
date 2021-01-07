@@ -2,67 +2,54 @@ import { fromPromise } from 'universalify';
 import rcs from 'rcs-core';
 import path from 'path';
 import json from 'json-extra';
+import { GenerateMappingOptions } from 'rcs-core/dest/mapping/generate';
 
 import save from '../helper/save';
 
-export interface GenerateMappingOptions {
-  cssMappingMin?: string | boolean;
-  cssMapping?: string | boolean;
-  origValues?: boolean;
-  isSelectors?: boolean;
+export interface Options extends GenerateMappingOptions {
   json?: boolean;
   overwrite?: boolean;
+  fileName?: string;
 }
 
 const generateMapping = async (
   pathString: string,
-  opts: GenerateMappingOptions,
+  opts: Options,
 ): Promise<void> => {
   let fileName = 'renaming_map';
   let fileNameExt = '.json';
   let mappingName = 'CSS_NAME_MAPPING';
 
-  const options: GenerateMappingOptions = {
-    cssMapping: true,
-    cssMappingMin: false,
+  const options: Options = {
     json: true,
     origValues: true,
-    isSelectors: true,
     overwrite: false,
     ...opts,
   };
 
-  if (options.cssMappingMin) {
+  if (!options.origValues) {
     options.origValues = false;
     mappingName = 'CSS_NAME_MAPPING_MIN';
     fileName = `${fileName}_min`;
   }
 
-  if (typeof options.cssMappingMin === 'string') {
-    mappingName = options.cssMappingMin;
-    fileName = options.cssMappingMin;
+  if (options.fileName) {
+    fileName = options.fileName;
+    mappingName = options.fileName;
   }
 
-  if (typeof options.cssMapping === 'string') {
-    fileName = options.cssMapping;
-  }
+  const cssMappingArray = rcs.mapping.generate(opts);
 
-  const cssMappingArray = rcs.selectorsLibrary.getClassSelector().getAll({
-    getRenamedValues: !options.origValues,
-    addSelectorType: options.isSelectors,
-  } as any); // todo jpeer: remove any as soon as types are fixed in rcs-core
-
-  const cssMappingJsonString = json.check(cssMappingArray) ? cssMappingArray : json.stringify(cssMappingArray, null, '\t');
-  let writeData = cssMappingJsonString;
+  let mapping = json.stringify(cssMappingArray, null, '\t');
   const newPath = path.join(pathString, fileName);
 
   // no json
   if (!options.json) {
-    writeData = `var ${mappingName} = ${cssMappingJsonString};`;
+    mapping = `var ${mappingName} = ${mapping};`;
     fileNameExt = '.js';
   }
 
-  await save(`${newPath}${fileNameExt}`, writeData, { overwrite: options.overwrite });
+  await save(`${newPath}${fileNameExt}`, mapping, { overwrite: options.overwrite });
 }; // /generateMapping
 
 export default fromPromise(generateMapping);

@@ -47,7 +47,7 @@ rcs.config.load();
 
 // if you have some generated mappings - load them!
 // you can also specify the string although it does not exist yet.
-rcs.loadMapping('./renaming_map.json');
+rcs.mapping.load('./renaming_map.json');
 
 // now with rcsCore you could e.g. ignore single variables (optional)
 rcsCore.baseLibrary.setExclude(/<%=[\s\S]+%>/);
@@ -59,22 +59,22 @@ rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options, (err) => {
     // that's it
 
     // maybe you want to add the new selectors to your previous generated mappings
-    // do not worry, your old settings are still here, in case you used `loadMapping`
-    rcs.generateMapping('./', { overwrite: true }, (err) => {
+    // do not worry, your old settings are still here, in case you used `rcs.mapping.load`
+    rcs.mapping.generate('./', { overwrite: true }, (err) => {
         // the mapping file is now saved
     });
 });
 
 // promise
 rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options)
-    .then(() => rcs.generateMapping('./', { overwrite: true }))
+    .then(() => rcs.mapping.generate('./', { overwrite: true }))
     .catch(console.error);
 
 // async/await
 (async () => {
     try {
         await rcs.process.auto(['**/*.js', '**/*.html', '**/*.css'], options);
-        await rcs.generateMapping('./', { overwrite: true });
+        await rcs.mapping.generate('./', { overwrite: true });
     } catch (err) {
         console.error(err);
     }
@@ -86,11 +86,11 @@ Sync:
 ```js
 const rcs = require('rename-css-selectors');
 
-rcs.loadMapping('./renaming_map.json');
+rcs.mapping.load('./renaming_map.json');
 
 try {
     rcs.process.autoSync(['**/*.js', '**/*.html', '**/*.css'], options);
-    rcs.generateMappingSync('./', { overwrite: true });
+    rcs.mapping.generateSync('./', { overwrite: true });
 } catch (err) {
     console.error(err);
 }
@@ -104,14 +104,13 @@ try {
 - [rcs.process.html](docs/api/processHtml.md)
 - [rcs.process.pug](docs/api/processPug.md)
 - [rcs.process.any](docs/api/processAny.md)
-- [rcs.generateMapping](docs/api/generateMapping.md)
-- [rcs.loadMapping](docs/api/loadMapping.md)
+- [rcs.mapping](docs/api/mapping.md)
 - [rcs.config](docs/api/config.md)
 
 ## Caveats
 
 Correctly using `rename-css-selectors` on large project means few rules should be followed.
-[This document](docs/caveats.md) explains most of them.
+[This document](https://github.com/JPeer264/node-rcs-core/blob/main/docs/caveats.md) explains most of them.
 
 # LICENSE
 

@@ -1,38 +1,34 @@
 import rcs from 'rcs-core';
-import json from 'json-extra';
+import fs from 'fs-extra';
+import { LoadMappingOptions, Mapping } from 'rcs-core/dest/mapping/load';
 
-const loadMapping = (pathString: string | { [s: string]: string }, opts = {}): void => {
-  let selectors: { [s: string]: string };
+async function loadMapping(
+  pathString: string,
+  opts?: LoadMappingOptions,
+): Promise<void>;
 
-  const options = {
-    origValues: true,
-    ...opts,
-  };
+function loadMapping(
+  pathString: Mapping,
+  opts?: LoadMappingOptions,
+): void;
+
+async function loadMapping(
+  pathString: string | Mapping,
+  opts?: LoadMappingOptions,
+): Promise<void> {
+  let selectors: Mapping;
 
   if (typeof pathString === 'string') {
-    selectors = json.readToObjSync(pathString, 'utf8');
+    try {
+      selectors = await fs.readJSON(pathString, { encoding: 'utf8' });
+    } catch {
+      selectors = {};
+    }
   } else {
     selectors = pathString;
   }
 
-  if (!options.origValues) {
-    const tempSelectors: { [s: string]: string } = {};
-
-    Object.keys(selectors).forEach((key) => {
-      const value = selectors[key];
-      const modKey = key.slice(1, key.length);
-
-      tempSelectors[key.charAt(0) + value] = modKey;
-    });
-
-    selectors = tempSelectors;
-  }
-
-  if (!selectors || typeof selectors !== 'object') {
-    return;
-  }
-
-  rcs.selectorsLibrary.setMultiple(selectors);
-}; // /loadMapping
+  rcs.mapping.load(selectors, opts);
+}
 
 export default loadMapping;
