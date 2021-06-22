@@ -58,7 +58,7 @@
     "rcs-core": "^3.*"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "@babel/cli": "^7.14.5",
     "@types/async": "^3.0.8",
     "@types/fs-extra": "^8.0.1",
     "@types/glob": "^7.1.1",
