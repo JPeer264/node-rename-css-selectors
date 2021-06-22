@@ -28,5 +28,5 @@ export default {
     generate: generateMapping,
     load: loadMapping,
   },
-  Config,
+  config: Config.getInstance(),
 };

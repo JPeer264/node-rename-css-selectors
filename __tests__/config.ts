@@ -1,27 +1,26 @@
 import path from 'path';
 import fs from 'fs-extra';
-import rcs from 'rcs-core';
-
-import Config from '../lib/Config';
+import rcsCore from 'rcs-core';
+import rcs from '../lib';
 
 const testFiles = path.join(process.cwd(), '/__tests__/files');
 
 beforeEach(() => {
-  rcs.selectorsLibrary.getClassSelector().nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.selectorsLibrary.getIdSelector().nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
-  rcs.selectorsLibrary.reset();
-  rcs.keyframesLibrary.reset();
+  rcsCore.selectorsLibrary.getClassSelector().nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.getIdSelector().nameGenerator.setAlphabet('#abcdefghijklmnopqrstuvwxyz');
+  rcsCore.selectorsLibrary.reset();
+  rcsCore.keyframesLibrary.reset();
 });
 
 it('should set the config with package.json', () => {
   // include config
-  Config.getInstance().load();
+  rcs.config.load();
 
   // include new settings
-  rcs.selectorsLibrary.set(['.js', '.any-value']);
+  rcsCore.selectorsLibrary.set(['.js', '.any-value']);
 
-  expect(rcs.selectorsLibrary.get('js')).toBe('js');
-  expect(rcs.selectorsLibrary.get('any-value')).toBe('a');
+  expect(rcsCore.selectorsLibrary.get('js')).toBe('js');
+  expect(rcsCore.selectorsLibrary.get('any-value')).toBe('a');
 });
 
 it('should set the config with .rcsrc', () => {
@@ -40,26 +39,26 @@ it('should set the config with .rcsrc', () => {
   });
 
   // include config
-  Config.getInstance().load();
+  rcs.config.load();
 
   // include new settings
-  rcs.selectorsLibrary.set(['.flexbox', '.any-value']);
+  rcsCore.selectorsLibrary.set(['.flexbox', '.any-value']);
 
-  expect(rcs.selectorsLibrary.get('flexbox')).toBe('flexbox');
-  expect(rcs.selectorsLibrary.get('any-value')).toBe('a');
+  expect(rcsCore.selectorsLibrary.get('flexbox')).toBe('flexbox');
+  expect(rcsCore.selectorsLibrary.get('any-value')).toBe('a');
 
   fs.removeSync(file);
 });
 
 it('should set the config with package.json', () => {
   // include config
-  Config.getInstance().load(path.join(testFiles, '/config.json'));
+  rcs.config.load(path.join(testFiles, '/config.json'));
 
   // include new settings
-  rcs.selectorsLibrary.set(['.own-file', '.any-value']);
+  rcsCore.selectorsLibrary.set(['.own-file', '.any-value']);
 
-  expect(rcs.selectorsLibrary.get('own-file')).toBe('own-file');
-  expect(rcs.selectorsLibrary.get('any-value')).toBe('a');
+  expect(rcsCore.selectorsLibrary.get('own-file')).toBe('own-file');
+  expect(rcsCore.selectorsLibrary.get('any-value')).toBe('a');
 });
 
 it('should load ignored patterns', () => {
@@ -75,11 +74,11 @@ it('should load ignored patterns', () => {
   });
 
   // include config
-  Config.getInstance().load();
+  rcs.config.load();
 
-  expect(Config.getInstance().isIgnored('a.js')).toBe(true);
-  expect(Config.getInstance().isIgnored('b.min.js')).toBe(true);
-  expect(Config.getInstance().isIgnored('b.js')).toBe(false);
+  expect(rcs.config.isIgnored('a.js')).toBe(true);
+  expect(rcs.config.isIgnored('b.min.js')).toBe(true);
+  expect(rcs.config.isIgnored('b.js')).toBe(false);
 
   fs.removeSync(file);
 });

@@ -1,6 +1,6 @@
 # Config
 
-**Config.getInstance().load([pathLocation])**
+**config.load([pathLocation])**
 
 > All available configs [here](#rcs-config)
 
@@ -14,7 +14,7 @@ Example:
 ```js
 const rcs = require('rename-css-selectors');
 
-rcs.Config.getInstance().load();
+rcs.config.load();
 ```
 
 ## RCS config
@@ -24,7 +24,6 @@ rcs.Config.getInstance().load();
 - [Example](#example)
 - [Exclude](#exclude-classes-and-ids)
 - [Ignore](#ignore-files)
-- [Include from other projects](#include-renamed-classes-from-other-project)
 
 ### Example
 
