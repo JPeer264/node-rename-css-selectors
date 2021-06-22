@@ -1,3 +1,13 @@
+4.0.0 - June, 22 2021
+
+* 04ecf36 Chore: update babel (JPeer264)
+* f5bff64 Feat: move to previous .config instead of .Config.getInstance() (JPeer264)
+* 9931075 Chore(deps): bump pug-code-gen from 2.0.2 to 2.0.3 (#72) (dependabot[bot])
+* e002f00 Chore(deps): bump lodash from 4.17.15 to 4.17.21 (#73) (dependabot[bot])
+* 2c14a98 Chore(deps): bump hosted-git-info from 2.8.5 to 2.8.9 (#74) (dependabot[bot])
+* bac2aef Chore(deps): bump ws from 7.2.1 to 7.4.6 (#75) (dependabot[bot])
+* 9e03949 Chore(deps): bump postcss from 7.0.35 to 7.0.36 (#76) (dependabot[bot])
+
 4.0.0-rc.3 - January, 07 2021
 
 * 9f74c0b Feat: use rcs-core mappings (JPeer264)
