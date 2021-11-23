@@ -11,7 +11,7 @@ import { ReplaceHtmlOptions } from 'rcs-core/dest/replace/html';
 import { ReplacePugOptions } from 'rcs-core/dest/replace/pug';
 import { ReplaceCssOptions } from 'rcs-core/dest/replace/css';
 import { ReplaceJsOptions } from 'rcs-core/dest/replace/js';
-import { FillLibrariesOptions } from 'rcs-core/dest/fillLibraries';
+import { FillLibrariesOptions as RcsFillLibrariesOptions } from 'rcs-core/dest/fillLibraries';
 
 import save from '../helper/save';
 import replaceData from './replaceData';
@@ -24,6 +24,10 @@ export interface BaseOptions {
   cwd?: string;
   newPath?: string;
   overwrite?: boolean;
+}
+
+export interface FillLibrariesOptions extends RcsFillLibrariesOptions {
+  optimize?: boolean;
 }
 
 export interface AllOptions {
@@ -51,6 +55,7 @@ async function rcsProcess(type: 'pug', pathString: string | string[], opts?: All
 async function rcsProcess(type: 'any', pathString: string | string[], opts?: AllOptions['any']): Promise<void>;
 async function rcsProcess(type: any, pathString: string | string[], opts: any = {}): Promise<void> {
   const options = { ...optionsDefault, ...opts };
+  const shouldOptimize = options.optimize ?? true;
 
   let globString: string;
 
@@ -131,6 +136,10 @@ async function rcsProcess(type: any, pathString: string | string[], opts: any = 
       err ? rej(err) : res()
     ))
   ));
+
+  if (shouldOptimize) {
+    rcs.optimize();
+  }
 
   await new Promise((res, rej) => (
     // now all files can be renamed and saved

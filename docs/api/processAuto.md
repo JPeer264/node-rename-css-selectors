@@ -18,6 +18,7 @@ Options:
 - overwrite `<Boolean>`: ensures that it does not overwrite the same file accidently. Default is `false`
 - cwd `<String>`: the working directory in which to serach. Default is `process.cwd()`
 - newPath `<String>`: in which folder the new files should go. Default is `rcs`
+- optimize `<Boolean>`: checks if the selectors should be [optimized](https://github.com/JPeer264/node-rcs-core/blob/main/docs/api/optimize.md). Default is `true`
 
 Example:
 

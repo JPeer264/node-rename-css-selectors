@@ -13,6 +13,7 @@ Parameters:
 
 Options:
 
+- optimize `<Boolean>`: checks if the selectors should be [optimized](https://github.com/JPeer264/node-rcs-core/blob/main/docs/api/optimize.md). Default is `true`
 - *all options of [rcs.process](process.md)*
 - *plus options [rcsCore.replace.html](https://github.com/JPeer264/node-rcs-core/blob/master/docs/api/replace.md#html)*
 
