@@ -1,6 +1,7 @@
 import tmp from 'tmp';
 import path from 'path';
 import fs from 'fs-extra';
+import rcsCore from 'rcs-core';
 import { minify } from 'html-minifier';
 
 import rcs from '../lib';
@@ -130,4 +131,31 @@ test('should fillLibraries from html and css | issue #38', async () => {
     .toBe(minify(expectedFile, { collapseWhitespace: true }));
   expect(minify(newFile2, { collapseWhitespace: true }))
     .toBe(minify(expectedFile2, { collapseWhitespace: true }));
+});
+
+test('should check if optimize has been called', async () => {
+  const optimizeSpy = jest.spyOn(rcsCore, 'optimize');
+
+  await rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
+    newPath: testCwd.name,
+    cwd: fixturesCwd,
+  });
+
+  expect(optimizeSpy).toHaveBeenCalledTimes(1);
+
+  optimizeSpy.mockRestore();
+});
+
+test('should check if optimize has been called test', async () => {
+  const optimizeSpy = jest.spyOn(rcsCore, 'optimize');
+
+  await rcs.process.auto(['**/*.{js,html}', 'css/style.css'], {
+    newPath: testCwd.name,
+    cwd: fixturesCwd,
+    optimize: false,
+  });
+
+  expect(optimizeSpy).not.toHaveBeenCalled();
+
+  optimizeSpy.mockRestore();
 });
