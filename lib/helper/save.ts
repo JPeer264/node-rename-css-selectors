@@ -16,7 +16,10 @@ const save = async (
     throw new Error('File exist and cannot be overwritten. Set the option overwrite to true to overwrite files.');
   }
 
-  await fs.mkdirs(path.dirname(destinationPath));
+  await /* TODO: JSFIX could not patch the breaking change:
+  Creating a directory with fs-extra no longer returns the path 
+  Suggested fix: The returned promise no longer includes the path of the new directory */
+  fs.mkdirs(path.dirname(destinationPath));
   await fs.writeFile(destinationPath, data);
 }; // /save
 
